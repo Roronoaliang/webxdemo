@@ -1,0 +1,36 @@
+@mixin halfPartOnePxBorder($sides){
+	content: '';	
+	position: absolute;	
+	left: 0%;
+	top: 0%;
+	width: 200%;	
+	height: 200%;	
+	-webkit-transform-origin: 0 0;	
+	-moz-transform-origin: 0 0;	
+	-ms-transform-origin: 0 0;	
+	-o-transform-origin: 0 0;	
+	transform-origin: 0 0;	
+	-webkit-transform: scale(0.5, 0.5);	
+	-ms-transform: scale(0.5, 0.5);	
+	-moz-transform: scale(0.5, 0.5);
+	-o-transform: scale(0.5, 0.5);	
+	transform: scale(0.5, 0.5);	
+	-webkit-box-sizing: border-box;	
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;		
+	-ms-box-sizing: border-box;	
+	box-sizing: border-box;
+
+	@each $side in $sides{
+		border-#{$side}: 1px solid rgba(190,190,190,0.6);	
+	}
+}
+
+@mixin halfPartOnePxAndRadiusBorder($sides,$radius){
+	@include halfPartOnePxBorder($sides);
+	-webkit-border-radius: $radius;
+	-moz-tborder-radius: $radius;
+	-ms-border-radius: $radius;
+	-o-border-radius: $radius;
+	border-radius: $radius;
+}

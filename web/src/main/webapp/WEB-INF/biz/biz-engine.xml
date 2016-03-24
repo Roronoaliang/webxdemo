@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	default-autowire="byName">
+	
+	<!--.....................................-->
+	<!--................redis................-->
+	<!--.....................................-->
+	<bean id="redisFactory" class="com.alibaba.webx.searchengine.factory.redis.RedisFactory" init-method="init">
+		<property name="poolMaxIdel">			<value>8</value> 				</property>
+		<property name="poolMaxWaitMillis">		<value>5000</value> 			</property>
+		<property name="poolTestOnBorrow">		<value>true</value> 			</property>
+		<property name="poolIp">				<value>ip</value> 	</property>
+		<property name="poolPort">				<value>6379</value> 			</property>
+		<property name="poolConnectTimeOut">	<value>5000</value> 			</property>
+		<property name="poolPassword">			<value>aaa38324836</value> 		</property>
+	</bean>
+	
+	<!--.....................................-->
+	<!--................mybatis..............-->
+	<!--.....................................-->
+	<bean id="myBatisFactory" class="com.alibaba.webx.searchengine.factory.mybatis.MyBatisFactory" init-method="init"></bean>
+	<!-- 写库 -->
+	<bean id="dataSourceRW" class="org.logicalcobwebs.proxool.ProxoolDataSource">  
+	    <property name="alias" value="ReadWriteDataBase"></property>  
+	    <property name="delegateProperties">  
+	        <value>user=${dataSourceRW.user},password=${dataSourceRW.password} </value>  
+	    </property>  
+	    <property name="user" value="${dataSourceRW.user}" />  
+	    <property name="password" value="${dataSourceRW.password}" />  
+	    <property name="driver" value="com.mysql.jdbc.Driver" />  
+	    <property name="driverUrl" value="${dataSourceRW.driverUrl}" />
+	    <property name="minimumConnectionCount" value="${dataSource.minimumConnectionCount}" />
+	    <property name="houseKeepingTestSql" value="${dataSource.houseKeepingTestSql}" />
+	    <property name="testBeforeUse" value="${dataSource.testBeforeUse}" />
+	    <property name="maximumActiveTime" value="${dataSource.maximumActiveTime}" />
+	    <property name="prototypeCount" value="${dataSource.prototypeCount}" />
+	    <property name="maximumConnectionLifetime" value="${dataSource.maximumConnectionLifetime}" />
+	    <property name="maximumConnectionCount" value="${dataSource.maximumConnectionCount}" />
+	    <property name="houseKeepingSleepTime" value="${dataSource.houseKeepingSleepTime}" />
+	</bean>  
+	<!-- 读库 -->
+    <bean id="dataSourceR" class="org.logicalcobwebs.proxool.ProxoolDataSource">  
+        <property name="alias" value="ReadDataBase"></property>  
+     	<property name="delegateProperties">  
+         	<value>user=${dataSourceRW.user},password=${dataSourceRW.password} </value>  
+     	</property>  
+    	<property name="user" value="${dataSourceRW.user}" />  
+    	<property name="password" value="${dataSourceRW.password}" />  
+    	<property name="driver" value="com.mysql.jdbc.Driver" />  
+    	<property name="driverUrl" value="${dataSourceR.driverUrl}" />
+ 		<property name="minimumConnectionCount" value="${dataSource.minimumConnectionCount}" />
+	    <property name="houseKeepingTestSql" value="${dataSource.houseKeepingTestSql}" />
+	    <property name="testBeforeUse" value="${dataSource.testBeforeUse}" />
+	    <property name="maximumActiveTime" value="${dataSource.maximumActiveTime}" />
+	    <property name="prototypeCount" value="${dataSource.prototypeCount}" />
+	    <property name="maximumConnectionLifetime" value="${dataSource.maximumConnectionLifetime}" />
+	    <property name="maximumConnectionCount" value="${dataSource.maximumConnectionCount}" />
+	    <property name="houseKeepingSleepTime" value="${dataSource.houseKeepingSleepTime}" />
+    </bean>  
+   	<!-- 多数据源，引用写库 & 读库 -->
+    <bean id="dynamicDataSource" class="com.alibaba.webx.searchengine.factory.mybatis.DynamicDataSource">  
+        <!-- 通过key-value关联数据源 -->  
+        <property name="targetDataSources">  
+            <map>  
+                <entry value-ref="dataSourceRW" key="dataSourceKeyRW"></entry>  
+                <entry value-ref="dataSourceR" key="dataSourceKeyR"></entry>  
+            </map>  
+        </property>  
+        <property name="defaultTargetDataSource" ref="dataSourceRW" />      
+    </bean>  
+   	<!-- sqlSeesion工厂，引用多数据源 -->
+	<bean id="sqlSessionFactory" name="sqlSessionFactory"  
+	    class="org.mybatis.spring.SqlSessionFactoryBean">  
+	    <property name="configLocation" value="classpath:mybatis/resource.xml" />  
+	    <property name="dataSource" ref="dynamicDataSource" />  
+	</bean>
+	
+	<!--.....................................-->
+	<!--..............memcached..............-->
+	<!--.....................................-->
+	<bean id="memcacheFactory" class="com.alibaba.webx.searchengine.factory.memcache.MemcacheFactory" init-method="init">
+		<property name="serverList">
+			<list>
+				<value>ip:port</value>
+			</list>
+		</property>
+		<property name="initConnectionNum">		<value>1</value>		</property>
+		<property name="ifAliveCheck">			<value>true</value>		</property>
+		<property name="maxWaitTime">			<value>5000</value>		</property>
+		<property name="maxConnectionNum">		<value>16</value>		</property>
+		<property name="maxWaitConnectionNum">	<value>8</value>		</property>
+	</bean>
+	
+	<!--.....................................-->
+	<!--.................mail................-->
+	<!--.....................................-->
+	<bean id="mailFactory" class="com.alibaba.webx.searchengine.factory.mail.MailFactory" init-method="init">
+		<property name="defaultMailServerHost">		<value>smtp.163.com</value> 			</property>
+		<property name="defaultMailServerPort">		<value>25</value> 						</property>
+		<property name="defaultSenderAddress">		<value>topviewsender@163.com</value> 	</property>
+		<property name="defaultPassword">			<value>topview624</value> 				</property>
+	</bean>
+	
+	<!--.....................................-->
+	<!--..............logUtils...............-->
+	<!--.....................................-->
+	<bean id="loggerUtils" class="com.alibaba.webx.searchengine.util.log.LoggerUtils"  init-method="init">
+		<property name="acceptorList">
+			<value>topviewacceptor@163.com</value>
+		</property>
+		<property name="title">
+			<value>XXX项目错误日志推送</value>
+		</property>
+		<property name="threadNum">
+			<value>10</value>
+		</property>
+		<property name="sendEmailRate">
+			<value>3600</value>
+		</property>
+	</bean>
+	
+	<!--.....................................-->
+	<!--................c3p0.................-->
+	<!--.....................................-->
+	<bean id="mysqlFactory" class="com.alibaba.webx.searchengine.factory.jdbc.MysqlFactory" init-method="init">
+		<property name="diverName">					<value>com.mysql.jdbc.Driver</value> 				</property>
+		<property name="databaseUrl">				<value>jdbc:mysql://localhost:3306/heijue</value> 	</property>
+		<property name="databaseUser">				<value>zjm</value> 									</property>
+		<property name="databasePssword">			<value>aaa38324836</value> 							</property>
+		<property name="minConnectionNuml">			<value>1</value> 									</property>
+		<property name="maxConnectionNuml">			<value>10</value> 									</property>
+		<property name="acquireIncreamentNum">		<value>1</value> 									</property>
+		<property name="testConnectionPeriod">		<value>30</value> 									</property>
+		<property name="initConnectionNuml">		<value>1</value> 									</property>
+		<property name="validate">					<value>true</value> 								</property>
+	</bean>
+	
+	<!--.....................................-->
+	<!--.................http................-->
+	<!--.....................................-->
+	<bean id="httpClientFactory" class="com.alibaba.webx.searchengine.factory.http.HttpClientFactory" init-method="init">
+		<property name="maxConnectionNum">				<value>10</value> 			</property>
+		<property name="maxGetConnectionTimeOut">		<value>5000</value> 		</property>
+		<property name="maxRouteConnectionNum">			<value>10</value> 			</property>
+		<property name="maxLastConnectionTimeOut">		<value>10000</value> 		</property>
+		<property name="maxGetDataTimeOut">				<value>5000</value> 		</property>
+	</bean>
+	
+</beans>

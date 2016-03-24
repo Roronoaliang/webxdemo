@@ -1,0 +1,84 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>service</artifactId>
+  <packaging>jar</packaging>
+  <name>service</name>
+  <url>http://maven.apache.org</url>
+  
+	<!-- 父项目 -->
+   	<parent>
+		<groupId>com.alibaba.webx</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../parent/pom.xml</relativePath>
+	</parent>  
+	
+	<!-- 依赖 -->
+	<dependencies>
+	
+		<!-- ================================================= -->
+		<!-- webx框架 -->
+		<!-- ================================================= -->
+		<dependency>
+			<groupId>com.alibaba.citrus</groupId>
+			<artifactId>citrus-webx-all</artifactId>
+		</dependency>
+	
+		<!-- ================================================= -->
+		<!-- google guava框架 -->
+		<!-- ================================================= -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+		</dependency>
+	
+       	<!-- ================================================= -->
+        <!-- xstream -->
+        <!-- ================================================= -->        
+        <dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+		</dependency>
+	
+	    <!-- ================================================= -->
+        <!-- dom4j -->
+        <!-- ================================================= -->
+        <dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+		</dependency>
+	
+		<!-- ================================================= -->
+      	<!-- common-lang3框架 -->
+        <!-- ================================================= --> 
+       	<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+	
+		<!-- ================================================= -->
+        <!-- redis框架 -->
+        <!-- ================================================= --> 
+        <dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+		</dependency>
+		
+		<!-- ======================================== -->
+        <!-- 兄弟项目依赖 -->
+        <!-- ======================================== -->
+		<dependency>
+			<groupId>com.alibaba.webx</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.webx</groupId>
+			<artifactId>engine</artifactId>
+		</dependency>
+	</dependencies>
+	
+	<build>
+	    <finalName>service</finalName>
+    </build>
+</project>

@@ -1,0 +1,102 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>common</artifactId>
+  <packaging>jar</packaging>
+  <name>common</name>
+  <url>http://maven.apache.org</url>
+    <!-- 父项目 -->
+   	<parent>
+		<groupId>com.alibaba.webx</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../parent/pom.xml</relativePath>
+	</parent>
+	
+	<dependencies>
+	
+			<!-- ================================================= -->
+			<!-- poi for word-->
+			<!-- ================================================= -->
+			<!-- for word.doc -->
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-scratchpad</artifactId>
+			</dependency>
+			<!-- for word.docx -->
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+			</dependency>
+			<!-- word to html -->
+			<dependency>
+				<groupId>fr.opensagres.xdocreport</groupId>
+				<artifactId>org.apache.poi.xwpf.converter.xhtml</artifactId>
+			</dependency>
+			<!-- 格式化html -->
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+			</dependency>
+
+
+	
+			<!-- ======================================== -->
+	        <!-- junit -->
+	        <!-- ======================================== -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+			</dependency>
+	
+	        <!-- ================================================= -->
+            <!-- jxl -->
+            <!-- ================================================= -->  
+        	<dependency>
+				<groupId>net.sourceforge.jexcelapi</groupId>
+				<artifactId>jxl</artifactId>
+			</dependency>
+	
+			<!-- ================================================= -->
+	        <!-- esapi -->
+	        <!-- ================================================= -->  
+	        <dependency>
+				<groupId>org.owasp.esapi</groupId>
+				<artifactId>esapi</artifactId>
+			</dependency>
+	
+			<!-- ======================================== -->
+	        <!-- junit -->
+	        <!-- ======================================== -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+			</dependency>
+			
+			<!-- ================================================= -->
+            <!-- 日志及相关依赖（用slf4j+logback代替jcl+log4j） -->
+            <!-- ================================================= -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+            </dependency>
+            <!-- 将现有的jakarta commons logging的调用转换成lsf4j的调用。 -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+            </dependency>
+            <!-- Hack：确保commons-logging的jar包不被引入，否则将和jcl-over-slf4j冲突 -->
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+            </dependency>
+            <!-- slf4j的实现：logback，用来取代log4j。更快、更强！ -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+            </dependency>
+	</dependencies>
+  <build>
+    <finalName>common</finalName>
+  </build>
+</project>

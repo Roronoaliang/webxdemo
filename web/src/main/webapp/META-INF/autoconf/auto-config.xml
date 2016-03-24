@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<!-- 配置key-value替换对 -->
+	<group>
+		
+		<!-- 日志相关 -->
+		<property name="heijue.logback.log.home" defaultValue="/usr/zjm/logs/heijue" description="日志储存路径"/>
+		<property name="heijue.logback.log.loggingCharset" defaultValue="UTF-8" description="日志编码方案"/>
+		<property name="heijue.logback.log.loggingLevel" defaultValue="WARN" description="默认日志级别"/>
+		
+		<!-- 数据库相关 -->
+		<property name="dataSourceRW.user" defaultValue="test"  description="写库的用户名"/>
+		<property name="dataSourceRW.password" defaultValue="123456"  description="写库的密码"/>
+		<property name="dataSourceRW.driverUrl" defaultValue="jdbc:mysql://192.168.236.128:32768/test"  description="写库的driverUrl"/>
+		
+		<property name="dataSourceR.user" defaultValue="test"  description="读库的用户名"/>
+		<property name="dataSourceR.password" defaultValue="123456"  description="读库的密码"/>
+		<property name="dataSourceR.driverUrl" defaultValue="jdbc:mysql://192.168.236.128:32769/test"  description="读库的driverUrl"/>
+		
+		<property name="dataSource.minimumConnectionCount" defaultValue="5"  description="确定池中最小连接数"/>
+		<property name="dataSource.houseKeepingTestSql" defaultValue="select user from mysql.user"  description="确定保证连接可能的定时查询SQL"/>
+		<property name="dataSource.testBeforeUse" defaultValue="true"  description="检测连接是否可以用，没用的话就换条连接"/>
+		<property name="dataSource.maximumActiveTime" defaultValue="5"  description="确定连接的最大持续使用时间，超时断开，单位为分钟"/>
+		<property name="dataSource.prototypeCount" defaultValue="2"  description="确定该连接被使用后，池中还有多少空闲连接，是否得重新创建新的备用，需要的话要创建多少个"/>
+		<property name="dataSource.maximumConnectionLifetime" defaultValue="4"  description="确定在连接数大于最小连接数时，多出的空闲连接多久被杀死，单位为小时"/>
+		<property name="dataSource.maximumConnectionCount" defaultValue="15"  description="确定一个阀门，规定池中最大连接数"/>
+		<property name="dataSource.houseKeepingSleepTime" defaultValue="30"  description="确定多久检查连接的可用性，扫除无用的连接，创建新的可用连接，单位为秒"/>
+	</group>
+	
+	<!-- 指定要替换的xml文件位置 -->
+	<script>
+		<generate template="WEB-INF/biz/biz-servlet.xml"/>
+		<generate template="WEB-INF/biz/biz-engine.xml"/>
+		<generate template="WEB-INF/logback.xml"/>
+	</script>
+</config>

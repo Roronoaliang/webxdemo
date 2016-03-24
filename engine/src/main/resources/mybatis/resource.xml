@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration  
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!-- 配置1：jdbc.properties文件的地址，以便访问数据库 -->
+    <properties resource="mybatis/mybatisjdbc.properties" />
+    
+    <!-- 配置2： 配置实体类地址-->
+    <typeAliases>
+        <typeAlias alias="Demo" type="com.alibaba.webx.common.po.demo.Demo" />
+    </typeAliases>
+    
+    <!-- 配置3：从 jdbc.properties到数据库参数的映射-->
+    <environments default="zjm">
+        <environment id="zjm">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <!-- 
+                <property name="url" value="jdbc:mysql://localhost:3306/heijue" />
+                <property name="username" value="root" />
+                <property name="password" value="root" />
+                -->
+                <property name="url" value="${mybatis_url}" />
+                <property name="username" value="${mybatis_username}" />
+                <property name="password" value="${mybatis_password}" />
+                <!-- 线程池最大能激活多少条线程 -->
+                <property name="poolMaximumActiveConnections" value="${mybatis_poolMaximumActiveConnections}"/>
+                <!-- 线程池最大能闲置几条线程 -->
+                <property name="poolMaximumIdleConnections" value="${mybatis_poolMaximumIdleConnections}"/>
+                <!-- 获取一个连接的超时时间 -->
+                <property name="poolTimeToWait" value="${mybatis_poolTimeToWait}"/>
+                <!-- 解决太久没连接断开的异常 -->
+                <property name="poolPingQuery" value="SELECT id FROM homesystem WHERE id = '1'" />
+                <property name="poolPingEnabled" value="true" />
+            </dataSource>
+        </environment>
+    </environments>
+    
+    <!-- 配置4： 配置xml的地址 -->
+    <mappers>
+        <mapper resource="mybatis/demo.xml" />
+    </mappers>
+    
+</configuration>

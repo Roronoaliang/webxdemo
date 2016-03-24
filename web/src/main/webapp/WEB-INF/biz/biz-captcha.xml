@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="true">
+	
+	<!-- 本xml为jcaptcha验证码框架专门的配置xml -->
+	
+	<!-- 图片验证码服务 -->
+	<bean id="imageCaptchaService" class="com.octo.captcha.service.image.DefaultManageableImageCaptchaService">
+	    <constructor-arg type="com.octo.captcha.service.captchastore.CaptchaStore" index="0">
+	    	<!-- 验证码存储类 -->
+	        <ref bean="myCaptchaStore"/>
+	    </constructor-arg>
+	    <constructor-arg type="com.octo.captcha.engine.CaptchaEngine" index="1">
+	    	<!-- 样式类 -->
+	        <ref bean="myCaptchaEngine"/>
+	    </constructor-arg>
+	    <constructor-arg index="2">
+	    	<!-- 生成验证码超时时间 -->
+	        <value>180</value>
+	    </constructor-arg>
+	    <constructor-arg index="3">
+	    	<!-- 最大并发数 -->
+	        <value>100000</value>
+	    </constructor-arg>
+	    <constructor-arg index="4">
+	        <value>75000</value>
+	    </constructor-arg>
+	</bean>
+
+	<bean id="myCaptchaStore"  class="com.alibaba.webx.web.module.screen.captcha.MyCaptchaStore"/>
+	<bean id="myCaptchaEngine" class="com.alibaba.webx.web.module.screen.captcha.MyCaptchaEngine"/>
+	
+</beans>

@@ -1,0 +1,91 @@
+// flex布局之父类的兼容写法
+@mixin displayFlex($display) {
+    display: -webkit-#{$display}; 
+    display: -moz-#{$display}; 
+    display: -o-#{$display};
+    display: -ms-#{$display};
+    display: #{$display};
+}
+
+// flex布局之让子元素盒子内的内容自动换行兼容写法
+@mixin flexNewLine($first , $second) {
+	-webkit-#{$first}:#{$second};
+	-moz-#{$first}:#{$second};
+	-o-#{$first}:#{$second};
+	-ms-#{$first}:#{$second};
+	#{$first}:#{$second};
+}
+
+// flex布局之子元素居中
+@mixin center($center){
+	-webkit-#{$center}: center; 
+	-moz-#{$center}: center; 
+    -o-#{$center}: center;
+    -ms-#{$center}: center;
+    #{$center}: center;
+}
+
+// flex布局之 子元素占比
+@mixin flexRatio($ratio){
+	-webkit-box-flex: #{$ratio};      
+    -moz-box-flex: #{$ratio};         
+    -o-box-flex: #{$ratio};
+    -ms-box-flex: #{$ratio};              
+    box-flex: #{$ratio};
+    
+    -webkit-flex: #{$ratio};          
+    -moz-flex: #{$ratio};  
+    -o-flex: #{$ratio};
+    -ms-flex: #{$ratio};   
+    flex: #{$ratio};                  
+    
+    flex-grow: #{$ratio};
+    flex-shrink: #{$ratio};
+    flex-basis: #{$ratio};
+}
+
+// flex布局
+.flex_display{
+	// flex布局
+	@include displayFlex(box);
+	@include displayFlex(flex);
+	@include displayFlex(flexbox);
+	// 自动换行
+	@include flexNewLine(box-lines,multiple);
+	@include flexNewLine(flex-wrap,wrap);
+}
+
+// 居中
+.flex_center{
+	@include center(box-pack);
+	@include center(justify-content);
+	@include center(box-align);
+	@include center(align-items);
+}
+.flex_flex_1{
+	@include flexRatio(1);
+}
+.flex_flex_2{
+	@include flexRatio(2);
+}
+.flex_flex_3{
+	@include flexRatio(3);
+}
+.flex_flex_4{
+	@include flexRatio(4);
+}
+.flex_flex_5{
+	@include flexRatio(5);
+}
+.flex_flex_6{
+	@include flexRatio(6);
+}
+.flex_flex_7{
+	@include flexRatio(7);
+}
+.flex_flex_8{
+	@include flexRatio(8);
+}
+.flex_flex_9{
+	@include flexRatio(9);
+}
