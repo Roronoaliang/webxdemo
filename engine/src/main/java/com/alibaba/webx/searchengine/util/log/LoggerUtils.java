@@ -105,4 +105,13 @@ public class LoggerUtils {
 	public static void setThreadNum(int threadNum) {
 		LoggerUtils.threadNum = threadNum;
 	}
+
+	public static int getSendEmailRate() {
+		return sendEmailRate;
+	}
+
+	public static void setSendEmailRate(int sendEmailRate) {
+		LoggerUtils.sendEmailRate = sendEmailRate;
+	}
+	
 }
