@@ -24,3 +24,4 @@
 /web/.classpath
 
 *.class
+*.prefs
