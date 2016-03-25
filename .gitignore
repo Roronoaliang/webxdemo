@@ -8,3 +8,16 @@
 /web/target
 
 /service/target
+/common/.settings
+/common/.classpath
+/engine/.settings
+/engine/.classpath
+/parent/.settings
+/parent/.classpath
+/service/.settings
+/service/.classpath
+/test/.settings
+/test/.classpath
+/web/.settings
+/web/.classpath
+
