@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 因为使用autoconfig机制，需要借助maven打包，再能实现替换功能。若要在本地直接使用容器跑应用，无法实现autoconfig机制，所以忍痛舍弃该本配置 -->
 <config>
 	<!-- 配置key-value替换对 -->
 	<group>
@@ -29,8 +30,9 @@
 	
 	<!-- 指定要替换的xml文件位置 -->
 	<script>
-		<generate template="WEB-INF/biz/biz-servlet.xml"/>
+		<!--  
 		<generate template="WEB-INF/biz/biz-engine.xml"/>
 		<generate template="WEB-INF/logback.xml"/>
+		-->
 	</script>
 </config>
