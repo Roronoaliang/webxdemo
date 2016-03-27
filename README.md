@@ -30,9 +30,9 @@ mvn tomcat:run
 浏览器输入`http://localhost:8080/topview/captcha/captcha.do`(本框架集成的验证码组件的demo地址)，假如出现一个验证码图形，则代表项目正常运行。
 
 ###二、集成组件介绍
-`以下组件，在各自的包的下面都有一个UseCase类，里面有对应组件的使用方法。`
+`以下组件，在各自的包的下面都有一个UseCase类，里面有对应组件的使用方法。`<br>
 1. **Http组件**<br>
->`简介`：<br>
+`简介`：<br>
 基于`HttpClient4.5` 的封装，支持基于get和post的基本的请求，带参数的、带文件的请求等功能。<br>
 `注意事项`：<br>
 (1) 使用前建议根据业务修改web子项目的biz-engine.xml文件，修改`连接池`，`请求超时`等相关参数。<br>
@@ -45,11 +45,11 @@ mvn tomcat:run
 		<property name="maxGetDataTimeOut">				<value>5000</value> 		</property>
 	</bean>
 ```
->(2) 若要使用`https`请求，必须加上vm参数：-Djsse.enableSNIExtension=false，否者报错javax.net.ssl.SSLProtocolException: handshake alert: unrecognized_name，原因请见[这里](http://stackoverflow.com/questions/7615645/ssl-handshake-alert-unrecognized-name-error-since-upgrade-to-java-1-7-0)。<br>
+(2) 若要使用`https`请求，必须加上vm参数：-Djsse.enableSNIExtension=false，否者报错javax.net.ssl.SSLProtocolException: handshake alert: unrecognized_name，原因请见[这里](http://stackoverflow.com/questions/7615645/ssl-handshake-alert-unrecognized-name-error-since-upgrade-to-java-1-7-0)。<br>
 
 <br>
 2. **mail组件**<br>
->`简介`：<br>
+`简介`：<br>
 基于`javax.mail1.4.7 `的封装，支持群发带附件的HTML格式的邮件等基本功能。<br>
 `注意事项`：<br>
 使用前必须修改web子项目的biz-engine.xml文件，修改用来发送邮件的`邮箱以及密码`。
@@ -63,7 +63,7 @@ mvn tomcat:run
 ```
 <br>
 3. **mybatis组件**<br>
->`简介`：<br>
+`简介`：<br>
 基于mybatis-spring、proxool、proxool-cglib的封装，支持多源数据库的Session的获取。方便在没使用数据库中间件时，实现读写分离。<br>
 `注意事项`：<br>
 使用前必须修改web子项目的biz-engine.xml文件，修改与`数据库连接`相关的参数以及`连接池`相关的参数。
@@ -91,7 +91,7 @@ mvn tomcat:run
 ```
 <br>
 4. **redis组件**<br>
->`简介`：<br>
+`简介`：<br>
 基于jedis的封装，提供了对redis数据库基本操作的功能。<br>
 `注意事项`：<br>
 使用前必须修改web子项目的biz-engine.xml文件，修改`数据库IP、端口、密码，连接池的最大连接数、连接等待时间，连接超时时间`等参数。
@@ -108,7 +108,7 @@ mvn tomcat:run
 ```
 <br>
 5. **邮件日志组件**<br>
->`简介`：<br>
+`简介`：<br>
 在try-catch中，使用邮件日志组件把catch到的Exception传到邮件队列中，邮件日志组件会定时把队列中的错误信息发到指定的邮箱。在没有`日志管理分析`工具的情况下，使用该组件可以及时发现错误。<br>
 `注意事项`：<br>
 使用前必须修改web子项目的biz-engine.xml文件，设置接收邮件的`邮箱，邮件标题，用来发送邮件的线程池的大小，发送邮件的时间间隔`等参数。
@@ -122,13 +122,14 @@ mvn tomcat:run
 ```
 <br>
 6. **验证码组件**<br>
->`简介`：
+`简介`：<br>
 基于jcaptcha的封装，写好了一个获取验证码的接口，客户端可以直接访问该接口获得验证码，后台可以通过一句代码验证验证码正确与否。并且`重写`了验证码的存储逻辑，为验证码分布式存储提供了可能（但没实现`分布式验证码`，因为若使用ip_hash的负载均衡策略，不实现分布式验证码也可以，如果要实现，请自己做二次开发）。<br>
-`注意事项`：
-验证码样式类位置在：web子项目的com.alibaba.webx.web.module.screen.captcha包下的MyCaptchaEngine类，若要重新修改`样式`(比如字体大小，背景，干扰项等等)，可以修改该类的属性值。
+`注意事项`：<br>
+验证码样式类位置在：web子项目的com.alibaba.webx.web.module.screen.captcha包下的MyCaptchaEngine类，若要重新修改`样式`(比如字体大小，背景，干扰项等等)，可以修改该类的属性值。<br>
 <br>
 ###三、集成的工具介绍
-`以下工具，在各自的包的下面都有一个UseCase类，里面有对应组件的使用方法。`
+`以下工具，在各自的包的下面都有一个UseCase类，里面有对应组件的使用方法。`<br>
+<br>
 1、**日期工具**<br>
 >使用日期工具，可以方便地获取当天日期和前后N天的日期（Date、String、Long格式），也可以方便地对Date、String、Long三种格式的日期进行互相转化。<br>
 
@@ -158,9 +159,10 @@ mvn tomcat:run
 		<property name="token"><value>xxx</value></property>
 	</bean>
 ```
+
 <br>
 7、 **开关工具**<br>
->使用开关工具，在编写一些新功能时，可以在代码的最前方加入开关，以便一键开启/关闭新功能。假如一个功能上线后出了问题，导致其他服务受到影响，此时我们把开关关闭，即可停掉该功能，保证其他服务正常运行。
+>使用开关工具，在编写一些新功能时，可以在代码的最前方加入开关，以便一键开启/关闭新功能。假如一个功能上线后出了问题，导致其他服务受到影响，此时我们把开关关闭，即可停掉该功能，保证其他服务正常运行。<br>
 `注意事项`：<br>
 开关功能与redis结合起来，需对redis进行配置。<br>
 ```
@@ -177,18 +179,20 @@ String jsonStr = JSON.toJSONString(object);
 <br>
 2、**字符串、集合**<br>
 使用`org.apache.commons-commons-lang`3和`commons-collections`<br>
->例如字符串判空：<br>
+例如字符串判空：<br>
 ```java
 StringUtils.isBlank(str);
 ```
->例如集合判空：<br>
+例如集合判空：<br>
 ```java
 CollectionUtils.isEmpty(collection);
 ```
+
 <br>
 3、**缓存**<br>
-使用`com.google.guava-guava`做缓存，例子位于service子项目的com.alibaba.webx.service.demo.impl包的`ServiceDemoImpl`类。<br>
+>使用`com.google.guava-guava`做缓存，例子位于service子项目的com.alibaba.webx.service.demo.impl包的`ServiceDemoImpl`类。<br>
+
 <br>
 4、**对象池**<br>
-使用commons-pool做对象池。
+>使用commons-pool做对象池。
 
