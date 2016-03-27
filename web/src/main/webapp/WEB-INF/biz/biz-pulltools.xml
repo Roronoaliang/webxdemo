@@ -5,48 +5,5 @@
 	default-autowire="byName">
 	
 	<bean id="commonTools" class="com.alibaba.webx.web.module.tools.common.CommonTools" >
-	
-		<property name="domain">
-			<value>https://www.heijue.top/heijue/</value>
-		</property>
-		<property name="jsAndCssDomain">
-			<value>https://www.heijue.top/heijue/</value>
-		</property>
-		<property name="imageDomian">
-			<value>https://www.heijue.top/heijue/</value>
-		</property>
-		<property name="ifAliYun">
-			<value>true</value>
-		</property>
-		
-		<!--  
-		<property name="domain">
-			<value>http://localhost:8080/</value>
-		</property>
-		<property name="jsAndCssDomain">
-			<value>http://localhost:8080/</value>
-		</property>
-		<property name="imageDomian">
-			<value>http://localhost:8080/</value>
-		</property>
-		<property name="ifAliYun">
-			<value>false</value>
-		</property>
-		-->
-		
-		<!--  
-		<property name="domain">
-			<value>http://192.168.1.101:8080/</value>
-		</property>
-		<property name="jsAndCssDomain">
-			<value>http://192.168.1.101:8080/</value>
-		</property>
-		<property name="imageDomian">
-			<value>http://192.168.1.101:8080/</value>
-		</property>
-		<property name="ifAliYun">
-			<value>false</value>
-		</property>
-		-->
 	</bean>
 </beans>

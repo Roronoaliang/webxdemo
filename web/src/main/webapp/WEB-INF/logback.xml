@@ -4,12 +4,12 @@
 
 	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径--> 
 	<!-- 
-    <property name="LOG_HOME" value="d:/logs/heijue" />
+    <property name="LOG_HOME" value="d:/logs/topview" />
      --> 
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <target>System.out</target>
-        <encoding>${heijue.logback.log.loggingCharset}</encoding>
+        <encoding>UTF-8</encoding>
         <filter class="com.alibaba.citrus.logconfig.logback.LevelRangeFilter">
             <levelMax>INFO</levelMax>
         </filter>
@@ -22,7 +22,7 @@
 
     <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
         <target>System.err</target>
-        <encoding>${heijue.logback.log.loggingCharset}</encoding>
+        <encoding>${logback.log.loggingCharset}</encoding>
         <filter class="com.alibaba.citrus.logconfig.logback.LevelRangeFilter">
             <levelMin>WARN</levelMin>
         </filter>
@@ -35,9 +35,9 @@
     
     <!-- 文件输出 -->
     <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">   
-        <Encoding>${heijue.logback.log.loggingCharset}</Encoding> 
+        <Encoding>${logback.log.loggingCharset}</Encoding> 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${heijue.logback.log.home}/zjm.log.%d{yyyy-MM-dd}.log</FileNamePattern>   
+            <FileNamePattern>/usr/zjm/logs/webxdemo/zjm.log.%d{yyyy-MM-dd}.log</FileNamePattern>   
             <MaxHistory>30</MaxHistory>
         </rollingPolicy>   
         <layout class="ch.qos.logback.classic.PatternLayout">  
@@ -62,7 +62,7 @@
     </logger>
     
     <root>
-        <level value="${heijue.logback.log.loggingLevel}" />
+        <level value="WARN" />
         <appender-ref ref="STDERR" />
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
