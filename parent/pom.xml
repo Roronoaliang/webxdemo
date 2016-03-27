@@ -606,7 +606,7 @@
 					<systemProperties>
 						<systemProperty>
 							<name>productionMode</name>
-							<value>${productionMode}</value>
+							<value>true</value>
 						</systemProperty>
 					</systemProperties>
 				</configuration>
