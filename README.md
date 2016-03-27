@@ -39,7 +39,7 @@ mvn tomcat:run
 ###二、集成组件介绍
 `以下组件，在各自的包的下面都有一个UseCase类，里面有对应组件的使用方法。`<br>
 <br>
-1、 **Http组件**<br>
+####1、Http组件
 <br>
 **简介**：<br>
 >基于`HttpClient4.5` 的封装，支持基于get和post的基本的请求，带参数的、带文件的请求等功能。<br>
@@ -61,7 +61,7 @@ mvn tomcat:run
 >若要使用`https`请求，必须加上vm参数：-Djsse.enableSNIExtension=false，否者报错javax.net.ssl.SSLProtocolException: handshake alert: unrecognized_name，原因请见[这里](http://stackoverflow.com/questions/7615645/ssl-handshake-alert-unrecognized-name-error-since-upgrade-to-java-1-7-0)。<br>
 
 <br>
-2、 **mail组件**<br>
+####2、 mail组件
 <br>
 **简介**：<br>
 >基于`javax.mail1.4.7 `的封装，支持群发带附件的HTML格式的邮件等基本功能。<br>
@@ -80,7 +80,7 @@ mvn tomcat:run
 	</bean>
 ```
 <br>
-3、 **mybatis组件**<br>
+####3、 mybatis组件
  <br>
 **简介**：<br>
 >基于mybatis-spring、proxool、proxool-cglib的封装，支持多源数据库的Session的获取。方便在没使用数据库中间件时，实现读写分离。<br>
@@ -113,7 +113,7 @@ mvn tomcat:run
 	</bean> 
 ```
 <br>
-4、 **redis组件**<br>
+####4、 redis组件
 <br>
 **简介**：<br>
 >基于jedis的封装，提供了对redis数据库基本操作的功能。<br>
@@ -135,7 +135,7 @@ mvn tomcat:run
 	</bean>
 ```
 <br>
-5、 **邮件日志组件**<br>
+####5、 邮件日志组件
 <br>
 **简介**：<br>
 >在try-catch中，使用邮件日志组件把catch到的Exception传到邮件队列中，邮件日志组件会定时把队列中的错误信息发到指定的邮箱。在没有`日志管理分析`工具的情况下，使用该组件可以及时发现错误。<br>
@@ -154,7 +154,7 @@ mvn tomcat:run
 	</bean>
 ```
 <br>
-6、 **验证码组件**<br>
+####6、 验证码组件
 <br>
 **简介**：<br>
 >基于jcaptcha的封装，写好了一个获取验证码的接口，客户端可以直接访问该接口获得验证码，后台可以通过一句代码验证验证码正确与否。并且`重写`了验证码的存储逻辑，为验证码分布式存储提供了可能（但没实现`分布式验证码`，因为若使用ip_hash的负载均衡策略，不实现分布式验证码也可以，如果要实现，请自己做二次开发）。<br>
