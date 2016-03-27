@@ -41,7 +41,6 @@ public class MyCaptchaStore implements CaptchaStore{
     @Override
     public boolean hasCaptcha(String id) {
         CaptchaAndLocale captcha = map.get(id);
-        System.out.println(captcha == null ? false : true);
         return captcha == null ? false : true;
     }
 
