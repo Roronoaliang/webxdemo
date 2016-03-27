@@ -41,13 +41,13 @@ public class LoggerUtils {
 	private List<String> acceptorList;
 	
 	// 标题
-	private String title;
+	private String emailTitle;
 	
 	// 线程池最大线程数量，用来控制并发数
-	private static int threadNum;
+	private int threadNum;
 	
 	// 发送错误邮件的频率，单位秒
-	private static int sendEmailRate;
+	private int sendEmailRate;
 	
 	// 线程池
 	private static ScheduledThreadPoolExecutor stpe;
@@ -63,7 +63,7 @@ public class LoggerUtils {
 		try {
 			stpe = new ScheduledThreadPoolExecutor(threadNum);
 			mailSender = mailFactory.getDefaultMailSender();
-			EmailErrorThread emailErrorThread = new EmailErrorThread(mailSender,acceptorList,title);
+			EmailErrorThread emailErrorThread = new EmailErrorThread(mailSender,acceptorList,emailTitle);
 			stpe.scheduleAtFixedRate(emailErrorThread , 60, sendEmailRate , TimeUnit.SECONDS);
 		} catch (Exception e) {
 			log.error("ERROR:",e);
@@ -90,28 +90,28 @@ public class LoggerUtils {
 		this.acceptorList = acceptorList;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getEmailTitle() {
+		return emailTitle;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setEmailTitle(String emailTitle) {
+		this.emailTitle = emailTitle;
 	}
 
-	public static int getThreadNum() {
+	public int getThreadNum() {
 		return threadNum;
 	}
 
-	public static void setThreadNum(int threadNum) {
-		LoggerUtils.threadNum = threadNum;
+	public void setThreadNum(int threadNum) {
+		this.threadNum = threadNum;
 	}
 
-	public static int getSendEmailRate() {
+	public int getSendEmailRate() {
 		return sendEmailRate;
 	}
 
-	public static void setSendEmailRate(int sendEmailRate) {
-		LoggerUtils.sendEmailRate = sendEmailRate;
+	public void setSendEmailRate(int sendEmailRate) {
+		this.sendEmailRate = sendEmailRate;
 	}
-	
+
 }
