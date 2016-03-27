@@ -5,11 +5,18 @@
 	default-autowire="byName">
 	
 	<!--.....................................-->
-	<!--................降级开关.............-->
+	<!-- 降级开关                                                                                       -->
 	<!--.....................................-->
 	<bean id="mySwitch" class="com.alibaba.webx.common.util.switchs.MySwitch" >
 		<!-- 邮件日志功能开关 -->
 		<property name="EMAIL_LOG_SWITCH"><value>true</value></property>
+	</bean>
+	
+	<!--.....................................-->
+	<!-- 微信                                                                                         -->
+	<!--.....................................-->
+	<bean id="signUtil" class="com.alibaba.webx.common.util.weixin.SignUtil" >
+		<property name="token"><value>xxx</value></property>
 	</bean>
 	
 </beans>
