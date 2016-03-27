@@ -25,39 +25,39 @@
 	<bean id="dataSourceRW" class="org.logicalcobwebs.proxool.ProxoolDataSource">  
 	    <property name="alias" value="ReadWriteDataBase"></property>  
 	    <property name="delegateProperties">  
-	        <value>user=${dataSourceRW.user},password=${dataSourceRW.password} </value>  
+	        <value>user=test,password=123456</value>  
 	    </property>  
-	    <property name="user" value="${dataSourceRW.user}" />  
-	    <property name="password" value="${dataSourceRW.password}" />  
+	    <property name="user" value="test" />  
+	    <property name="password" value="123456" />  
 	    <property name="driver" value="com.mysql.jdbc.Driver" />  
-	    <property name="driverUrl" value="${dataSourceRW.driverUrl}" />
-	    <property name="minimumConnectionCount" value="${dataSource.minimumConnectionCount}" />
-	    <property name="houseKeepingTestSql" value="${dataSource.houseKeepingTestSql}" />
-	    <property name="testBeforeUse" value="${dataSource.testBeforeUse}" />
-	    <property name="maximumActiveTime" value="${dataSource.maximumActiveTime}" />
-	    <property name="prototypeCount" value="${dataSource.prototypeCount}" />
-	    <property name="maximumConnectionLifetime" value="${dataSource.maximumConnectionLifetime}" />
-	    <property name="maximumConnectionCount" value="${dataSource.maximumConnectionCount}" />
-	    <property name="houseKeepingSleepTime" value="${dataSource.houseKeepingSleepTime}" />
+	    <property name="driverUrl" value="jdbc:mysql://192.168.236.128:32768/test" />
+	    <property name="minimumConnectionCount" value="5" />							<!-- 确定池中最小连接数 -->
+	    <property name="houseKeepingTestSql" value="select user from mysql.user" />		<!-- 确定保证连接可能的定时查询SQL -->
+	    <property name="testBeforeUse" value="true" />									<!-- 检测连接是否可以用，没用的话就换条连接 -->
+	    <property name="maximumActiveTime" value="5" />									<!-- 确定连接的最大持续使用时间，超时断开，单位为分钟 -->
+	    <property name="prototypeCount" value="2" />									<!-- 确定该连接被使用后，池中还有多少空闲连接，是否得重新创建新的备用，需要的话要创建多少个 -->
+	    <property name="maximumConnectionLifetime" value="4" />							<!-- 确定在连接数大于最小连接数时，多出的空闲连接多久被杀死，单位为小时 -->
+	    <property name="maximumConnectionCount" value="15" />							<!-- 确定一个阀门，规定池中最大连接数 -->
+	    <property name="houseKeepingSleepTime" value="30" />							<!-- 确定多久检查连接的可用性，扫除无用的连接，创建新的可用连接，单位为秒 -->
 	</bean>  
 	<!-- 读库 -->
     <bean id="dataSourceR" class="org.logicalcobwebs.proxool.ProxoolDataSource">  
         <property name="alias" value="ReadDataBase"></property>  
      	<property name="delegateProperties">  
-         	<value>user=${dataSourceRW.user},password=${dataSourceRW.password} </value>  
+         	<value>user=test,password=123456</value>  
      	</property>  
-    	<property name="user" value="${dataSourceRW.user}" />  
-    	<property name="password" value="${dataSourceRW.password}" />  
+    	<property name="user" value="test" />  
+    	<property name="password" value="123456" />  
     	<property name="driver" value="com.mysql.jdbc.Driver" />  
-    	<property name="driverUrl" value="${dataSourceR.driverUrl}" />
- 		<property name="minimumConnectionCount" value="${dataSource.minimumConnectionCount}" />
-	    <property name="houseKeepingTestSql" value="${dataSource.houseKeepingTestSql}" />
-	    <property name="testBeforeUse" value="${dataSource.testBeforeUse}" />
-	    <property name="maximumActiveTime" value="${dataSource.maximumActiveTime}" />
-	    <property name="prototypeCount" value="${dataSource.prototypeCount}" />
-	    <property name="maximumConnectionLifetime" value="${dataSource.maximumConnectionLifetime}" />
-	    <property name="maximumConnectionCount" value="${dataSource.maximumConnectionCount}" />
-	    <property name="houseKeepingSleepTime" value="${dataSource.houseKeepingSleepTime}" />
+    	<property name="driverUrl" value="jdbc:mysql://192.168.236.128:32769/test" />
+ 		<property name="minimumConnectionCount" value="5" />
+	    <property name="houseKeepingTestSql" value="select user from mysql.user" />
+	    <property name="testBeforeUse" value="true" />
+	    <property name="maximumActiveTime" value="5" />
+	    <property name="prototypeCount" value="2" />
+	    <property name="maximumConnectionLifetime" value="4" />
+	    <property name="maximumConnectionCount" value="15" />
+	    <property name="houseKeepingSleepTime" value="30" />
     </bean>  
    	<!-- 多数据源，引用写库 & 读库 -->
     <bean id="dynamicDataSource" class="com.alibaba.webx.searchengine.factory.mybatis.DynamicDataSource">  

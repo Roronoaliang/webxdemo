@@ -9,7 +9,7 @@
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <target>System.out</target>
-        <encoding>${logback.log.loggingCharset}</encoding>
+        <encoding>UTF-8</encoding>
         <filter class="com.alibaba.citrus.logconfig.logback.LevelRangeFilter">
             <levelMax>INFO</levelMax>
         </filter>
@@ -37,7 +37,7 @@
     <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">   
         <Encoding>${logback.log.loggingCharset}</Encoding> 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${logback.log.home}/zjm.log.%d{yyyy-MM-dd}.log</FileNamePattern>   
+            <FileNamePattern>/usr/zjm/logs/webxdemo/zjm.log.%d{yyyy-MM-dd}.log</FileNamePattern>   
             <MaxHistory>30</MaxHistory>
         </rollingPolicy>   
         <layout class="ch.qos.logback.classic.PatternLayout">  
@@ -62,7 +62,7 @@
     </logger>
     
     <root>
-        <level value="${logback.log.loggingLevel}" />
+        <level value="WARN" />
         <appender-ref ref="STDERR" />
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
