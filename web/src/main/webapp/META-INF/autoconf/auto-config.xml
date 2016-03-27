@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 因为使用autoconfig机制，需要借助maven打包，再能实现替换功能。若要在本地直接使用容器跑应用，无法实现autoconfig机制，所以忍痛舍弃该本配置 -->
 <config>
 	<!-- 配置key-value替换对 -->
 	<group>
 		
 		<!-- 日志相关 -->
-		<property name="heijue.logback.log.home" defaultValue="/usr/zjm/logs/heijue" description="日志储存路径"/>
-		<property name="heijue.logback.log.loggingCharset" defaultValue="UTF-8" description="日志编码方案"/>
-		<property name="heijue.logback.log.loggingLevel" defaultValue="WARN" description="默认日志级别"/>
+		<property name="logback.log.home" defaultValue="/usr/zjm/logs/webxdemo" description="日志储存路径"/>
+		<property name="logback.log.loggingCharset" defaultValue="UTF-8" description="日志编码方案"/>
+		<property name="logback.log.loggingLevel" defaultValue="WARN" description="默认日志级别"/>
 		
 		<!-- 数据库相关 -->
 		<property name="dataSourceRW.user" defaultValue="test"  description="写库的用户名"/>
@@ -29,8 +30,9 @@
 	
 	<!-- 指定要替换的xml文件位置 -->
 	<script>
-		<generate template="WEB-INF/biz/biz-servlet.xml"/>
+		<!--  
 		<generate template="WEB-INF/biz/biz-engine.xml"/>
 		<generate template="WEB-INF/logback.xml"/>
+		-->
 	</script>
 </config>
