@@ -512,22 +512,22 @@
 		</dependencies>
 	</dependencyManagement>
 	<build>
-		<finalName>heijue</finalName>
+		<finalName>topview</finalName>
 		<plugins>
 
 			<!-- ======================================== -->
 			<!-- Tomcat插件 ，可支持远程部署-->
 			<!-- ======================================== -->
 			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.0</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<version>1.1</version>
 				<configuration>
 					<url>http://localhost:8080/manager/text</url>
-					<server>tomcat7</server>
-					<username>tomcat</username>
-					<password>tomcat</password>
-					<path>/heijue</path>
+					<server>tomcat</server>
+					<username>root</username>
+					<password>root</password>
+					<path>/topview</path>
 					<update>true</update>
 				</configuration>
 			</plugin>
