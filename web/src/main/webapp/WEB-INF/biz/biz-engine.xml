@@ -110,7 +110,7 @@
 		<property name="acceptorList">
 			<value>topviewacceptor@163.com</value>
 		</property>
-		<property name="title">
+		<property name="emailTitle">
 			<value>XXX项目错误日志推送</value>
 		</property>
 		<property name="threadNum">
