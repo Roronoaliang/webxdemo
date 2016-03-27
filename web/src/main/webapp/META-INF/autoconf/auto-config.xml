@@ -4,9 +4,9 @@
 	<group>
 		
 		<!-- 日志相关 -->
-		<property name="heijue.logback.log.home" defaultValue="/usr/zjm/logs/heijue" description="日志储存路径"/>
-		<property name="heijue.logback.log.loggingCharset" defaultValue="UTF-8" description="日志编码方案"/>
-		<property name="heijue.logback.log.loggingLevel" defaultValue="WARN" description="默认日志级别"/>
+		<property name="logback.log.home" defaultValue="/usr/zjm/logs/webxdemo" description="日志储存路径"/>
+		<property name="logback.log.loggingCharset" defaultValue="UTF-8" description="日志编码方案"/>
+		<property name="logback.log.loggingLevel" defaultValue="WARN" description="默认日志级别"/>
 		
 		<!-- 数据库相关 -->
 		<property name="dataSourceRW.user" defaultValue="test"  description="写库的用户名"/>
