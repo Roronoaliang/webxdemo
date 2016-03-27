@@ -78,22 +78,6 @@
 	</bean>
 	
 	<!--.....................................-->
-	<!--..............memcached..............-->
-	<!--.....................................-->
-	<bean id="memcacheFactory" class="com.alibaba.webx.searchengine.factory.memcache.MemcacheFactory" init-method="init">
-		<property name="serverList">
-			<list>
-				<value>ip:port</value>
-			</list>
-		</property>
-		<property name="initConnectionNum">		<value>1</value>		</property>
-		<property name="ifAliveCheck">			<value>true</value>		</property>
-		<property name="maxWaitTime">			<value>5000</value>		</property>
-		<property name="maxConnectionNum">		<value>16</value>		</property>
-		<property name="maxWaitConnectionNum">	<value>8</value>		</property>
-	</bean>
-	
-	<!--.....................................-->
 	<!--.................mail................-->
 	<!--.....................................-->
 	<bean id="mailFactory" class="com.alibaba.webx.searchengine.factory.mail.MailFactory" init-method="init">
