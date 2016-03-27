@@ -204,6 +204,7 @@ mvn tomcat:run
 >使用开关工具，在编写一些新功能时，可以在代码的最前方加入开关，以便一键开启/关闭新功能。假如一个功能上线后出了问题，导致其他服务受到影响，此时我们把开关关闭，即可停掉该功能，保证其他服务正常运行。<br>
 `注意事项`：<br>
 开关功能与redis结合起来，需对redis进行配置。<br>
+
 <br>
 ```
 TODO
@@ -222,18 +223,8 @@ String jsonStr = JSON.toJSONString(object);
 <br>
 2、**字符串、集合**<br>
 使用`org.apache.commons-commons-lang`3和`commons-collections`<br>
-例如字符串判空：<br>
-
-<br>
-```java
-StringUtils.isBlank(str);
-```
-例如集合判空：<br>
-
-<br>
-```java
-CollectionUtils.isEmpty(collection);
-```
+例如字符串判空：`StringUtils.isBlank(str);`<br>
+例如集合判空：`CollectionUtils.isEmpty(collection);`<br>
 
 <br>
 3、**缓存**<br>
