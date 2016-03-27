@@ -14,7 +14,7 @@
 		<property name="poolIp">				<value>ip</value> 	</property>
 		<property name="poolPort">				<value>6379</value> 			</property>
 		<property name="poolConnectTimeOut">	<value>5000</value> 			</property>
-		<property name="poolPassword">			<value>aaa38324836</value> 		</property>
+		<property name="poolPassword">			<value>xxx</value> 		</property>
 	</bean>
 	
 	<!--.....................................-->
@@ -83,26 +83,18 @@
 	<bean id="mailFactory" class="com.alibaba.webx.searchengine.factory.mail.MailFactory" init-method="init">
 		<property name="defaultMailServerHost">		<value>smtp.163.com</value> 			</property>
 		<property name="defaultMailServerPort">		<value>25</value> 						</property>
-		<property name="defaultSenderAddress">		<value>topviewsender@163.com</value> 	</property>
-		<property name="defaultPassword">			<value>topview624</value> 				</property>
+		<property name="defaultSenderAddress">		<value>xxx@163.com</value> 	</property>
+		<property name="defaultPassword">			<value>xxx</value> 				</property>
 	</bean>
 	
 	<!--.....................................-->
 	<!--..............logUtils...............-->
 	<!--.....................................-->
 	<bean id="loggerUtils" class="com.alibaba.webx.searchengine.util.log.LoggerUtils"  init-method="init">
-		<property name="acceptorList">
-			<value>topviewacceptor@163.com</value>
-		</property>
-		<property name="emailTitle">
-			<value>XXX项目错误日志推送</value>
-		</property>
-		<property name="threadNum">
-			<value>10</value>
-		</property>
-		<property name="sendEmailRate">
-			<value>3600</value>
-		</property>
+		<property name="acceptorList">	<value>xxx@163.com</value>	</property>
+		<property name="emailTitle">	<value>XXX项目错误日志推送</value>			</property>
+		<property name="threadNum">		<value>10</value>						</property>
+		<property name="sendEmailRate">	<value>3600</value>						</property>
 	</bean>
 	
 	<!--.....................................-->
