@@ -32,6 +32,9 @@ public class MySwitch {
 	// redis处理类
 	public static DefaultRedisHandler defaultRedisHandler ;
 	
+	// 写demo用的开关
+	private static boolean DEMO_SWITCH;
+	
 	// 邮件日志功能开关
 	private static boolean EMAIL_LOG_SWITCH;
 	
@@ -50,6 +53,19 @@ public class MySwitch {
 		EMAIL_LOG_SWITCH = eMAIL_LOG_SWITCH;
 	}
 	
+	/**
+	 * 获取写demo用的开关
+	 * @return
+	 */
+	public boolean isDEMO_SWITCH() {
+		DEMO_SWITCH = getSwtichByKey("DEMO_SWITCH",DEMO_SWITCH);
+		return DEMO_SWITCH;
+	}
+
+	public void setDEMO_SWITCH(boolean dEMO_SWITCH) {
+		DEMO_SWITCH = dEMO_SWITCH;
+	}
+
 	/**
 	 * 获取redis组件
 	 */
