@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.webx.common.factory.log.LoggerFactory;
 import com.alibaba.webx.common.util.date.MySimpleDateFormat;
-import com.alibaba.webx.common.util.switchs.MySwitch;
 import com.alibaba.webx.searchengine.factory.mail.MailFactory;
 import com.alibaba.webx.searchengine.factory.mail.MailSender;
+import com.alibaba.webx.searchengine.util.switchs.MySwitch;
 
 /**
  * 日志工具类
@@ -30,6 +30,9 @@ public class LoggerUtils {
 	
 	@Autowired
 	private MailFactory mailFactory;
+	
+	@Autowired
+	private MySwitch mySwitch;
 	
 	// 日志
 	private static Logger log = LoggerFactory.getLogger(LoggerUtils.class);
@@ -75,7 +78,7 @@ public class LoggerUtils {
 	 * @throws Exception 
 	 */
 	public void emailError(Throwable e){
-		if(MySwitch.EMAIL_LOG_SWITCH){
+		if(mySwitch.isEMAIL_LOG_SWITCH()){
 			MyThrowable mt = new MyThrowable(MySimpleDateFormat.getNowStringDate(),e);
 			queue.add(mt);
 		}
