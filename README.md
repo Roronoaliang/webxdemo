@@ -201,13 +201,18 @@ mvn tomcat:run
 
 <br>
 7、 **开关工具**<br>
->使用开关工具，在编写一些新功能时，可以在代码的最前方加入开关，以便一键开启/关闭新功能。假如一个功能上线后出了问题，导致其他服务受到影响，此时我们把开关关闭，即可停掉该功能，保证其他服务正常运行。<br>
-`注意事项`：<br>
-开关功能与redis结合起来，需对redis进行配置。<br>
+>使用开关工具，在编写一些新功能时，可以在代码的最前方加入开关，以便一键开启/关闭新功能。假如一个功能上线后出了问题，导致其他服务受到影响，如果关闭服务器修复，肯定会影响到用户的正常使用，不修复的话用户又访问不了，有了开关工具后，此时我们可以在`redis数据库`中把开关关闭，即可停掉该功能，这样的话可以保证其他服务正常运行。开关的的获取会从`本地`和`默认redis数据库`中获取，当从redis获取失败时，自动从本地获取，方便没配redis的用户使用。 但没配redis的用户将使用不了从数据库控制开关的功能。<br>
+
+<br>
+**注意事项**：<br>
+>使用前必须修改web子项目的biz-engine.xml文件，配置某个功能`开或关`。<br>
 
 <br>
 ```
-TODO
+	<bean id="mySwitch" class="com.alibaba.webx.searchengine.util.switchs.MySwitch" init-method="init">
+		<!-- 邮件日志功能开关 -->
+		<property name="EMAIL_LOG_SWITCH"><value>true</value></property>
+	</bean>
 ```
 
 <br>
@@ -215,7 +220,6 @@ TODO
 1、 **json**<br>
 >使用`fastjson`进行json序列化，例如：<br>
 
-<br>
 ```java
 String jsonStr = JSON.toJSONString(object);
 ```
@@ -227,10 +231,13 @@ String jsonStr = JSON.toJSONString(object);
 例如集合判空：`CollectionUtils.isEmpty(collection);`<br>
 
 <br>
-3、**缓存**<br>
+3、**内存缓存**<br>
 >使用`com.google.guava-guava`做缓存，例子位于service子项目的com.alibaba.webx.service.demo.impl包的`ServiceDemoImpl`类。<br>
 
 <br>
 4、**对象池**<br>
->使用commons-pool做对象池。
+>使用commons-pool做对象池。<br>
 
+<br>
+5、**下传下载写法**<br>
+>上传下载的写法在web子项目的com.alibaba.webx.web.module.screen.demo包下的`ScreenDemo`类，可以参考其写法。
