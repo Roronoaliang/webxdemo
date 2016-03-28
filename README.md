@@ -61,9 +61,9 @@ mvn tomcat:run
 
 ```
 	<bean id="mailFactory" class="com.alibaba.webx.searchengine.factory.mail.MailFactory" init-method="init">
-		<property name="defaultMailServerHost">		<value>smtp.163.com</value> 			</property>
-		<property name="defaultMailServerPort">		<value>25</value> 						</property>
-		<property name="defaultSenderAddress">		<value>xxx@163.com</value> 	</property>
+		<property name="defaultMailServerHost">		<value>smtp.163.com</value> 	</property>
+		<property name="defaultMailServerPort">		<value>25</value> 				</property>
+		<property name="defaultSenderAddress">		<value>xxx@163.com</value> 		</property>
 		<property name="defaultPassword">			<value>xxx</value> 				</property>
 	</bean>
 ```
