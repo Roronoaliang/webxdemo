@@ -3,9 +3,6 @@ package com.alibaba.webx.service.demo.impl;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-import org.slf4j.Logger;
-
-import com.alibaba.webx.common.factory.log.LoggerFactory;
 import com.alibaba.webx.common.po.demo.Demo;
 import com.alibaba.webx.service.demo.ServiceDemo;
 import com.google.common.cache.CacheBuilder;
@@ -13,8 +10,6 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
 public class ServiceDemoImpl implements ServiceDemo{
-	
-	private static Logger log = LoggerFactory.getLogger(ServiceDemoImpl.class);
 	
 	private static Integer demoCache_refreshAfterWrite;
 	private static Integer demoCache_expireAfterWrite;
@@ -44,16 +39,15 @@ public class ServiceDemoImpl implements ServiceDemo{
 	}
 
 	public void add(Demo demo){
-		System.out.println();
-		log.info("this is add method.");
+		System.out.println("this is add method.");
 	}
 	
 	public void delete(Demo demo){
-		log.info("this is delete method.");
+		System.out.println("this is delete method.");
 	}
 	
 	public void find(Demo demo){
-		log.info("this is find method.");
+		System.out.println("this is find method.");
 	}
 	
 	// 从缓存查询该对象
@@ -69,11 +63,11 @@ public class ServiceDemoImpl implements ServiceDemo{
 	
 	// 从数据库查询该对象
 	public Demo getDemoByIdFromDatabase(String id){
-		log.info("getDemoByIdFromDatabase");
+		System.out.println("getDemoByIdFromDatabase");
 		return null;
 	}
 	
 	public void update(Demo demo){
-		log.info("this is update method.");
+		System.out.println("this is update method.");
 	}
 }
