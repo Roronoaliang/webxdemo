@@ -129,7 +129,8 @@
 	<!--.....................................-->
 	<bean id="mySwitch" class="com.alibaba.webx.searchengine.util.switchs.MySwitch" init-method="init">
 		<!-- 邮件日志功能开关 -->
-		<property name="EMAIL_LOG_SWITCH"><value>false</value></property>
+		<property name="EMAIL_LOG_SWITCH">	<value>true</value>		</property>
+		<property name="DEMO_SWITCH">		<value>true</value>		</property>
 	</bean>
 	
 </beans>
