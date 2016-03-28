@@ -16,7 +16,6 @@ git clone https://github.com/xiaoMzjm/webxdemo.git
 3、 **手动导入maven仓库没有的jar包**<br>
 > proxool下载地址：[proxool-0.9.1](https://sourceforge.net/projects/proxool/files/proxool/0.9.1/proxool-0.9.1.zip/download?use_mirror=heanet&download=)<br>
 
-<br>
 ```
 mvn install:install-file -Dfile=proxool-0.9.1.jar -DgroupId=proxool -DartifactId=proxool -Dversion=0.9.1 -Dpackaging=jar
 ```
@@ -48,7 +47,6 @@ mvn tomcat:run
 **注意事项**：<br>
 >使用前建议根据业务修改web子项目的biz-engine.xml文件，修改`连接池`，`请求超时`等相关参数。<br>
 
-<br>
 ```
 	<bean id="httpClientFactory" class="com.alibaba.webx.searchengine.factory.http.HttpClientFactory" init-method="init">
 		<property name="maxConnectionNum">				<value>10</value> 			</property>
@@ -70,7 +68,6 @@ mvn tomcat:run
 **注意事项**：<br>
 >使用前必须修改web子项目的biz-engine.xml文件，修改用来发送邮件的`邮箱以及密码`。
 
-<br>
 ```
 	<bean id="mailFactory" class="com.alibaba.webx.searchengine.factory.mail.MailFactory" init-method="init">
 		<property name="defaultMailServerHost">		<value>smtp.163.com</value> 			</property>
@@ -89,7 +86,6 @@ mvn tomcat:run
 **注意事项**：<br>
 >使用前必须修改web子项目的biz-engine.xml文件，修改与`数据库连接`相关的参数以及`连接池`相关的参数。
 
-<br>
 ```
 	<bean id="myBatisFactory" class="com.alibaba.webx.searchengine.factory.mybatis.MyBatisFactory" init-method="init"></bean>
 	<!-- 写库 -->
@@ -122,7 +118,6 @@ mvn tomcat:run
 **注意事项**：<br>
 >使用前必须修改web子项目的biz-engine.xml文件，修改`数据库IP、端口、密码，连接池的最大连接数、连接等待时间，连接超时时间`等参数。
 
-<br>
 ```
 	<bean id="redisFactory" class="com.alibaba.webx.searchengine.factory.redis.RedisFactory" init-method="init">
 		<property name="poolMaxIdel">			<value>8</value> 				</property>
@@ -144,7 +139,6 @@ mvn tomcat:run
 **注意事项**：<br>
 >使用前必须修改web子项目的biz-engine.xml文件，设置接收邮件的`邮箱，邮件标题，用来发送邮件的线程池的大小，发送邮件的时间间隔`等参数。<br>
 
-<br>
 ```
 	<bean id="loggerUtils" class="com.alibaba.webx.searchengine.util.log.LoggerUtils"  init-method="init">
 		<property name="acceptorList">	<value>topviewacceptor@163.com</value>	</property>
@@ -192,7 +186,6 @@ mvn tomcat:run
 `注意事项`:<br>
 使用前必须修改web子项目的biz-common.xml文件，设置公众号的token<br>
 
-<br>
 ```
 	<bean id="signUtil" class="com.alibaba.webx.common.util.weixin.SignUtil" >
 		<property name="token"><value>xxx</value></property>
@@ -207,7 +200,6 @@ mvn tomcat:run
 **注意事项**：<br>
 >使用前必须修改web子项目的biz-engine.xml文件，配置某个功能`开或关`。<br>
 
-<br>
 ```
 	<bean id="mySwitch" class="com.alibaba.webx.searchengine.util.switchs.MySwitch" init-method="init">
 		<!-- 邮件日志功能开关 -->
