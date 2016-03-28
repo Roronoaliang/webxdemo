@@ -35,18 +35,18 @@ mvn tomcat:run
 <br>
 ####1、Http组件
 **简介**：<br>
->基于`HttpClient4.5` 的封装，支持基于get和post的基本的请求，带参数的、带文件的请求等功能。<br>
+>基于`HttpClient4.5` 的封装，支持基于get和post的基本的、带参数的、带文件的HTTP、HTTPS请求等功能。<br>
 
 **注意事项**：<br>
 >使用前建议根据业务修改web子项目的biz-engine.xml文件，修改`连接池`，`请求超时`等相关参数。<br>
 
 ```
 	<bean id="httpClientFactory" class="com.alibaba.webx.searchengine.factory.http.HttpClientFactory" init-method="init">
-		<property name="maxConnectionNum">				<value>10</value> 			</property>
-		<property name="maxGetConnectionTimeOut">		<value>5000</value> 		</property>
-		<property name="maxRouteConnectionNum">			<value>10</value> 			</property>
-		<property name="maxLastConnectionTimeOut">		<value>10000</value> 		</property>
-		<property name="maxGetDataTimeOut">				<value>5000</value> 		</property>
+		<property name="maxConnectionNum">				<value>10</value> 			</property>	<!-- 最大连接数限制 -->
+		<property name="maxGetConnectionTimeOut">		<value>5000</value> 		</property>	<!-- 最大获取连接超时限制 ，单位毫秒-->
+		<property name="maxRouteConnectionNum">			<value>10</value> 			</property>	<!-- 每个路由最大的连接数限制 -->
+		<property name="maxLastConnectionTimeOut">		<value>10000</value> 		</property>	<!-- 每个请求连接最长时间限制 ，单位毫秒-->
+		<property name="maxGetDataTimeOut">				<value>5000</value> 		</property>	<!-- 获取数据最长时间限制，单位毫秒 -->
 	</bean>
 ```
 >若要使用`https`请求，必须加上vm参数：-Djsse.enableSNIExtension=false，否者报错javax.net.ssl.SSLProtocolException: handshake alert: unrecognized_name，原因请见[这里](http://stackoverflow.com/questions/7615645/ssl-handshake-alert-unrecognized-name-error-since-upgrade-to-java-1-7-0)。<br>
@@ -61,10 +61,10 @@ mvn tomcat:run
 
 ```
 	<bean id="mailFactory" class="com.alibaba.webx.searchengine.factory.mail.MailFactory" init-method="init">
-		<property name="defaultMailServerHost">		<value>smtp.163.com</value> 	</property>
-		<property name="defaultMailServerPort">		<value>25</value> 				</property>
-		<property name="defaultSenderAddress">		<value>xxx@163.com</value> 		</property>
-		<property name="defaultPassword">			<value>xxx</value> 				</property>
+		<property name="defaultMailServerHost">		<value>smtp.163.com</value> 	</property>	<!-- 邮件服务地址 -->
+		<property name="defaultMailServerPort">		<value>25</value> 				</property>	<!-- 端口号 -->
+		<property name="defaultSenderAddress">		<value>xxx@163.com</value> 		</property> <!-- 用来发送邮件的账号 -->
+		<property name="defaultPassword">			<value>xxx</value> 				</property>	<!-- 账号对应的密码 -->
 	</bean>
 ```
 <br>
@@ -107,13 +107,13 @@ mvn tomcat:run
 
 ```
 	<bean id="redisFactory" class="com.alibaba.webx.searchengine.factory.redis.RedisFactory" init-method="init">
-		<property name="poolMaxIdel">			<value>8</value> 				</property>
-		<property name="poolMaxWaitMillis">		<value>5000</value> 			</property>
-		<property name="poolTestOnBorrow">		<value>true</value> 			</property>
-		<property name="poolIp">				<value>ip</value> 	</property>
-		<property name="poolPort">				<value>6379</value> 			</property>
-		<property name="poolConnectTimeOut">	<value>5000</value> 			</property>
-		<property name="poolPassword">			<value>xxxx</value> 		</property>
+		<property name="poolMaxIdel">			<value>8</value> 				</property>	<!-- 控制一个pool最多有多少个状态为idle(空闲的)的jedis实例 -->
+		<property name="poolMaxWaitMillis">		<value>5000</value> 			</property>	<!-- 获取连接时的最大等待时间，单位毫秒 ,默认值为-1，表示永不超时 -->
+		<property name="poolTestOnBorrow">		<value>true</value> 			</property>	<!-- 是否在获取连接的时候检查有效性, 默认false -->
+		<property name="poolIp">				<value>ip</value> 				</property>	<!-- 数据库的地址 -->
+		<property name="poolPort">				<value>6379</value> 			</property>	<!-- 数据库的端口 -->
+		<property name="poolConnectTimeOut">	<value>5000</value> 			</property>	<!-- 连接持续连接的超时时间，单位毫秒-->
+		<property name="poolPassword">			<value>aaa38324836</value> 		</property>	<!-- 数据库密码 -->
 	</bean>
 ```
 <br>
@@ -126,10 +126,10 @@ mvn tomcat:run
 
 ```
 	<bean id="loggerUtils" class="com.alibaba.webx.searchengine.util.log.LoggerUtils"  init-method="init">
-		<property name="acceptorList">	<value>topviewacceptor@163.com</value>	</property>
-		<property name="emailTitle">	<value>XXX项目错误日志推送</value>			</property>
-		<property name="threadNum">		<value>10</value>						</property>
-		<property name="sendEmailRate">	<value>3600</value>						</property>
+		<property name="acceptorList">	<value>xxx@163.com</value>			</property>	<!-- 要把错误推送给哪些邮箱 -->
+		<property name="emailTitle">	<value>XXX项目错误日志推送</value>		</property>	<!-- 邮件标题 -->
+		<property name="threadNum">		<value>10</value>					</property>	<!-- 用来发邮件的线程数 -->
+		<property name="sendEmailRate">	<value>3600</value>					</property>	<!-- 多少毫秒发一次邮件 -->
 	</bean>
 ```
 <br>
@@ -171,7 +171,7 @@ mvn tomcat:run
 
 ```
 	<bean id="signUtil" class="com.alibaba.webx.common.util.weixin.SignUtil" >
-		<property name="token"><value>xxx</value></property>
+		<property name="token">	<value>xxx</value>	</property>	<!-- 公众号token -->
 	</bean>
 ```
 
