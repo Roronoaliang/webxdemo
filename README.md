@@ -233,3 +233,7 @@ String jsonStr = JSON.toJSONString(object);
 <br>
 5、**下传下载写法**<br>
 >上传下载的写法在web子项目的com.alibaba.webx.web.module.screen.demo包下的`ScreenDemo`类，可以参考其写法。
+
+<br>
+6、**spring获取对象**<br>
+>那些在spring配置文件里面配置的bean（例如上面提到的各种组件及工具），请用@Autowired获取，不要用new，避免一些应该被初始化的参数没被初始化。
