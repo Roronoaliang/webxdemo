@@ -23,6 +23,7 @@ import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.webx.common.factory.log.LoggerFactory;
 import com.alibaba.webx.common.po.demo.Demo;
 import com.alibaba.webx.searchengine.util.log.LoggerUtils;
+import com.alibaba.webx.searchengine.util.switchs.MySwitch;
 import com.alibaba.webx.service.demo.ServiceDemo;
 import com.alibaba.webx.web.module.screen.base.BaseScreen;
 
@@ -45,15 +46,22 @@ public class ScreenDemo extends BaseScreen {
 	@Autowired
 	private ServiceDemo serviceDemo;
 	
+	@Autowired
+	private MySwitch mySwitch;
+	
 	public void execute(TurbineRunData runData, Navigator nav, Context context) throws Exception {
 		try {
-			log.info("进入ScreenDemo.java");
 			test();
-			Demo demo = new Demo();
-			serviceDemo.add(demo);
-			serviceDemo.delete(demo);
-			serviceDemo.find(demo);
-			serviceDemo.update(demo);
+			
+			// 假如我要开发A功能，新该功能的所有代码的最前面加个开关，方便上线时一键开关这个功能
+			if(mySwitch.isDEMO_SWITCH()) {
+				Demo demo = new Demo();
+				serviceDemo.add(demo);
+				serviceDemo.delete(demo);
+				serviceDemo.find(demo);
+				serviceDemo.update(demo);
+			}
+			
 		} catch (Exception e) {
 			log.error("ERROR:", e);
 			loggerUtils.emailError(e);
