@@ -1,39 +1,39 @@
 #webxdemo使用指南
-###一、快速运行项目
-####1.1、 一个可行的开发环境
+###一 快速运行项目
+####1.1 一个可行的开发环境
 >语言：`jdk1.7`<br>
 IDE：`eclipse ee luna 4.4.2`<br>
 版本控制：`git preview 1.9.5`<br>
 项目管理：`maven 3.3.9`<br>
 
-####1.2、克隆项目
+####1.2 克隆项目
 ```
 git clone https://github.com/xiaoMzjm/webxdemo.git
 ```
 
-####1.3、 手动导入maven仓库没有的jar包
+####1.3 手动导入maven仓库没有的jar包
 > proxool下载地址：[proxool-0.9.1](https://sourceforge.net/projects/proxool/files/proxool/0.9.1/proxool-0.9.1.zip/download?use_mirror=heanet&download=)<br>
 
 ```
 mvn install:install-file -Dfile=proxool-0.9.1.jar -DgroupId=proxool -DartifactId=proxool -Dversion=0.9.1 -Dpackaging=jar
 ```
 
-####1.4、 eclipse导入项目
+####1.4 eclipse导入项目
 >按提示解决可能出现的错误<br>
 
-####1.5、 运行
+####1.5 运行
 ```
 mvn tomcat:run
 ```
  
-####1.6、 测试
+####1.6 测试
 >浏览器输入`http://localhost:8080/topview/captcha/captcha.do`(本框架集成的验证码组件的demo地址)，假如出现一个验证码图形，则代表项目正常运行。
 
 <br>
-###二、集成组件介绍
+###二 集成组件介绍
 `以下组件，在各自的包的下面都有一个UseCase类，里面有对应组件的使用方法。`<br>
 <br>
-####2.1、Http组件
+####2.1 Http组件
 **简介**：<br>
 >基于`HttpClient4.5` 的封装，支持基于get和post的基本的、带参数的、带文件的HTTP、HTTPS请求等功能。<br>
 
@@ -52,7 +52,7 @@ mvn tomcat:run
 >若要使用`https`请求，必须加上vm参数：-Djsse.enableSNIExtension=false，否者报错javax.net.ssl.SSLProtocolException: handshake alert: unrecognized_name，原因请见[这里](http://stackoverflow.com/questions/7615645/ssl-handshake-alert-unrecognized-name-error-since-upgrade-to-java-1-7-0)。<br>
 
 <br>
-####2.2、 mail组件
+####2.2 mail组件
 **简介**：<br>
 >基于`javax.mail1.4.7 `的封装，支持群发带附件的HTML格式的邮件等基本功能。<br>
 
@@ -68,7 +68,7 @@ mvn tomcat:run
 	</bean>
 ```
 <br>
-####2.3、 mybatis组件
+####2.3 mybatis组件
 **简介**：<br>
 >基于mybatis-spring、proxool、proxool-cglib的封装，支持多源数据库的Session的获取。方便在没使用数据库中间件时，实现读写分离。<br>
 
@@ -98,7 +98,7 @@ mvn tomcat:run
 	</bean> 
 ```
 <br>
-####2.4、 redis组件
+####2.4 redis组件
 **简介**：<br>
 >基于jedis的封装，提供了对redis数据库基本操作的功能。<br>
 
@@ -117,7 +117,7 @@ mvn tomcat:run
 	</bean>
 ```
 <br>
-####2.5、 邮件日志组件
+####2.5 邮件日志组件
 **简介**：<br>
 >在try-catch中，使用邮件日志组件把catch到的Exception传到邮件队列中，邮件日志组件会定时把队列中的错误信息发到指定的邮箱。在没有`日志管理分析`工具的情况下，使用该组件可以及时发现错误。<br>
 
@@ -133,7 +133,7 @@ mvn tomcat:run
 	</bean>
 ```
 <br>
-####2.6、 验证码组件
+####2.6 验证码组件
 **简介**：<br>
 >基于jcaptcha的封装，写好了一个获取验证码的接口，客户端可以直接访问该接口获得验证码，后台可以通过一句代码验证验证码正确与否。并且`重写`了验证码的存储逻辑，为验证码分布式存储提供了可能（但没实现`分布式验证码`，因为若使用ip_hash的负载均衡策略，不实现分布式验证码也可以，如果要实现，请自己做二次开发）。<br>
 
@@ -141,22 +141,22 @@ mvn tomcat:run
 >验证码样式类位置在：web子项目的com.alibaba.webx.web.module.screen.captcha包下的MyCaptchaEngine类，若要重新修改`样式`(比如字体大小，背景，干扰项等等)，可以修改该类的属性值。<br>
 
 <br>
-###三、集成的工具介绍
+###三 集成的工具介绍
 `以下工具，在各自的包的下面都有一个UseCase类，里面有对应组件的使用方法。`<br>
 <br>
-####3.1、日期工具
+####3.1 日期工具
 >使用日期工具，可以方便地获取当天日期和前后N天的日期（Date、String、Long格式），也可以方便地对Date、String、Long三种格式的日期进行互相转化。<br>
 
 <br>
-####3.2、 excel工具
+####3.2 excel工具
 >基于`jxl`的封装，使用excel工具，可以方便地对excel进行读写操作。内定了比较好看的基本样式，包括颜色，边框等等。当然也可以自己修改样式。<br>
 
 <br>
-####3.3、 image工具
+####3.3 image工具
 >使用image工具，可以方便地对图片进行操作。例如裁剪、缩小放大、图片拼接、图像合并、去色、水印、画图等等。常用的做法是用来对用户上传的图片进行`压缩`。<br>
 
 <br>
-####3.4、 MD5工具
+####3.4 MD5工具
 >使用MD5工具，可以方便地进行MD5加密。<br>
 
 <br>
@@ -164,7 +164,7 @@ mvn tomcat:run
 >基于`poi`的封装，使用word工具，可以方便地进行word的操作。例如写入文字/图片，替换模板占位符，word转HTML等操作。<br>
 
 <br>
-####3.6、微信工具
+####3.6 微信工具
 >使用微信工具，可以方便地验证访问者，判断是否是来自微信后台的请求。<br>
 `注意事项`:<br>
 使用前必须修改web子项目的biz-common.xml文件，设置公众号的token<br>
@@ -176,7 +176,7 @@ mvn tomcat:run
 ```
 
 <br>
-####3.7、 开关工具
+####3.7 开关工具
 >使用开关工具，在编写一些新功能时，可以在代码的最前方加入开关，以便一键开启/关闭新功能。假如一个功能上线后出了问题，导致其他服务受到影响，如果关闭服务器修复，肯定会影响到用户的正常使用，不修复的话用户又访问不了，有了开关工具后，此时我们可以在`redis数据库`中把开关关闭，即可停掉该功能，这样的话可以保证其他服务正常运行。开关的的获取会从`本地`和`默认redis数据库`中获取，当从redis获取失败时，自动从本地获取，方便没配redis的用户使用。 但没配redis的用户将使用不了从数据库控制开关的功能。<br>
 
 <br>
@@ -191,8 +191,8 @@ mvn tomcat:run
 ```
 
 <br>
-###四、开发规范与约定
-####4.1、 json
+###四 开发规范与约定
+####4.1  json
 >使用`fastjson`进行json序列化，例如：<br>
 
 ```java
@@ -200,23 +200,23 @@ String jsonStr = JSON.toJSONString(object);
 ```
 
 <br>
-####4.2、字符串、集合
+####4.2 字符串、集合
 使用`org.apache.commons-commons-lang`3和`commons-collections`<br>
 例如字符串判空：`StringUtils.isBlank(str);`<br>
 例如集合判空：`CollectionUtils.isEmpty(collection);`<br>
 
 <br>
-####4.3、内存缓存
+####4.3 内存缓存
 >使用`com.google.guava-guava`做缓存，例子位于service子项目的com.alibaba.webx.service.demo.impl包的`ServiceDemoImpl`类。<br>
 
 <br>
-####4.4、对象池
+####4.4 对象池
 >使用commons-pool做对象池。<br>
 
 <br>
-####4.5、下传下载写法
+####4.5 下传下载写法
 >上传下载的写法在web子项目的com.alibaba.webx.web.module.screen.demo包下的`ScreenDemo`类，可以参考其写法。
 
 <br>
-####4.6、spring获取对象
+####4.6 spring获取对象
 >那些在spring配置文件里面配置的bean（例如上面提到的各种组件及工具），请用@Autowired获取，不要用new，避免一些应该被初始化的参数没被初始化。
