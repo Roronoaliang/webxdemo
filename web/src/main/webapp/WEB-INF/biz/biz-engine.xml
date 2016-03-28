@@ -11,10 +11,10 @@
 		<property name="poolMaxIdel">			<value>8</value> 				</property>
 		<property name="poolMaxWaitMillis">		<value>5000</value> 			</property>
 		<property name="poolTestOnBorrow">		<value>true</value> 			</property>
-		<property name="poolIp">				<value>ip</value> 	</property>
+		<property name="poolIp">				<value>ip</value> 				</property>
 		<property name="poolPort">				<value>6379</value> 			</property>
 		<property name="poolConnectTimeOut">	<value>5000</value> 			</property>
-		<property name="poolPassword">			<value>xxx</value> 		</property>
+		<property name="poolPassword">			<value>aaa38324836</value> 		</property>
 	</bean>
 	
 	<!--.....................................-->
@@ -122,6 +122,14 @@
 		<property name="maxRouteConnectionNum">			<value>10</value> 			</property>
 		<property name="maxLastConnectionTimeOut">		<value>10000</value> 		</property>
 		<property name="maxGetDataTimeOut">				<value>5000</value> 		</property>
+	</bean>
+	
+	<!--.....................................-->
+	<!-- 降级开关                                                                                        -->
+	<!--.....................................-->
+	<bean id="mySwitch" class="com.alibaba.webx.searchengine.util.switchs.MySwitch" init-method="init">
+		<!-- 邮件日志功能开关 -->
+		<property name="EMAIL_LOG_SWITCH"><value>false</value></property>
 	</bean>
 	
 </beans>
