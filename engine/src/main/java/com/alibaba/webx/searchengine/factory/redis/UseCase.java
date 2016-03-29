@@ -11,7 +11,7 @@ public class UseCase {
 
 	@Test
 	public void test() throws Exception{
-		DefaultRedisHandler  d = RedisFactory.getDefaultRedisHandler();
+		RedisUtil  d = RedisFactory.getDefaultRedisHandler();
 		// 增
 		d.add("key", "value");
 		// 删

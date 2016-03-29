@@ -56,8 +56,8 @@ public class HttpClientFactory {
 		cm.setDefaultMaxPerRoute(maxRouteConnectionNum);
 	}
 
-	public static HttpClientWapper getDefaultHttpClientWapper() {
-		return new HttpClientWapper(cm);
+	public static HttpClientUtil getDefaultHttpClientWapper() {
+		return new HttpClientUtil(cm);
 	}
 
 	public int getMaxConnectionNum() {

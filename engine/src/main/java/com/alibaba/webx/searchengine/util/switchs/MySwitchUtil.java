@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.webx.searchengine.factory.redis.DefaultRedisHandler;
+import com.alibaba.webx.searchengine.factory.redis.RedisUtil;
 import com.alibaba.webx.searchengine.factory.redis.RedisFactory;
 
 /**
@@ -24,13 +24,13 @@ import com.alibaba.webx.searchengine.factory.redis.RedisFactory;
  * 
  * @author xiaoMzjm
  */
-public class MySwitch {
+public class MySwitchUtil {
 	
 	// 日志
-	private static Logger log = LoggerFactory.getLogger(MySwitch.class);
+	private static Logger log = LoggerFactory.getLogger(MySwitchUtil.class);
 	
 	// redis处理类
-	public static DefaultRedisHandler defaultRedisHandler ;
+	public static RedisUtil defaultRedisHandler ;
 	
 	// 写demo用的开关
 	private static boolean DEMO_SWITCH;
@@ -38,7 +38,7 @@ public class MySwitch {
 	// 邮件日志功能开关
 	private static boolean EMAIL_LOG_SWITCH;
 	
-	public MySwitch(){}
+	public MySwitchUtil(){}
 
 	/**
 	 * 获取邮件日志功能开关值

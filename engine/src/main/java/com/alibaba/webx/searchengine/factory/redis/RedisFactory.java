@@ -63,10 +63,10 @@ public class RedisFactory {
 	 * @return
 	 * @throws Exception
 	 */
-	public static DefaultRedisHandler getDefaultRedisHandler() throws Exception {
+	public static RedisUtil getDefaultRedisHandler() throws Exception {
 		Jedis jedis = getLocalJedis();
 		if(jedis != null) {
-			return new DefaultRedisHandler(jedis);
+			return new RedisUtil(jedis);
 		}
 		return null;
 	}

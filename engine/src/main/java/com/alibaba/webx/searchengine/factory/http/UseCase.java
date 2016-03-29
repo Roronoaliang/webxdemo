@@ -25,7 +25,7 @@ public class UseCase {
 	// 指定URL，以get的形式发送请求，获取响应
 	@Test
 	public void getWithQueryURL() throws Exception{
-		HttpClientWapper HttpClientWapper = null; 
+		HttpClientUtil HttpClientWapper = null; 
 		try {
 			byte[] bytes = null;
 			HttpClientWapper = HttpClientFactory.getDefaultHttpClientWapper();
@@ -40,7 +40,7 @@ public class UseCase {
 	// 指定URL，以post的形式发送请求，获取响应
 	@Test
 	public void postWithQueryURL() throws ClientProtocolException, HttpClientException, IOException{
-		HttpClientWapper HttpClientWapper = null; 
+		HttpClientUtil HttpClientWapper = null; 
 		try {
 			HttpClientWapper =  HttpClientFactory.getDefaultHttpClientWapper();
 			byte[] bytes = HttpClientWapper.postWithQueryURL("http://www.gdut.edu.cn/");
@@ -54,7 +54,7 @@ public class UseCase {
 	// 指定URL和参数，以post的形式发送请求，获取响应
 	@Test
 	public void postWithParamsMap() throws HttpClientException, IOException {
-		HttpClientWapper HttpClientWapper = null; 
+		HttpClientUtil HttpClientWapper = null; 
 		try {
 			HttpClientWapper =  HttpClientFactory.getDefaultHttpClientWapper();
 			Map<String,String> paramsMap = new HashMap<String,String>();
@@ -70,7 +70,7 @@ public class UseCase {
 	// 指定URL、参数和JessionId，以post的形式发送请求，获取响应
 	@Test
 	public void postWithParamsMapAndJessionId() throws HttpClientException, IOException{
-		HttpClientWapper HttpClientWapper = null; 
+		HttpClientUtil HttpClientWapper = null; 
 		try {
 			HttpClientWapper =  HttpClientFactory.getDefaultHttpClientWapper();
 			Map<String,String> paramsMap = new HashMap<String,String>();
@@ -86,7 +86,7 @@ public class UseCase {
 	// 指定URL、byte类型的参数，以post的形式发送请求，获取响应
 	@Test
 	public void postWithBytes() throws HttpClientException, IOException{
-		HttpClientWapper HttpClientWapper = null; 
+		HttpClientUtil HttpClientWapper = null; 
 		try {
 			HttpClientWapper =  HttpClientFactory.getDefaultHttpClientWapper();
 			byte[] bs = new byte[1024];
@@ -101,7 +101,7 @@ public class UseCase {
 	// 指定URL和文件，以post的形式发送请求，获取响应
 	@Test
 	public void postWithFile() throws HttpException, IOException, HttpClientException{
-		HttpClientWapper HttpClientWapper = null; 
+		HttpClientUtil HttpClientWapper = null; 
 		try {
 			HttpClientWapper =  HttpClientFactory.getDefaultHttpClientWapper();
 			byte[] bytes = HttpClientWapper.postWithFile("url", new File("fileUrl"));
@@ -115,7 +115,7 @@ public class UseCase {
 	// 指定URL、文件和参数，以post的形式发送请求，获取响应
 	@Test
 	public void postWithFileAndParamMap() throws HttpException, IOException, HttpClientException{
-		HttpClientWapper HttpClientWapper = null; 
+		HttpClientUtil HttpClientWapper = null; 
 		try {
 			HttpClientWapper =  HttpClientFactory.getDefaultHttpClientWapper();
 			Map<String,String> paramsMap = new HashMap<String,String>();
@@ -131,7 +131,7 @@ public class UseCase {
 	// 指定URL和多个文件，以post的形式发送请求，获取响应
 	@Test
 	public void postWithFileList() throws HttpException, IOException, HttpClientException{
-		HttpClientWapper HttpClientWapper = null; 
+		HttpClientUtil HttpClientWapper = null; 
 		try {
 			HttpClientWapper =  HttpClientFactory.getDefaultHttpClientWapper();
 			List<File> list = new ArrayList<File>();
@@ -147,7 +147,7 @@ public class UseCase {
 	// 指定URL、多个文件和参数，以post的形式发送请求，获取响应
 	@Test
 	public void postWithFileListAndParamMap() throws HttpException, IOException, HttpClientException{
-		HttpClientWapper HttpClientWapper = null; 
+		HttpClientUtil HttpClientWapper = null; 
 		try {
 			HttpClientWapper =  HttpClientFactory.getDefaultHttpClientWapper();
 			List<File> list = new ArrayList<File>();

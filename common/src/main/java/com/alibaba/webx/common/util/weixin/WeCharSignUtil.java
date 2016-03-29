@@ -7,7 +7,7 @@ import java.util.Arrays;
 /** 
  * 微信后台请求校验工具类 
  */ 
-public class SignUtil {
+public class WeCharSignUtil {
 	// 与接口配置信息中的Token要一致  
     private static String token = "xxxxxxxx";  
   
@@ -78,6 +78,6 @@ public class SignUtil {
 	}
 
 	public void setToken(String token) {
-		SignUtil.token = token;
+		WeCharSignUtil.token = token;
 	}
 }

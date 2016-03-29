@@ -7,8 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.alibaba.webx.common.util.md5.MD5Encryption;
-import com.alibaba.webx.searchengine.factory.redis.DefaultRedisHandler;
+import com.alibaba.webx.common.util.md5.MD5Util;
+import com.alibaba.webx.searchengine.factory.redis.RedisUtil;
 import com.alibaba.webx.searchengine.factory.redis.RedisFactory;
 
 /**
@@ -33,9 +33,9 @@ public class BaseScreen {
     		}
     	}
     	String str = sb.toString();
-    	String sessionId = MD5Encryption.getMD5(session.getId());
+    	String sessionId = MD5Util.getMD5(session.getId());
     	try {
-    		DefaultRedisHandler  d = RedisFactory.getDefaultRedisHandler();
+    		RedisUtil  d = RedisFactory.getDefaultRedisHandler();
     		d.add(sessionId, str , expire);
     		d.returnResource();
 		} catch (Exception e) {
@@ -50,7 +50,7 @@ public class BaseScreen {
      */
     public HttpSession getSessionBySessionIdFromRedis(HttpServletRequest request , String sessionId){
     	try {
-    		DefaultRedisHandler d = RedisFactory.getDefaultRedisHandler();
+    		RedisUtil d = RedisFactory.getDefaultRedisHandler();
 			String sessionInfo = d.get(sessionId);
 			d.returnResource();
 			if(StringUtils.isNotBlank(sessionInfo)) {
@@ -80,7 +80,7 @@ public class BaseScreen {
     public void deleteSession(String sessionId) {
     	if(StringUtils.isNotBlank(sessionId)){
     		try {
-    			DefaultRedisHandler d = RedisFactory.getDefaultRedisHandler();
+    			RedisUtil d = RedisFactory.getDefaultRedisHandler();
     			d.delete(sessionId);
     			d.returnResource();
 			} catch (Exception e) {

@@ -4,7 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class BaseHttpClientWapper {
+public class BaseHttpClientUtil {
 	
 	public final static String CHARACTER	 = "UTF-8";
 

@@ -20,7 +20,7 @@ import redis.clients.jedis.Jedis;
  * @author xiaoMzjm
  *
  */
-public class DefaultRedisHandler {
+public class RedisUtil {
 	
 	private Jedis jedis = null;
 	
@@ -28,7 +28,7 @@ public class DefaultRedisHandler {
 	 * 对于jedis来说，它不是一层不变的，它可能根据业务的不同而调用不同的数据库，所以把jedis抽出来，交给上一层决定。
 	 * @param jedis
 	 */
-	public DefaultRedisHandler(Jedis jedis) {
+	public RedisUtil(Jedis jedis) {
 		this.jedis = jedis ;
 	}
 	

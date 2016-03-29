@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.slf4j.Logger;
 
 import com.alibaba.webx.common.factory.log.LoggerFactory;
-import com.alibaba.webx.searchengine.factory.mail.MailSender;
+import com.alibaba.webx.searchengine.factory.mail.MailSenderUtil;
 
 /**
  * 以邮件的形式发送错误报告线程类
@@ -25,7 +25,7 @@ import com.alibaba.webx.searchengine.factory.mail.MailSender;
 public class EmailErrorThread implements Runnable{
 	
 	// 邮件发送对象
-	private MailSender mailSender;
+	private MailSenderUtil mailSender;
 	
 	// 收件人
 	private List<String> acceptorList;
@@ -38,7 +38,7 @@ public class EmailErrorThread implements Runnable{
 	
 	
 	// 构造函数
-	public EmailErrorThread(MailSender mailSender,List<String> acceptorList,String title) {
+	public EmailErrorThread(MailSenderUtil mailSender,List<String> acceptorList,String title) {
 		this.mailSender = mailSender;
 		this.acceptorList = acceptorList;
 		this.title = title;

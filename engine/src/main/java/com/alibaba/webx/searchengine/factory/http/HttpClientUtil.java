@@ -28,11 +28,11 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 
-public class HttpClientWapper  extends BaseHttpClientWapper {
+public class HttpClientUtil  extends BaseHttpClientUtil {
 	
 	private CloseableHttpClient httpclient = null;
 	
-	public HttpClientWapper(PoolingHttpClientConnectionManager cm){
+	public HttpClientUtil(PoolingHttpClientConnectionManager cm){
 		
 		httpclient = HttpClients.custom().setConnectionManager(cm).build();
 	

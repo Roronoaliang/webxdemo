@@ -23,7 +23,7 @@ import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.webx.common.factory.log.LoggerFactory;
 import com.alibaba.webx.common.po.demo.Demo;
 import com.alibaba.webx.searchengine.util.log.LoggerUtils;
-import com.alibaba.webx.searchengine.util.switchs.MySwitch;
+import com.alibaba.webx.searchengine.util.switchs.MySwitchUtil;
 import com.alibaba.webx.service.demo.ServiceDemo;
 import com.alibaba.webx.web.module.screen.base.BaseScreen;
 
@@ -47,7 +47,7 @@ public class ScreenDemo extends BaseScreen {
 	private ServiceDemo serviceDemo;
 	
 	@Autowired
-	private MySwitch mySwitch;
+	private MySwitchUtil mySwitch;
 	
 	public void execute(TurbineRunData runData, Navigator nav, Context context) throws Exception {
 		try {
