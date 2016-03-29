@@ -23,7 +23,7 @@ mvn install:install-file -Dfile=proxool-0.9.1.jar -DgroupId=proxool -DartifactId
 
 ####1.5 运行
 ```
-mvn tomcat:run
+mvn clean tomcat:run
 ```
  
 ####1.6 测试
