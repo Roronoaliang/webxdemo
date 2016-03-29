@@ -8,7 +8,7 @@
 	<!-- 微信                                                                                                  -->
 	<!--.....................................-->
 	<bean id="signUtil" class="com.alibaba.webx.common.util.weixin.SignUtil" >
-		<property name="token"><value>xxx</value></property>
+		<property name="token">	<value>xxx</value>	</property>	<!-- 公众号token -->
 	</bean>
 	
 </beans>
