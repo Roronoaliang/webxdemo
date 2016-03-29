@@ -171,7 +171,7 @@ mvn tomcat:run
 >使用前必须修改web子项目的biz-common.xml文件，设置公众号的token<br>
 
 ```
-	<bean id="signUtil" class="com.alibaba.webx.common.util.weixin.SignUtil" >
+	<bean id="signUtil" class="com.alibaba.webx.common.util.weixin.WeCharSignUtil" >
 		<property name="token">	<value>xxx</value>	</property>	<!-- 公众号token -->
 	</bean>
 ```
@@ -184,9 +184,10 @@ mvn tomcat:run
 >使用前必须修改web子项目的biz-engine.xml文件，配置某个功能`开或关`。<br>
 
 ```
-	<bean id="mySwitch" class="com.alibaba.webx.searchengine.util.switchs.MySwitch" init-method="init">
+	<bean id="mySwitch" class="com.alibaba.webx.searchengine.util.switchs.MySwitchUtil" init-method="init">
 		<!-- 邮件日志功能开关 -->
-		<property name="EMAIL_LOG_SWITCH"><value>true</value></property>
+		<property name="EMAIL_LOG_SWITCH">	<value>true</value>		</property>
+		<property name="DEMO_SWITCH">		<value>true</value>		</property>
 	</bean>
 ```
 
