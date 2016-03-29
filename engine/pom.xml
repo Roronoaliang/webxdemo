@@ -16,6 +16,14 @@
 	<dependencies>
 	
 		<!-- ================================================= -->
+		<!-- commons-collections框架 -->
+		<!-- ================================================= -->
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+		</dependency>
+	
+		<!-- ================================================= -->
 		<!-- proxool 数据库连接池 -->
 		<!-- ================================================= -->
 		<dependency>
