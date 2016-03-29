@@ -2,11 +2,9 @@
 <!-- Logback Configuration.  -->
 <configuration debug="false">
 
-	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径--> 
-	<!-- 
-    <property name="LOG_HOME" value="d:/logs/topview" />
-     --> 
-
+	<!-- 日志级别从大到小：OFF 、 FATAL 、 ERROR 、 WARN 、 INFO 、 DEBUG 、 TRACE 、 ALL -->
+	
+	<!-- 控制台输出配置——INFO级别 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <target>System.out</target>
         <encoding>UTF-8</encoding>
@@ -20,9 +18,10 @@
         </layout>
     </appender>
 
+	<!-- 控制台输出配置 ——WARN级别 -->
     <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
         <target>System.err</target>
-        <encoding>${logback.log.loggingCharset}</encoding>
+        <encoding>UTF-8</encoding>
         <filter class="com.alibaba.citrus.logconfig.logback.LevelRangeFilter">
             <levelMin>WARN</levelMin>
         </filter>
@@ -33,9 +32,9 @@
         </layout>
     </appender>
     
-    <!-- 文件输出 -->
+    <!-- 文件输出配置 ——WARN级别 -->
     <appender name="FILE"  class="ch.qos.logback.core.rolling.RollingFileAppender">   
-        <Encoding>${logback.log.loggingCharset}</Encoding> 
+        <Encoding>UTF-8</Encoding> 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <FileNamePattern>/usr/zjm/logs/webxdemo/zjm.log.%d{yyyy-MM-dd}.log</FileNamePattern>   
             <MaxHistory>30</MaxHistory>
@@ -47,6 +46,9 @@
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
         	<MaxFileSize>10MB</MaxFileSize>
         </triggeringPolicy>
+        <filter class="com.alibaba.citrus.logconfig.logback.LevelRangeFilter">
+            <levelMin>WARN</levelMin>
+        </filter>
     </appender>
 
     <logger name="org.apache">

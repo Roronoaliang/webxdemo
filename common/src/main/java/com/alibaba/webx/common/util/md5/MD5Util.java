@@ -12,7 +12,7 @@ import com.alibaba.webx.common.factory.log.LoggerFactory;
  * @author xiaoMzjm
  *
  */
-public final class MD5Encryption {
+public final class MD5Util {
 
 	/**
 	 * 将字符串转成MD5
@@ -20,7 +20,7 @@ public final class MD5Encryption {
 	 * @return
 	 */
 	public static String getMD5(String str) {
-		Logger log = LoggerFactory.getLogger(MD5Encryption.class);
+		Logger log = LoggerFactory.getLogger(MD5Util.class);
 		String reStr = null;
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");

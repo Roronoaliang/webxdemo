@@ -10,6 +10,30 @@ import redis.clients.jedis.JedisPoolConfig;
 
 import com.alibaba.webx.searchengine.util.log.LoggerUtils;
 
+/**
+ * Redis工厂
+ * 
+ * Redis数据结构 与 对应的使用场景：
+ * 
+ * 1、key-value ：当数据的缓存使用 
+ * 2、List 		：特点为合先进先出，可当消息队列使用 
+ * 3、Set		：特点为Set中的元素不能一样，可用来统计有多少个IP访问我们的应用，也可以用来作为存放"敏感词"的仓库 
+ * 4、Sort Set	：特点为有序集合，可用来做游戏排名
+ * 5、Hash		：类似String类型的key-value对，特点为value可以是一个HashMap
+ * 
+ * 
+ * 1、key-value 对应API前缀：无
+ * 2、List		对应API前缀：r、l
+ * 3、Set		对应API前缀：s
+ * 4、Sort Set  对应API前缀：z
+ * 5、Hash		对应API前缀：h
+ * 
+ * API	:	http://tool.oschina.net/apidocs/apidoc?api=jedis-2.1.0
+ * 入门	：	http://www.tuicool.com/articles/vaqABb
+ * 
+ * @author xiaoMzjm
+ * 
+ */
 public class RedisFactory {
 
 	// 本地的jedisPool
@@ -46,42 +70,20 @@ public class RedisFactory {
 	}
 
 	/**
-	 * 获取本地Jedis实例
+	 * 获取原生Jedis实例
 	 * @return
 	 */
-	public synchronized static Jedis getLocalJedis() throws Exception{
+	public synchronized Jedis getJedis() throws Exception{
 		if (localJedisPool != null) {
-			Jedis resource = localJedisPool.getResource();
-			return resource;
+			Jedis jedis = localJedisPool.getResource();
+			return jedis;
 		} else {
 			return null;
 		}
 	}
 	
-	/**
-	 * 获取默认的redis操作者
-	 * @return
-	 * @throws Exception
-	 */
-	public static DefaultRedisHandler getDefaultRedisHandler() throws Exception {
-		Jedis jedis = getLocalJedis();
-		if(jedis != null) {
-			return new DefaultRedisHandler(jedis);
-		}
-		return null;
-	}
 
-	/**
-	 * 释放jedis资源
-	 * @param jedis
-	 */
-	@SuppressWarnings("deprecation")
-	public static void returnResource(final Jedis jedis) {
-		if (jedis != null) {
-			localJedisPool.returnResource(jedis);
-		}
-	}
-	
+	// get & set
 	public int getPoolMaxIdel() {
 		return poolMaxIdel;
 	}

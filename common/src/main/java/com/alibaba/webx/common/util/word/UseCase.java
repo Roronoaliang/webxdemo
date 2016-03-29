@@ -16,7 +16,7 @@ import org.junit.Test;
  */
 public class UseCase {
 	
-	Word word = new Word();
+	WordUtil word = new WordUtil();
 	
 	@Test
 	// 测试创建一个新的文档

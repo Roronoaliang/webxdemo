@@ -12,7 +12,7 @@ import org.apache.commons.lang.StringUtils;
  * 
  * @author xiaoMzjm
  */
-public class MySimpleDateFormat {
+public class MyDateUtil {
 
 	// 日期格式
 	public final static String yyyyMMdd = "yyyy-MM-dd";

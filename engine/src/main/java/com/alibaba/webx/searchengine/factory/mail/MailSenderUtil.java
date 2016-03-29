@@ -21,11 +21,11 @@ import org.apache.commons.lang3.StringUtils;
  * @author xiaoMzjm
  *
  */
-public class MailSender {
+public class MailSenderUtil {
 	
 	private Message mailMessage;
 	
-	public MailSender(Message mailMessage) {
+	public MailSenderUtil(Message mailMessage) {
 		this.mailMessage = mailMessage;
 	}
 	

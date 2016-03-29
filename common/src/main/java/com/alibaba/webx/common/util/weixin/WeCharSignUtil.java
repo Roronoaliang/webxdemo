@@ -7,7 +7,7 @@ import java.util.Arrays;
 /** 
  * 微信后台请求校验工具类 
  */ 
-public class SignUtil {
+public class WeCharSignUtil {
 	// 与接口配置信息中的Token要一致  
     private static String token = "xxxxxxxx";  
   
@@ -28,8 +28,7 @@ public class SignUtil {
             content.append(arr[i]);  
         }  
         MessageDigest md = null;  
-        String tmpStr = null;  
-  
+        String tmpStr = null; 
         try {  
             md = MessageDigest.getInstance("SHA-1");  
             // 将三个参数字符串拼接成一个字符串进行sha1加密  
@@ -73,4 +72,12 @@ public class SignUtil {
         String s = new String(tempArr);  
         return s;  
     }
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		WeCharSignUtil.token = token;
+	}
 }

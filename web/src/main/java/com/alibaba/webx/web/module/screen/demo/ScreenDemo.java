@@ -15,6 +15,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import redis.clients.jedis.Jedis;
+
 import com.alibaba.citrus.service.requestcontext.parser.ParameterParser;
 import com.alibaba.citrus.service.requestcontext.parser.ParserRequestContext;
 import com.alibaba.citrus.turbine.Context;
@@ -22,7 +24,9 @@ import com.alibaba.citrus.turbine.Navigator;
 import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.webx.common.factory.log.LoggerFactory;
 import com.alibaba.webx.common.po.demo.Demo;
+import com.alibaba.webx.searchengine.factory.redis.RedisFactory;
 import com.alibaba.webx.searchengine.util.log.LoggerUtils;
+import com.alibaba.webx.searchengine.util.switchs.MySwitchUtil;
 import com.alibaba.webx.service.demo.ServiceDemo;
 import com.alibaba.webx.web.module.screen.base.BaseScreen;
 
@@ -45,15 +49,25 @@ public class ScreenDemo extends BaseScreen {
 	@Autowired
 	private ServiceDemo serviceDemo;
 	
+	@Autowired
+	private MySwitchUtil mySwitch;
+	
+	@Autowired
+	private RedisFactory redisFactory;
+	
 	public void execute(TurbineRunData runData, Navigator nav, Context context) throws Exception {
 		try {
-			log.info("进入ScreenDemo.java");
 			test();
-			Demo demo = new Demo();
-			serviceDemo.add(demo);
-			serviceDemo.delete(demo);
-			serviceDemo.find(demo);
-			serviceDemo.update(demo);
+			
+			// 假如我要开发A功能，新该功能的所有代码的最前面加个开关，方便上线时一键开关这个功能
+			if(mySwitch.isDEMO_SWITCH()) {
+				Demo demo = new Demo();
+				serviceDemo.add(demo);
+				serviceDemo.delete(demo);
+				serviceDemo.find(demo);
+				serviceDemo.update(demo);
+			}
+			
 		} catch (Exception e) {
 			log.error("ERROR:", e);
 			loggerUtils.emailError(e);
@@ -128,5 +142,10 @@ public class ScreenDemo extends BaseScreen {
 	 * 测试方法，随便写
 	 */
 	public void test (){
+		try {
+			Jedis j = redisFactory.getJedis();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

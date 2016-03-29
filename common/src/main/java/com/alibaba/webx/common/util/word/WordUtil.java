@@ -47,9 +47,9 @@ import org.slf4j.Logger;
 import org.w3c.dom.Document;
 
 import com.alibaba.webx.common.factory.log.LoggerFactory;
-import com.alibaba.webx.common.util.date.MySimpleDateFormat;
-import com.alibaba.webx.common.util.date.MySimpleDateFormat.MySimpleDateFormatException;
-import com.alibaba.webx.common.util.uuid.MyUUID;
+import com.alibaba.webx.common.util.date.MyDateUtil;
+import com.alibaba.webx.common.util.date.MyDateUtil.MySimpleDateFormatException;
+import com.alibaba.webx.common.util.uuid.MyUUIDUtil;
 
 /**
  * word2007 操作组件
@@ -57,9 +57,9 @@ import com.alibaba.webx.common.util.uuid.MyUUID;
  * @author xiaoMzjm
  *
  */
-public class Word {
+public class WordUtil {
 	
-	private static Logger log = LoggerFactory.getLogger(Word.class);
+	private static Logger log = LoggerFactory.getLogger(WordUtil.class);
 
 	// word 文档
 	private CustomXWPFDocument xdoc;
@@ -241,11 +241,11 @@ public class Word {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();  
 		String nowDate = null;
 		try {
-			nowDate = MySimpleDateFormat.getNowStringDate("yyyyMMdd");
+			nowDate = MyDateUtil.getNowStringDate("yyyyMMdd");
 		} catch (MySimpleDateFormatException e1) {
 			log.error("ERROR:",e1);
 		}
-		String randomName = nowDate+"/"+MyUUID.getUUID();
+		String randomName = nowDate+"/"+MyUUIDUtil.getUUID();
 		String imageSrcPath = imageSrcRootPath+"wordpic/"+randomName+"/";
 		String imageSavePath = imageSaveRootPath+"/wordpic/"+randomName+"/";
 		
@@ -290,11 +290,11 @@ public class Word {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();  
 		String nowDate = null;
 		try {
-			nowDate = MySimpleDateFormat.getNowStringDate("yyyyMMdd");
+			nowDate = MyDateUtil.getNowStringDate("yyyyMMdd");
 		} catch (MySimpleDateFormatException e1) {
 			log.error("ERROR:",e1);
 		}
-		String randomName = nowDate+"/"+MyUUID.getUUID();
+		String randomName = nowDate+"/"+MyUUIDUtil.getUUID();
 		final String imageSrcPath = imageSrcRootPath+"wordpic/"+randomName+"/";
 		String imageSavePath = imageSaveRootPath+"/wordpic/"+randomName+"/";
 		

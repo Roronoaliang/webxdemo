@@ -89,7 +89,7 @@ public class MailFactory {
      * @throws MyMailException 
      * @throws MessagingException 
      */
-    public MailSender getDefaultMailSender() throws MyMailException, MessagingException {
+    public MailSenderUtil getDefaultMailSender() throws MyMailException, MessagingException {
     	if(StringUtils.isBlank(defaultSenderAddress) || StringUtils.isBlank(defaultPassword) || StringUtils.isBlank(defaultPassword) || StringUtils.isBlank(defaultPassword)) {
     		throw new MyMailException("参数错误！");
     	}
@@ -99,7 +99,7 @@ public class MailFactory {
 		Address from = new InternetAddress(defaultSenderAddress);
 		defaultMailMessage.setFrom(from);
 		defaultMailMessage.setSentDate(new Date());
-    	return new MailSender(defaultMailMessage);
+    	return new MailSenderUtil(defaultMailMessage);
     }
     
 
@@ -109,11 +109,11 @@ public class MailFactory {
      * @return
      * @throws Exception 
      */
-    public MailSender getMailSender() throws Exception {
+    public MailSenderUtil getMailSender() throws Exception {
     	if(mailMessage == null) {
     		throw new MyMailException("请先使用带参构造函数创建MailFactory！");
     	}
-    	return new MailSender(mailMessage);
+    	return new MailSenderUtil(mailMessage);
     }
     
 

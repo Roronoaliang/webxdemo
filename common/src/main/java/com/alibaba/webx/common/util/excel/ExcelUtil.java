@@ -32,7 +32,7 @@ import org.apache.commons.lang.StringUtils;
  * @author xiaoMzjm
  * 
  */
-public class Excel {
+public class ExcelUtil {
 
 	private ExcelFormat myExcelFormat = null;
 
@@ -58,7 +58,7 @@ public class Excel {
 	private boolean ifReadInit = false; 					// 是否做好读的准备
 	
 	// 构造方法
-	public Excel(String fileURL,String sheetName,Integer sheetNumber){
+	public ExcelUtil(String fileURL,String sheetName,Integer sheetNumber){
 		this.fileURL = fileURL;
 		this.sheetName = sheetName;
 		this.sheetNumber = sheetNumber;
@@ -66,7 +66,7 @@ public class Excel {
 	}
 	
 	// 构造方法
-	public Excel(String fileURL,String sheetName,Integer sheetNumber,ExcelFormat myExcelFormat){
+	public ExcelUtil(String fileURL,String sheetName,Integer sheetNumber,ExcelFormat myExcelFormat){
 		this.fileURL = fileURL;
 		this.sheetName = sheetName;
 		this.sheetNumber = sheetNumber;

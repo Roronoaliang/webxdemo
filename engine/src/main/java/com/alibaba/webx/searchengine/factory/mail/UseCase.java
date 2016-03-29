@@ -20,7 +20,7 @@ public class UseCase {
 	public void sendText(){
 		try {
 			MailFactory mailFactory = new MailFactory();
-			MailSender mailSender = mailFactory.getDefaultMailSender();
+			MailSenderUtil mailSender = mailFactory.getDefaultMailSender();
 			List<String> acceptorList = new ArrayList<String>();
 			acceptorList.add("topviewacceptor@163.com");
 			mailSender.sendText(acceptorList, "标题", "内容");
@@ -37,7 +37,7 @@ public class UseCase {
 	public void sendFile(){
 		try {
 			MailFactory mailFactory = new MailFactory();
-			MailSender mailSender = mailFactory.getDefaultMailSender();
+			MailSenderUtil mailSender = mailFactory.getDefaultMailSender();
 			List<String> acceptorList = new ArrayList<String>();
 			acceptorList.add("topviewacceptor@163.com");
 			List<String> filePathList = new ArrayList<String>();
@@ -55,7 +55,7 @@ public class UseCase {
 	public void sendText2(){
 		try {
 			MailFactory mailFactory = new MailFactory("smtp.163.com","25","topviewsender@163.com","topview624");
-			MailSender mailSender = mailFactory.getMailSender();
+			MailSenderUtil mailSender = mailFactory.getMailSender();
 			List<String> acceptorList = new ArrayList<String>();
 			acceptorList.add("topviewacceptor@163.com");
 			mailSender.sendText(acceptorList, "标题", "内容1<br>内容2</br>内容3\n内容4");
@@ -71,7 +71,7 @@ public class UseCase {
 	public void sendFile2(){
 		try {
 			MailFactory mailFactory = new MailFactory("smtp.163.com","25","topviewsender@163.com","topview624");
-			MailSender mailSender = mailFactory.getMailSender();
+			MailSenderUtil mailSender = mailFactory.getMailSender();
 			List<String> acceptorList = new ArrayList<String>();
 			acceptorList.add("heijueerror@163.com");
 			List<String> filePathList = new ArrayList<String>();

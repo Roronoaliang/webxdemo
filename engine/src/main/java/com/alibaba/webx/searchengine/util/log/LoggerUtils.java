@@ -10,10 +10,10 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.webx.common.factory.log.LoggerFactory;
-import com.alibaba.webx.common.util.date.MySimpleDateFormat;
-import com.alibaba.webx.common.util.switchs.MySwitch;
+import com.alibaba.webx.common.util.date.MyDateUtil;
 import com.alibaba.webx.searchengine.factory.mail.MailFactory;
-import com.alibaba.webx.searchengine.factory.mail.MailSender;
+import com.alibaba.webx.searchengine.factory.mail.MailSenderUtil;
+import com.alibaba.webx.searchengine.util.switchs.MySwitchUtil;
 
 /**
  * 日志工具类
@@ -31,11 +31,14 @@ public class LoggerUtils {
 	@Autowired
 	private MailFactory mailFactory;
 	
+	@Autowired
+	private MySwitchUtil mySwitch;
+	
 	// 日志
 	private static Logger log = LoggerFactory.getLogger(LoggerUtils.class);
 	
 	// 邮件发送对象
-	private static MailSender mailSender;
+	private static MailSenderUtil mailSender;
 	
 	// 接收者
 	private List<String> acceptorList;
@@ -75,8 +78,8 @@ public class LoggerUtils {
 	 * @throws Exception 
 	 */
 	public void emailError(Throwable e){
-		if(MySwitch.EMAIL_LOG_SWITCH){
-			MyThrowable mt = new MyThrowable(MySimpleDateFormat.getNowStringDate(),e);
+		if(mySwitch.isEMAIL_LOG_SWITCH()){
+			MyThrowable mt = new MyThrowable(MyDateUtil.getNowStringDate(),e);
 			queue.add(mt);
 		}
 	}

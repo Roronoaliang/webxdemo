@@ -18,6 +18,7 @@ public class UseCase {
 	public void test(){
 		try {
 			int num = 5 / 0;
+			System.out.println(num);
 		} catch (Exception e) {
 			loggerUtils.emailError(e);
 		}
