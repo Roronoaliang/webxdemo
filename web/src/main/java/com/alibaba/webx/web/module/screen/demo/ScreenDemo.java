@@ -15,6 +15,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import redis.clients.jedis.Jedis;
+
 import com.alibaba.citrus.service.requestcontext.parser.ParameterParser;
 import com.alibaba.citrus.service.requestcontext.parser.ParserRequestContext;
 import com.alibaba.citrus.turbine.Context;
@@ -22,6 +24,7 @@ import com.alibaba.citrus.turbine.Navigator;
 import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.webx.common.factory.log.LoggerFactory;
 import com.alibaba.webx.common.po.demo.Demo;
+import com.alibaba.webx.searchengine.factory.redis.RedisFactory;
 import com.alibaba.webx.searchengine.util.log.LoggerUtils;
 import com.alibaba.webx.searchengine.util.switchs.MySwitchUtil;
 import com.alibaba.webx.service.demo.ServiceDemo;
@@ -48,6 +51,9 @@ public class ScreenDemo extends BaseScreen {
 	
 	@Autowired
 	private MySwitchUtil mySwitch;
+	
+	@Autowired
+	private RedisFactory redisFactory;
 	
 	public void execute(TurbineRunData runData, Navigator nav, Context context) throws Exception {
 		try {
@@ -136,5 +142,10 @@ public class ScreenDemo extends BaseScreen {
 	 * 测试方法，随便写
 	 */
 	public void test (){
+		try {
+			Jedis j = redisFactory.getJedis();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

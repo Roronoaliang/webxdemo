@@ -1,6 +1,9 @@
 package com.alibaba.webx.searchengine.factory.redis;
 
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import redis.clients.jedis.Jedis;
 
 /**
  * 【redis组件 使用用例】
@@ -8,21 +11,24 @@ import org.junit.Test;
  * @author xiaoMzjm
  */
 public class UseCase {
+	
+	@Autowired
+	private RedisFactory redisFactory;
 
 	@Test
-	public void test() throws Exception{
-		RedisUtil  d = RedisFactory.getDefaultRedisHandler();
-		// 增
-		d.add("key", "value");
-		// 删
-		d.delete("key");
-		// 查
-		d.get("key");
-		// 改
-		d.update("key", "newValue");
-		// 原子加1，用来计数
-		d.incr("key");
-		// 计时增，用来保存cookie等有寿命的对象，单位：秒。10秒后该对象自动被删除。
-		d.add("key", "value", 10);
+	public void test() {
+		Jedis jedis = null;
+		try {
+			jedis = redisFactory.getJedis();
+			
+			// 操作jedis
+			// ...
+			// ...
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			jedis.close();
+		}
 	}
 }

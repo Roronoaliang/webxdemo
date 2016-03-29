@@ -3,8 +3,10 @@ package com.alibaba.webx.searchengine.util.switchs;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.alibaba.webx.searchengine.factory.redis.RedisUtil;
+import redis.clients.jedis.Jedis;
+
 import com.alibaba.webx.searchengine.factory.redis.RedisFactory;
 
 /**
@@ -26,11 +28,11 @@ import com.alibaba.webx.searchengine.factory.redis.RedisFactory;
  */
 public class MySwitchUtil {
 	
+	@Autowired
+	private RedisFactory redisFactory;
+	
 	// 日志
 	private static Logger log = LoggerFactory.getLogger(MySwitchUtil.class);
-	
-	// redis处理类
-	public static RedisUtil defaultRedisHandler ;
 	
 	// 写demo用的开关
 	private static boolean DEMO_SWITCH;
@@ -38,7 +40,20 @@ public class MySwitchUtil {
 	// 邮件日志功能开关
 	private static boolean EMAIL_LOG_SWITCH;
 	
+	private Jedis jedis;
+	
 	public MySwitchUtil(){}
+	
+	/**
+	 * 获取redis组件
+	 */
+	public void init(){
+		try {
+			jedis =  redisFactory.getJedis();
+		} catch (Exception e) {
+			log.warn("初始化redis失败，采用本地配置。");
+		}
+	}
 
 	/**
 	 * 获取邮件日志功能开关值
@@ -67,17 +82,6 @@ public class MySwitchUtil {
 	}
 
 	/**
-	 * 获取redis组件
-	 */
-	public void init(){
-		try {
-			defaultRedisHandler =  RedisFactory.getDefaultRedisHandler();
-		} catch (Exception e) {
-			log.warn("初始化redis失败，采用本地配置。");
-		}
-	}
-	
-	/**
 	 * 根据key获取开关值
 	 * 
 	 * 如果redis处理对象为空，返回默认值
@@ -91,7 +95,7 @@ public class MySwitchUtil {
 	 * @return
 	 */
 	private Boolean getSwtichByKey(String key , Boolean defaultResult){
-		if(defaultRedisHandler == null) {
+		if(jedis == null) {
 			return defaultResult;
 		}
 		else {
@@ -119,7 +123,7 @@ public class MySwitchUtil {
 	private Boolean getFromRedis(String key){
 		Boolean result = null;
 		try {
-			String strReuslt = defaultRedisHandler.get(key);
+			String strReuslt = jedis.get(key);
 			if(StringUtils.isBlank(strReuslt)) {
 				throw new NullPointerException("ERROR:redis数据库中没有 "+key+" 这个key！");
 			}
