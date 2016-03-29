@@ -36,7 +36,7 @@ public class BaseScreen {
     	String sessionId = MD5Encryption.getMD5(session.getId());
     	try {
     		DefaultRedisHandler  d = RedisFactory.getDefaultRedisHandler();
-    		d.set(sessionId, str , expire);
+    		d.add(sessionId, str , expire);
     		d.returnResource();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,7 +81,7 @@ public class BaseScreen {
     	if(StringUtils.isNotBlank(sessionId)){
     		try {
     			DefaultRedisHandler d = RedisFactory.getDefaultRedisHandler();
-    			d.del(sessionId);
+    			d.delete(sessionId);
     			d.returnResource();
 			} catch (Exception e) {
 				e.printStackTrace();

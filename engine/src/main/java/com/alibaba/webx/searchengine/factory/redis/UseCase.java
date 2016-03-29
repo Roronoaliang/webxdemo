@@ -13,9 +13,9 @@ public class UseCase {
 	public void test() throws Exception{
 		DefaultRedisHandler  d = RedisFactory.getDefaultRedisHandler();
 		// 增
-		d.set("key", "value");
+		d.add("key", "value");
 		// 删
-		d.del("key");
+		d.delete("key");
 		// 查
 		d.get("key");
 		// 改
@@ -23,7 +23,6 @@ public class UseCase {
 		// 原子加1，用来计数
 		d.incr("key");
 		// 计时增，用来保存cookie等有寿命的对象，单位：秒。10秒后该对象自动被删除。
-		d.set("key", "value", 10);
-		
+		d.add("key", "value", 10);
 	}
 }
