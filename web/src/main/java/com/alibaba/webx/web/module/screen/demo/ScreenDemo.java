@@ -15,8 +15,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import redis.clients.jedis.Jedis;
-
 import com.alibaba.citrus.service.requestcontext.parser.ParameterParser;
 import com.alibaba.citrus.service.requestcontext.parser.ParserRequestContext;
 import com.alibaba.citrus.turbine.Context;
@@ -84,6 +82,7 @@ public class ScreenDemo extends BaseScreen {
 		String password = p.getString("password");
 		// 假如没有num参数，则赋予默认值10
 		Integer num = p.getInt("num",10);
+		System.out.println("userName="+userName+" , password="+password+" , num="+num);
 	}
 	
 	/**
@@ -99,6 +98,7 @@ public class ScreenDemo extends BaseScreen {
 			try {
 				// 获取普通参数
 				password = parser.getParameters().getString("password");
+				System.out.println("password="+password);
 				// 获取文件
 				items = parser.getParameters().getFileItems("file");
 				String fileName = null;
@@ -142,10 +142,5 @@ public class ScreenDemo extends BaseScreen {
 	 * 测试方法，随便写
 	 */
 	public void test (){
-		try {
-			Jedis j = redisFactory.getJedis();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 }
