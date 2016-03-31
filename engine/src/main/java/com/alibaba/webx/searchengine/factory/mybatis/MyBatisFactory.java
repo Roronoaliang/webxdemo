@@ -16,32 +16,33 @@ import com.alibaba.webx.searchengine.util.log.LoggerUtils;
  */
 public class MyBatisFactory {
 	
-	@Autowired
-	private SqlSessionFactoryBean sqlSessionFactoryBean;
+//	@Autowired
+//	private SqlSessionFactoryBean sqlSessionFactoryBean;
 	
 	@Autowired
 	private static LoggerUtils loggetUtils;
 
+	@Autowired
 	public static SqlSessionFactory sqlsessionfactory;
 	
 	private static Logger log = LoggerFactory.getLogger(MyBatisFactory.class);
 	
 	public void init(){
-		sqlsessionfactory = getSqlSessionFactory();
+//		sqlsessionfactory = getSqlSessionFactory();
 	}
 
 	/**
 	 * 获取工厂SqlSessionFactory
 	 */
-	private SqlSessionFactory getSqlSessionFactory() {
-		try {
-			return sqlSessionFactoryBean.getObject();
-		} catch (Exception e) {
-			log.error("ERROR:", e);
-			loggetUtils.emailError(e);
-		}
-		return null;
-	}
+//	private SqlSessionFactory getSqlSessionFactory() {
+//		try {
+//			return sqlSessionFactoryBean.getObject();
+//		} catch (Exception e) {
+//			log.error("ERROR:", e);
+//			loggetUtils.emailError(e);
+//		}
+//		return null;
+//	}
 	
 	/**
 	 * 获取写数据源的SqlSession

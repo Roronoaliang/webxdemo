@@ -1,5 +1,6 @@
 package com.alibaba.webx.common.util.weixin;
 
+
 /**
  * 微信后台请求校验工具类  使用用例
  * 
@@ -9,7 +10,7 @@ package com.alibaba.webx.common.util.weixin;
  *
  */
 public class UseCase {
-
+	
 	/** 
      * 确认请求来自微信服务器 
      */  
