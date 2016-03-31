@@ -71,8 +71,7 @@
         <property name="defaultTargetDataSource" ref="dataSourceRW" />      
     </bean>  
    	<!-- sqlSeesion工厂，引用多数据源 -->
-	<bean id="sqlSessionFactory" name="sqlSessionFactory"  
-	    class="org.mybatis.spring.SqlSessionFactoryBean">  
+	<bean id="sqlSessionFactory" name="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
 	    <property name="configLocation" value="classpath:mybatis/resource.xml" />  
 	    <property name="dataSource" ref="dynamicDataSource" />  
 	</bean>
