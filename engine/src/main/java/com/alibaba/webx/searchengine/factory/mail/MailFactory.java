@@ -39,7 +39,7 @@ public class MailFactory {
     private Message mailMessage;		// 消息体
     private String mailServerHost;    	// 发送邮件的服务器的IP
     private String mailServerPort;   	// 发送邮件的服务器的端口    
-    private String SenderAddress;    		// 邮件发送者的地址    
+    private String SenderAddress;    	// 邮件发送者的地址    
     private String password;    		// 登陆邮件发送服务器的密码     
     
     /**

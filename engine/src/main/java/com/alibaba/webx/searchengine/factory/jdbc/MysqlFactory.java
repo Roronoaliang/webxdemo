@@ -28,16 +28,16 @@ public class MysqlFactory {
 	@Autowired
 	private static LoggerUtils loggetUtils;
 	
-	private String diverName;			// 驱动器名称
-	private String databaseUrl;			// 数据库连接URL
-	private String databaseUser;		// 数据库用户名
-	private String databasePssword;		// 数据库密码
-	private int minConnectionNuml;		// 最小连接数
-	private int maxConnectionNuml;		// 最大连接数
-	private int acquireIncreamentNum;	// 获取增量
-	private int testConnectionPeriod;	// 每隔几秒测试连接是否可用
-	private int initConnectionNuml;		// 初始连接数
-	private boolean validate;		
+	private static String diverName;			// 驱动器名称
+	private static String databaseUrl;			// 数据库连接URL
+	private static String databaseUser;			// 数据库用户名
+	private static String databasePssword;		// 数据库密码
+	private static int minConnectionNuml;		// 最小连接数
+	private static int maxConnectionNuml;		// 最大连接数
+	private static int acquireIncreamentNum;	// 获取增量
+	private static int testConnectionPeriod;	// 每隔几秒测试连接是否可用
+	private static int initConnectionNuml;		// 初始连接数
+	private static boolean validate;		
 
 	/**
 	 * 初始化
@@ -65,7 +65,7 @@ public class MysqlFactory {
 	 * 
 	 * @return
 	 */
-	public static Connection getConnection() {
+	public Connection getConnection() {
 		Connection connection = null;
 		try {
 			connection = cpds.getConnection();
@@ -79,7 +79,7 @@ public class MysqlFactory {
 	/**
 	 * 释放连接
 	 */
-	public static void release() {
+	public void release() {
 		try {
 			if (cpds != null) {
 				cpds.close();
@@ -95,7 +95,7 @@ public class MysqlFactory {
 	}
 
 	public void setDiverName(String diverName) {
-		this.diverName = diverName;
+		MysqlFactory.diverName = diverName;
 	}
 
 	public String getDatabaseUrl() {
@@ -103,7 +103,7 @@ public class MysqlFactory {
 	}
 
 	public void setDatabaseUrl(String databaseUrl) {
-		this.databaseUrl = databaseUrl;
+		MysqlFactory.databaseUrl = databaseUrl;
 	}
 
 	public String getDatabaseUser() {
@@ -111,7 +111,7 @@ public class MysqlFactory {
 	}
 
 	public void setDatabaseUser(String databaseUser) {
-		this.databaseUser = databaseUser;
+		MysqlFactory.databaseUser = databaseUser;
 	}
 
 	public String getDatabasePssword() {
@@ -119,7 +119,7 @@ public class MysqlFactory {
 	}
 
 	public void setDatabasePssword(String databasePssword) {
-		this.databasePssword = databasePssword;
+		MysqlFactory.databasePssword = databasePssword;
 	}
 
 	public int getMinConnectionNuml() {
@@ -127,7 +127,7 @@ public class MysqlFactory {
 	}
 
 	public void setMinConnectionNuml(int minConnectionNuml) {
-		this.minConnectionNuml = minConnectionNuml;
+		MysqlFactory.minConnectionNuml = minConnectionNuml;
 	}
 
 	public int getMaxConnectionNuml() {
@@ -135,7 +135,7 @@ public class MysqlFactory {
 	}
 
 	public void setMaxConnectionNuml(int maxConnectionNuml) {
-		this.maxConnectionNuml = maxConnectionNuml;
+		MysqlFactory.maxConnectionNuml = maxConnectionNuml;
 	}
 
 	public int getAcquireIncreamentNum() {
@@ -143,7 +143,7 @@ public class MysqlFactory {
 	}
 
 	public void setAcquireIncreamentNum(int acquireIncreamentNum) {
-		this.acquireIncreamentNum = acquireIncreamentNum;
+		MysqlFactory.acquireIncreamentNum = acquireIncreamentNum;
 	}
 
 	public int getTestConnectionPeriod() {
@@ -151,7 +151,7 @@ public class MysqlFactory {
 	}
 
 	public void setTestConnectionPeriod(int testConnectionPeriod) {
-		this.testConnectionPeriod = testConnectionPeriod;
+		MysqlFactory.testConnectionPeriod = testConnectionPeriod;
 	}
 
 	public int getInitConnectionNuml() {
@@ -159,7 +159,7 @@ public class MysqlFactory {
 	}
 
 	public void setInitConnectionNuml(int initConnectionNuml) {
-		this.initConnectionNuml = initConnectionNuml;
+		MysqlFactory.initConnectionNuml = initConnectionNuml;
 	}
 
 	public boolean isValidate() {
@@ -167,6 +167,6 @@ public class MysqlFactory {
 	}
 
 	public void setValidate(boolean validate) {
-		this.validate = validate;
+		MysqlFactory.validate = validate;
 	}
 }

@@ -66,7 +66,7 @@
         									<!-- 解析用户提交的参数，无论是普通的请求，还是multipart/form-data这样的用于上传文件的请求。 -->
         <request-contexts:parser >		
         	<filters>
-        		<uploaded-file-whitelist xmlns="http://www.alibaba.com/schema/services/request-contexts/parser/filters" extensions="war" />
+        		<uploaded-file-whitelist xmlns="http://www.alibaba.com/schema/services/request-contexts/parser/filters" extensions="jpg,png,jpeg" />
             </filters>
         </request-contexts:parser>
         

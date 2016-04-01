@@ -37,7 +37,7 @@ public class PipelineDemo extends AbstractValve{
 	    
 	    // 测试
 	    public void test(PipelineContext pipelineContext){
-	    	log.info("进入自定义拦截器");
+	    	System.out.println("进入自定义拦截器，可在这里进行权限管理，数字签名验证等操作。");
 	    	
 	    	// 假设用户访问地址为：http://localhost:8080/demo/screenDemo.htm ， 则：
 	        request.getRequestURL();			// http://localhost:8080/demo/screenDemo.htm
@@ -49,5 +49,7 @@ public class PipelineDemo extends AbstractValve{
 	        pipelineContext.level(); 			// 当前pipeline在所有子pipeline中的级别
 	        pipelineContext.isBroken(); 		// 当前pipeline是否已经被中断
 	        pipelineContext.isFinished(); 		// 当前pipeline的所有valves是否已经执行完
+	        
+	        log.info("xxx");
 	    }
 }

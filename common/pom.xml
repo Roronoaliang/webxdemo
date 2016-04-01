@@ -15,6 +15,12 @@
 	
 	<dependencies>
 	
+			<dependency>
+				<groupId>com.alibaba.citrus</groupId>
+				<artifactId>citrus-webx-all</artifactId>
+			</dependency>
+	
+	
 			<!-- ================================================= -->
 			<!-- poi for word-->
 			<!-- ================================================= -->
@@ -39,8 +45,6 @@
 				<artifactId>jsoup</artifactId>
 			</dependency>
 
-
-	
 			<!-- ======================================== -->
 	        <!-- junit -->
 	        <!-- ======================================== -->

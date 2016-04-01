@@ -1,36 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+					http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+					http://www.springframework.org/schema/context 
+					http://www.springframework.org/schema/context/spring-context-2.5.xsd"
 	default-autowire="byName">
 	
+	
+	<!-- 为了配合junit单元测试，只能在该xml冗余增加包扫描 -->
+	<context:annotation-config/>												
+	<context:component-scan base-package="com.alibaba.webx.*"/>
+	
+	
 	<!--.....................................-->
-	<!--................redis................-->
+	<!-- 降级开关                                                                                        -->
 	<!--.....................................-->
-	<bean id="redisFactory" class="com.alibaba.webx.searchengine.factory.redis.RedisFactory" init-method="init">
-		<property name="poolMaxIdel">			<value>8</value> 				</property>	<!-- 控制一个pool最多有多少个状态为idle(空闲的)的jedis实例 -->
-		<property name="poolMaxWaitMillis">		<value>5000</value> 			</property>	<!-- 获取连接时的最大等待时间，单位毫秒 ,默认值为-1，表示永不超时 -->
-		<property name="poolTestOnBorrow">		<value>true</value> 			</property>	<!-- 是否在获取连接的时候检查有效性, 默认false -->
-		<property name="poolIp">				<value>ip</value> 				</property>	<!-- 数据库的地址 -->
-		<property name="poolPort">				<value>6379</value> 			</property>	<!-- 数据库的端口 -->
-		<property name="poolConnectTimeOut">	<value>5000</value> 			</property>	<!-- 连接持续连接的超时时间，单位毫秒-->
-		<property name="poolPassword">			<value>aaa38324836</value> 		</property>	<!-- 数据库密码 -->
+	<bean id="mySwitchUtil" class="com.alibaba.webx.searchengine.util.switchs.MySwitchUtil" init-method="init">
+		<property name="EMAIL_LOG_SWITCH">	<value>true</value>		</property>	<!-- 邮件日志功能开关 -->
+		<property name="DEMO_SWITCH">		<value>true</value>		</property>
 	</bean>
+	
+	
+	<!--.....................................-->
+	<!--.................mail................-->
+	<!--.....................................-->
+	<bean id="mailFactory" class="com.alibaba.webx.searchengine.factory.mail.MailFactory" init-method="init">
+		<property name="defaultMailServerHost">		<value>smtp.qq.com</value> 		</property>	<!-- 邮件服务地址 -->
+		<property name="defaultMailServerPort">		<value>25</value> 				</property>	<!-- 端口号 -->
+		<property name="defaultSenderAddress">		<value>xxxxxxxxx</value> 		</property> <!-- 用来发送邮件的账号 -->
+		<property name="defaultPassword">			<value>xxxxxx</value> 			</property>	<!-- 账号对应的密码 -->
+	</bean>
+	
+	
+	<!--.....................................-->
+	<!--..............logUtils...............-->
+	<!--.....................................-->
+	<bean id="loggerUtils" class="com.alibaba.webx.searchengine.util.log.LoggerUtils"  init-method="init">
+		<property name="acceptorList">	<value>xxx@163.com</value>			</property>	<!-- 要把错误推送给哪些邮箱 -->
+		<property name="emailTitle">	<value>XXX项目错误日志推送</value>		</property>	<!-- 邮件标题 -->
+		<property name="threadNum">		<value>10</value>					</property>	<!-- 用来发邮件的线程数 -->
+		<property name="sendEmailRate">	<value>20</value>					</property>	<!-- 多少秒发一次邮件 -->
+	</bean>
+	
+	<!--.....................................-->
+	<!--.................http................-->
+	<!--.....................................-->
+	<bean id="httpClientFactory" class="com.alibaba.webx.searchengine.factory.http.HttpClientFactory" init-method="init">
+		<property name="maxConnectionNum">				<value>10</value> 			</property>	<!-- 最大连接数限制 -->
+		<property name="maxGetConnectionTimeOut">		<value>5000</value> 		</property>	<!-- 最大获取连接超时限制 ，单位毫秒-->
+		<property name="maxRouteConnectionNum">			<value>10</value> 			</property>	<!-- 每个路由最大的连接数限制 -->
+		<property name="maxLastConnectionTimeOut">		<value>10000</value> 		</property>	<!-- 每个请求连接最长时间限制 ，单位毫秒-->
+		<property name="maxGetDataTimeOut">				<value>5000</value> 		</property>	<!-- 获取数据最长时间限制，单位毫秒 -->
+	</bean>
+	
+	
+	<!--.....................................-->
+	<!--................c3p0.................-->
+	<!--.....................................-->
+	<bean id="mysqlFactory" class="com.alibaba.webx.searchengine.factory.jdbc.MysqlFactory" init-method="init">
+		<property name="diverName">					<value>com.mysql.jdbc.Driver</value> 				</property>
+		<property name="databaseUrl">				<value>jdbc:mysql://localhost:3306/xxxx</value> 	</property>
+		<property name="databaseUser">				<value>xxx</value> 									</property>
+		<property name="databasePssword">			<value>xxxxxxxx</value> 							</property>
+		<property name="minConnectionNuml">			<value>1</value> 									</property>
+		<property name="maxConnectionNuml">			<value>10</value> 									</property>
+		<property name="acquireIncreamentNum">		<value>1</value> 									</property>
+		<property name="testConnectionPeriod">		<value>30</value> 									</property>
+		<property name="initConnectionNuml">		<value>1</value> 									</property>
+		<property name="validate">					<value>true</value> 								</property>
+	</bean>
+	
 	
 	<!--.....................................-->
 	<!--................mybatis..............-->
 	<!--.....................................-->
-	<bean id="myBatisFactory" class="com.alibaba.webx.searchengine.factory.mybatis.MyBatisFactory" init-method="init"></bean>
 	<!-- 写库 -->
 	<bean id="dataSourceRW" class="org.logicalcobwebs.proxool.ProxoolDataSource">  
 	    <property name="alias" value="ReadWriteDataBase"></property>  
 	    <property name="delegateProperties">  
-	        <value>user=test,password=123456</value>  
+	        <value>user=root,password=root</value>  
 	    </property>  
-	    <property name="user" value="test" />  
-	    <property name="password" value="123456" />  
+	    <property name="user" value="root" />  
+	    <property name="password" value="root" />  
 	    <property name="driver" value="com.mysql.jdbc.Driver" />  
-	    <property name="driverUrl" value="jdbc:mysql://192.168.236.128:32768/test" />
+	    <property name="driverUrl" value="jdbc:mysql://localhost:3306/test" />
 	    <property name="minimumConnectionCount" value="5" />							<!-- 确定池中最小连接数 -->
 	    <property name="houseKeepingTestSql" value="select user from mysql.user" />		<!-- 确定保证连接可能的定时查询SQL -->
 	    <property name="testBeforeUse" value="true" />									<!-- 检测连接是否可以用，没用的话就换条连接 -->
@@ -46,10 +101,10 @@
      	<property name="delegateProperties">  
          	<value>user=test,password=123456</value>  
      	</property>  
-    	<property name="user" value="test" />  
-    	<property name="password" value="123456" />  
+    	<property name="user" value="root" />  
+    	<property name="password" value="root" />  
     	<property name="driver" value="com.mysql.jdbc.Driver" />  
-    	<property name="driverUrl" value="jdbc:mysql://192.168.236.128:32769/test" />
+    	<property name="driverUrl" value="jdbc:mysql://localhost:3306/test" />
  		<property name="minimumConnectionCount" value="5" />
 	    <property name="houseKeepingTestSql" value="select user from mysql.user" />
 	    <property name="testBeforeUse" value="true" />
@@ -71,66 +126,24 @@
         <property name="defaultTargetDataSource" ref="dataSourceRW" />      
     </bean>  
    	<!-- sqlSeesion工厂，引用多数据源 -->
-	<bean id="sqlSessionFactory" name="sqlSessionFactory"  
-	    class="org.mybatis.spring.SqlSessionFactoryBean">  
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">  
 	    <property name="configLocation" value="classpath:mybatis/resource.xml" />  
 	    <property name="dataSource" ref="dynamicDataSource" />  
 	</bean>
-	
-	<!--.....................................-->
-	<!--.................mail................-->
-	<!--.....................................-->
-	<bean id="mailFactory" class="com.alibaba.webx.searchengine.factory.mail.MailFactory" init-method="init">
-		<property name="defaultMailServerHost">		<value>smtp.163.com</value> 	</property>	<!-- 邮件服务地址 -->
-		<property name="defaultMailServerPort">		<value>25</value> 				</property>	<!-- 端口号 -->
-		<property name="defaultSenderAddress">		<value>xxx@163.com</value> 		</property> <!-- 用来发送邮件的账号 -->
-		<property name="defaultPassword">			<value>xxx</value> 				</property>	<!-- 账号对应的密码 -->
+	<bean id="myBatisFactory" class="com.alibaba.webx.searchengine.factory.mybatis.MyBatisFactory" init-method="init">
 	</bean>
 	
-	<!--.....................................-->
-	<!--..............logUtils...............-->
-	<!--.....................................-->
-	<bean id="loggerUtils" class="com.alibaba.webx.searchengine.util.log.LoggerUtils"  init-method="init">
-		<property name="acceptorList">	<value>xxx@163.com</value>			</property>	<!-- 要把错误推送给哪些邮箱 -->
-		<property name="emailTitle">	<value>XXX项目错误日志推送</value>		</property>	<!-- 邮件标题 -->
-		<property name="threadNum">		<value>10</value>					</property>	<!-- 用来发邮件的线程数 -->
-		<property name="sendEmailRate">	<value>3600</value>					</property>	<!-- 多少毫秒发一次邮件 -->
-	</bean>
 	
 	<!--.....................................-->
-	<!--................c3p0.................-->
+	<!--................redis................-->
 	<!--.....................................-->
-	<bean id="mysqlFactory" class="com.alibaba.webx.searchengine.factory.jdbc.MysqlFactory" init-method="init">
-		<property name="diverName">					<value>com.mysql.jdbc.Driver</value> 				</property>
-		<property name="databaseUrl">				<value>jdbc:mysql://localhost:3306/heijue</value> 	</property>
-		<property name="databaseUser">				<value>zjm</value> 									</property>
-		<property name="databasePssword">			<value>aaa38324836</value> 							</property>
-		<property name="minConnectionNuml">			<value>1</value> 									</property>
-		<property name="maxConnectionNuml">			<value>10</value> 									</property>
-		<property name="acquireIncreamentNum">		<value>1</value> 									</property>
-		<property name="testConnectionPeriod">		<value>30</value> 									</property>
-		<property name="initConnectionNuml">		<value>1</value> 									</property>
-		<property name="validate">					<value>true</value> 								</property>
+	<bean id="redisFactory" class="com.alibaba.webx.searchengine.factory.redis.RedisFactory" init-method="init">
+		<property name="poolMaxIdel">			<value>8</value> 				</property>	<!-- 控制一个pool最多有多少个状态为idle(空闲的)的jedis实例 -->
+		<property name="poolMaxWaitMillis">		<value>5000</value> 			</property>	<!-- 获取连接时的最大等待时间，单位毫秒 ,默认值为-1，表示永不超时 -->
+		<property name="poolTestOnBorrow">		<value>true</value> 			</property>	<!-- 是否在获取连接的时候检查有效性, 默认false -->
+		<property name="poolIp">				<value>xxx</value> 				</property>	<!-- 数据库的地址 -->
+		<property name="poolPort">				<value>6379</value> 			</property>	<!-- 数据库的端口 -->
+		<property name="poolConnectTimeOut">	<value>5000</value> 			</property>	<!-- 连接持续连接的超时时间，单位毫秒-->
+		<property name="poolPassword">			<value>xxxxxxxx</value> 		</property>	<!-- 数据库密码 -->
 	</bean>
-	
-	<!--.....................................-->
-	<!--.................http................-->
-	<!--.....................................-->
-	<bean id="httpClientFactory" class="com.alibaba.webx.searchengine.factory.http.HttpClientFactory" init-method="init">
-		<property name="maxConnectionNum">				<value>10</value> 			</property>	<!-- 最大连接数限制 -->
-		<property name="maxGetConnectionTimeOut">		<value>5000</value> 		</property>	<!-- 最大获取连接超时限制 ，单位毫秒-->
-		<property name="maxRouteConnectionNum">			<value>10</value> 			</property>	<!-- 每个路由最大的连接数限制 -->
-		<property name="maxLastConnectionTimeOut">		<value>10000</value> 		</property>	<!-- 每个请求连接最长时间限制 ，单位毫秒-->
-		<property name="maxGetDataTimeOut">				<value>5000</value> 		</property>	<!-- 获取数据最长时间限制，单位毫秒 -->
-	</bean>
-	
-	<!--.....................................-->
-	<!-- 降级开关                                                                                        -->
-	<!--.....................................-->
-	<bean id="mySwitch" class="com.alibaba.webx.searchengine.util.switchs.MySwitchUtil" init-method="init">
-		<!-- 邮件日志功能开关 -->
-		<property name="EMAIL_LOG_SWITCH">	<value>true</value>		</property>
-		<property name="DEMO_SWITCH">		<value>true</value>		</property>
-	</bean>
-	
 </beans>

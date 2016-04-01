@@ -52,7 +52,7 @@ public class RedisFactory {
 	private String poolPassword;		// redis服务的密码
 	
 	@Autowired
-	private static LoggerUtils loggetUtils;
+	private LoggerUtils loggetUtils;
 	
 	// 初始化Jedis池
 	public void init(){
