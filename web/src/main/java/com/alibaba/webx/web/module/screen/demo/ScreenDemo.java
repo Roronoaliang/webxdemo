@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -56,9 +57,13 @@ public class ScreenDemo extends BaseScreen {
 	public void execute(TurbineRunData runData, Navigator nav, Context context) throws Exception {
 		try {
 			test();
-			
+			getParameterDemo(runData);
+			getCookieDemo();
+			uploadFileDemo();
 			// 假如我要开发A功能，新该功能的所有代码的最前面加个开关，方便上线时一键开关这个功能
 			if(mySwitch.isDEMO_SWITCH()) {
+				System.out.println();
+				System.out.println("service例子");
 				Demo demo = new Demo();
 				serviceDemo.add(demo);
 				serviceDemo.delete(demo);
@@ -77,12 +82,29 @@ public class ScreenDemo extends BaseScreen {
 	 * 获取参数例子
 	 */
 	public void getParameterDemo(TurbineRunData runData){
+		System.out.println();
+		System.out.println("获取普通参数例子");
 		ParameterParser p = runData.getParameters();
-		String userName = p.getString("userName");
-		String password = p.getString("password");
-		// 假如没有num参数，则赋予默认值10
+		String userName = p.getString("userName","blank");
+		String password = p.getString("password","blank");
 		Integer num = p.getInt("num",10);
-		System.out.println("userName="+userName+" , password="+password+" , num="+num);
+		System.out.println("getParameterDemo userName="+userName+" , password="+password+" , num="+num);
+	}
+	
+	
+	/**
+	 * 获取Cookie例子
+	 */
+	public void getCookieDemo(){
+		System.out.println();
+		System.out.println("获取cookie例子");
+		Cookie[] cookies = request.getCookies();
+		if(cookies != null) {
+			for(Cookie cookie : cookies) {
+				System.out.println("key = " + cookie.getName());
+				System.out.println("value = " + cookie.getValue());
+			}
+		}
 	}
 	
 	/**
@@ -91,22 +113,27 @@ public class ScreenDemo extends BaseScreen {
 	 * 上传文件的配置在webx.xml中
 	 */
 	public void uploadFileDemo(){
+		System.out.println();
+		System.out.println("文件上传例子");
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 		if (isMultipart) {
 			FileItem[] items;
 			String password = null;
 			try {
 				// 获取普通参数
-				password = parser.getParameters().getString("password");
-				System.out.println("password="+password);
+				password = parser.getParameters().getString("password","blank");
+				System.out.println("password = " + password);
 				// 获取文件
 				items = parser.getParameters().getFileItems("file");
-				String fileName = null;
-				for(FileItem item : items){
-					fileName = item.getName();
-					if (!item.isFormField() && fileName != null && !"".equals(fileName)) {
-						File uploaderFile = new File("D:/"+fileName);
-						item.write(uploaderFile);
+				if(items != null) {
+					String fileName = null;
+					for(FileItem item : items){
+						fileName = item.getName();
+						if (!item.isFormField() && fileName != null && !"".equals(fileName)) {
+							System.out.println("fileName = " + fileName);
+							File uploaderFile = new File("D:/test/"+fileName);
+							item.write(uploaderFile);
+						}
 					}
 				}
 			} catch (Exception e) {

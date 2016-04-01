@@ -32,7 +32,7 @@ public class LoggerUtils {
 	private MailFactory mailFactory;
 	
 	@Autowired
-	private MySwitchUtil mySwitch;
+	private MySwitchUtil mySwitchUtil;
 	
 	// 日志
 	private static Logger log = LoggerFactory.getLogger(LoggerUtils.class);
@@ -67,7 +67,7 @@ public class LoggerUtils {
 			stpe = new ScheduledThreadPoolExecutor(threadNum);
 			mailSender = mailFactory.getDefaultMailSender();
 			EmailErrorThread emailErrorThread = new EmailErrorThread(mailSender,acceptorList,emailTitle);
-			stpe.scheduleAtFixedRate(emailErrorThread , 60, sendEmailRate , TimeUnit.SECONDS);
+			stpe.scheduleAtFixedRate(emailErrorThread , 10, sendEmailRate , TimeUnit.SECONDS);
 		} catch (Exception e) {
 			log.error("ERROR:",e);
 		}
@@ -78,7 +78,7 @@ public class LoggerUtils {
 	 * @throws Exception 
 	 */
 	public void emailError(Throwable e){
-		if(mySwitch.isEMAIL_LOG_SWITCH()){
+		if(mySwitchUtil.isEMAIL_LOG_SWITCH()){
 			MyThrowable mt = new MyThrowable(MyDateUtil.getNowStringDate(),e);
 			queue.add(mt);
 		}
@@ -116,5 +116,4 @@ public class LoggerUtils {
 	public void setSendEmailRate(int sendEmailRate) {
 		this.sendEmailRate = sendEmailRate;
 	}
-
 }

@@ -5,10 +5,24 @@
    
   <mapper namespace="DemoMapper">
    
+  <!-- 增 -->
+  <insert id="insert" parameterType="Demo">
+  		insert into demo(id) values(#{id})
+  </insert>
+  
+  <!-- 删 -->
+  <delete id="delete" parameterType="String">
+  		delete from demo where id = #{id}
+  </delete>
    
-  <!-- 拿到all pv -->
-  <select id="findAll" resultType="Demo">
-      select * from demo
+  <!-- 查 -->
+  <select id="get" resultType="Demo">
+		select * from demo
   </select>
+  
+  <!-- 改 -->
+  <update id="update" parameterType="hashmap">
+  		update demo set id=#{newId} where id=#{oldId}
+  </update>
    
   </mapper>

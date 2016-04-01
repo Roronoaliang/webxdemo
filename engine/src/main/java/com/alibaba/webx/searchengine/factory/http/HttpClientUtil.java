@@ -385,7 +385,7 @@ public class HttpClientUtil  extends BaseHttpClientUtil {
         
         // 设置文件参数
         for(int i = 0 ; i < fileList.size() ; i++) {
-        	builder.addBinaryBody("upfile"+String.valueOf(i), fileList.get(i), ContentType.DEFAULT_BINARY, fileList.get(i).getName());
+        	builder.addBinaryBody("file", fileList.get(i), ContentType.DEFAULT_BINARY, fileList.get(i).getName());
         }
         
         // 设置参数
