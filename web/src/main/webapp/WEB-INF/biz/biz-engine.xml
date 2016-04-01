@@ -18,8 +18,7 @@
 	<!-- 降级开关                                                                                        -->
 	<!--.....................................-->
 	<bean id="mySwitchUtil" class="com.alibaba.webx.searchengine.util.switchs.MySwitchUtil" init-method="init">
-		<!-- 邮件日志功能开关 -->
-		<property name="EMAIL_LOG_SWITCH">	<value>true</value>		</property>
+		<property name="EMAIL_LOG_SWITCH">	<value>true</value>		</property>	<!-- 邮件日志功能开关 -->
 		<property name="DEMO_SWITCH">		<value>true</value>		</property>
 	</bean>
 	
