@@ -1,4 +1,6 @@
 #webxdemo使用指南
+`webx学习指南`请移步到[这里](https://github.com/xiaoMzjm/webxdemo/blob/zjm-fix-bug-branch/readme/how-to-learn-webx.md)
+
 ###一 快速运行项目
 ####1.1 一个可行的开发环境
 >语言：`jdk1.7`<br>
