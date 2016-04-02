@@ -15,11 +15,13 @@
 	
 	<dependencies>
 	
+			<!-- ================================================= -->
+			<!-- sigar                                             -->
+			<!-- ================================================= -->
 			<dependency>
-				<groupId>com.alibaba.citrus</groupId>
-				<artifactId>citrus-webx-all</artifactId>
+				<groupId>org.hyperic</groupId>
+				<artifactId>sigar</artifactId>
 			</dependency>
-	
 	
 			<!-- ================================================= -->
 			<!-- poi for word-->
