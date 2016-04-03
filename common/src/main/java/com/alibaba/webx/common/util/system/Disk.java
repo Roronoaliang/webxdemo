@@ -16,7 +16,7 @@ public class Disk {
 	private long diskFree;				// 文件系统剩余容量	如：50716268		单位：KB
 	private long diskAvail;				// 文件系统可用容量	如：50716268		单位：KB
 	private long diskUsed;				// 文件系统已用容量	如：65307304		单位：KB
-	private double diskUseRate;			// 文件系统利用率		如：56.99999		单位：0.xxx
+	private double diskUseRate;			// 文件系统利用率		如：56.99999		单位：百分比
 	private long diskReadsNum;			// 磁盘读取次数		如：94592		单位：次
 	private	long diskWritesNum;			// 磁盘写入次数		如：16771		单位：次
 	public String getDiskName() {

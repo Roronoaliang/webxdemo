@@ -40,7 +40,7 @@ public class Captcha {
 	private ImageCaptchaService imageCaptchaService;
 	
 	@Autowired
-	private static LoggerUtils loggerUtils;
+	private LoggerUtils loggerUtils;
 
 	private static Logger log = LoggerFactory.getLogger(Captcha.class);
 

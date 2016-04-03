@@ -11,4 +11,5 @@
 		<property name="token">	<value>xxx</value>	</property>	<!-- 公众号token -->
 	</bean>
 	
+	
 </beans>

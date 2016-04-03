@@ -27,9 +27,9 @@ import com.alibaba.webx.searchengine.factory.http.HttpClientUtil;
  */
 public class UseCase {
 	
-	private static FileSystemXmlApplicationContext fsxac;
-	
 	private static Logger log = LoggerFactory.getLogger(UseCase.class);
+	
+	private static FileSystemXmlApplicationContext fsxac;
 	
 	private static HttpClientFactory httpClientFactory;
 	

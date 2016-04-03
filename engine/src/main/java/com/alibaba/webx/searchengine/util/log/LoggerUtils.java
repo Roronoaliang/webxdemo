@@ -46,9 +46,6 @@ public class LoggerUtils {
 	// 标题
 	private String emailTitle;
 	
-	// 线程池最大线程数量，用来控制并发数
-	private int threadNum;
-	
 	// 发送错误邮件的频率，单位秒
 	private int sendEmailRate;
 	
@@ -64,7 +61,7 @@ public class LoggerUtils {
 	// 初始化函数
 	public void init(){
 		try {
-			stpe = new ScheduledThreadPoolExecutor(threadNum);
+			stpe = new ScheduledThreadPoolExecutor(1);
 			mailSender = mailFactory.getDefaultMailSender();
 			EmailErrorThread emailErrorThread = new EmailErrorThread(mailSender,acceptorList,emailTitle);
 			stpe.scheduleAtFixedRate(emailErrorThread , 10, sendEmailRate , TimeUnit.SECONDS);
@@ -99,14 +96,6 @@ public class LoggerUtils {
 
 	public void setEmailTitle(String emailTitle) {
 		this.emailTitle = emailTitle;
-	}
-
-	public int getThreadNum() {
-		return threadNum;
-	}
-
-	public void setThreadNum(int threadNum) {
-		this.threadNum = threadNum;
 	}
 
 	public int getSendEmailRate() {

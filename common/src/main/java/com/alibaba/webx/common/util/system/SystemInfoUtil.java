@@ -361,6 +361,9 @@ public class SystemInfoUtil {
 	 * @throws SigarException
 	 */
 	public Disks getFileSystemInfo() throws SigarException {
+		long disksTotal = 0;
+		long disksFree = 0;
+		long disksUsed = 0;
 		FileSystem fslist[] = sigar.getFileSystemList();
 		List<Disk> diskList = null;
 		if(CollectionUtils.isEmpty(disks.getDiskList())) {
@@ -399,9 +402,12 @@ public class SystemInfoUtil {
 				break;
 			case 2: // TYPE_LOCAL_DISK : 本地硬盘
 				disk.setDiskToltal(usage.getTotal());		// 文件系统总大小
+				disksTotal += usage.getTotal();
 				disk.setDiskFree(usage.getFree());			// 文件系统剩余大小
+				disksFree += usage.getFree();
 				disk.setDiskAvail(usage.getAvail());		// 文件系统可用大小
 				disk.setDiskUsed(usage.getUsed());			// 文件系统已经使用量
+				disksUsed += usage.getUsed();
 				disk.setDiskUseRate(usage.getUsePercent());	// 文件系统资源的利用率
 				break;
 			case 3:// TYPE_NETWORK ：网络
@@ -416,6 +422,9 @@ public class SystemInfoUtil {
 			disk.setDiskReadsNum(usage.getDiskReads());
 			disk.setDiskWritesNum(usage.getDiskWrites());
 		}
+		disks.setDisksTotal(disksTotal);
+		disks.setDisksFree(disksFree);
+		disks.setDisksUsed(disksUsed);
 		return disks;
 	}
 

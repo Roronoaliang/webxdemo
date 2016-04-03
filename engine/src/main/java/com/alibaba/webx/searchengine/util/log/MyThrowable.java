@@ -2,11 +2,9 @@ package com.alibaba.webx.searchengine.util.log;
 
 public class MyThrowable {
 
-	// 日期
-	private String data;
 	
-	// 具体错误
-	private Throwable throwable;
+	private String data;			// 日期
+	private Throwable throwable;	// 具体错误
 
 	public MyThrowable(String data, Throwable throwable) {
 		super();
