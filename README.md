@@ -141,15 +141,26 @@ try {
 }
 ```
 
-**注意事项**：<br>
->使用前必须修改web子项目的biz-engine.xml文件，设置接收邮件的`邮箱，邮件标题，用来发送邮件的线程池的大小，发送邮件的时间间隔`等参数。<br>
+**注意事项1**：<br>
+>使用前必须修改web子项目的biz-engine.xml文件，设置接收邮件的`邮箱，邮件标题，发送邮件的时间间隔`等参数。<br>
 
 ```
 	<bean id="loggerUtils" class="com.alibaba.webx.searchengine.util.log.LoggerUtils"  init-method="init">
-		<property name="acceptorList">	<value>xxx@163.com</value>			</property>	<!-- 要把错误推送给哪些邮箱 -->
+		<!-- 要把错误推送给哪些邮箱 -->
+		<property name="acceptorList">													
+			<list>
+				<value>xxx@163.com</value>
+			</list>			
+		</property>	
 		<property name="emailTitle">	<value>XXX项目错误日志推送</value>		</property>	<!-- 邮件标题 -->
-		<property name="threadNum">		<value>10</value>					</property>	<!-- 用来发邮件的线程数 -->
-		<property name="sendEmailRate">	<value>20</value>					</property>	<!-- 多少秒发一次邮件 -->
+		<property name="sendEmailRate">	<value>3000</value>					</property>	<!-- 多少秒发一次邮件 -->
+	</bean>
+```
+**注意事项2**：<br>
+本工具使用2.7的开关工具，支持`一键开关`本功能，使用前注意配置文件biz-engine.xml和redis中的配置是否是打开状态：<br>
+```
+	<bean id="mySwitchUtil" class="com.alibaba.webx.searchengine.util.switchs.MySwitchUtil">
+		<property name="EMAIL_LOG_SWITCH">				<value>true</value>		</property>	<!-- 邮件日志功能开关 -->
 	</bean>
 ```
 <br>
@@ -159,6 +170,40 @@ try {
 
 **注意事项**：<br>
 >验证码样式类位置在：web子项目的com.alibaba.webx.web.module.screen.captcha包下的MyCaptchaEngine类，若要重新修改`样式`(比如字体大小，背景，干扰项等等)，可以修改该类的属性值。<br>
+<br>
+####2.7 降级开关工具
+**简介**：<br>
+>使用开关工具，在编写一些新功能时，可以在代码的最前方加入开关，以便一键开启/关闭新功能。假如一个功能上线后出了问题，导致其他服务受到影响，如果关闭服务器修复，肯定会影响到用户的正常使用，不修复的话用户又访问不了，有了开关工具后，此时我们可以在`redis数据库`中把开关关闭，即可停掉该功能，这样的话可以保证其他服务正常运行。开关的的获取会从`本地`和`默认redis数据库`中获取，当从redis获取失败时，自动从本地获取，方便没配redis的用户使用。 但没配redis的用户将使用不了从数据库控制开关的功能。<br>
+
+```
+if(mySwitchUtil.isEMAIL_LOG_SWITCH()){
+    xxxx
+}
+```
+
+**注意事项**：<br>
+>使用前必须修改web子项目的biz-engine.xml文件，配置某个功能`开或关`。<br>
+
+```
+	<bean id="mySwitchUtil" class="com.alibaba.webx.searchengine.util.switchs.MySwitchUtil">
+		<property name="EMAIL_LOG_SWITCH">				<value>true</value>		</property>	<!-- 邮件日志功能开关 -->
+		<property name="DEMO_SWITCH">					<value>true</value>		</property>	<!-- 测试所用 -->
+		<property name="EMAIL_SYSTEM_MONITOR_SWITCH">	<value>true</value>		</property>	<!-- 邮件系统级异常开关 -->
+	</bean>
+```
+
+<br>
+####2.8 系统监听器工具
+**简介**：<br>
+>在没有运维工具和运维人员的情况下，使用系统监听器工具，可以监听系统的`CPU`、`内存`、`磁盘`、`网速`等参数，一旦使用率或网速持续N秒（可配置）超出设定的阀值（可配置），则会使用邮件工具，以默认的发送邮箱发送的指定的接收邮箱。本工具默认在项目运行后自动轮训监听系统状态，无需手动调用。<br>
+
+**注意事项**：<br>
+本工具使用2.7的开关工具，支持`一键开关`本功能，使用前注意配置文件biz-engine.xml和redis中的配置是否是打开状态：<br>
+```
+	<bean id="mySwitchUtil" class="com.alibaba.webx.searchengine.util.switchs.MySwitchUtil">
+		<property name="EMAIL_SYSTEM_MONITOR_SWITCH">	<value>true</value>		</property>	<!-- 邮件系统级异常开关 -->
+	</bean>
+```
 
 <br>
 ###三 集成工具类（common篇）
@@ -197,26 +242,6 @@ try {
 ```
 
 <br>
-####3.7 降级开关工具
->使用开关工具，在编写一些新功能时，可以在代码的最前方加入开关，以便一键开启/关闭新功能。假如一个功能上线后出了问题，导致其他服务受到影响，如果关闭服务器修复，肯定会影响到用户的正常使用，不修复的话用户又访问不了，有了开关工具后，此时我们可以在`redis数据库`中把开关关闭，即可停掉该功能，这样的话可以保证其他服务正常运行。开关的的获取会从`本地`和`默认redis数据库`中获取，当从redis获取失败时，自动从本地获取，方便没配redis的用户使用。 但没配redis的用户将使用不了从数据库控制开关的功能。<br>
-
-```
-if(mySwitchUtil.isEMAIL_LOG_SWITCH()){
-    xxxx
-}
-```
-
-**注意事项**：<br>
->使用前必须修改web子项目的biz-engine.xml文件，配置某个功能`开或关`。<br>
-
-```
-	<bean id="mySwitchUtil" class="com.alibaba.webx.searchengine.util.switchs.MySwitchUtil" init-method="init">
-		<property name="EMAIL_LOG_SWITCH">	<value>true</value>		</property>	<!-- 邮件日志功能开关 -->
-		<property name="DEMO_SWITCH">		<value>true</value>		</property>
-	</bean>
-```
-
-<br>
 ###四 开发规范与约定
 ####4.1  json
 >使用`fastjson`进行json序列化，例如：<br>
@@ -227,16 +252,16 @@ String jsonStr = JSON.toJSONString(object);
 
 <br>
 ####4.2 字符串、集合
-使用`org.apache.commons-commons-lang`3和`commons-collections`<br>
-例如字符串判空：`StringUtils.isBlank(str);`<br>
-例如集合判空：`CollectionUtils.isEmpty(collection);`<br>
+>使用`org.apache.commons-commons-lang`3和`commons-collections`<br>
+*例如字符串判空：`StringUtils.isBlank(str);`<br>
+*例如集合判空：`CollectionUtils.isEmpty(collection);`<br>
 
 <br>
-####4.3 内存缓存
+####4.3 开发时尽量要使用内存缓存
 >使用`com.google.guava-guava`做缓存，例子位于service子项目的com.alibaba.webx.service.demo.impl包的`ServiceDemoImpl`类。<br>
 
 <br>
-####4.4 对象池
+####4.4 开发时可适当对象池
 >使用commons-pool做对象池。<br>
 
 <br>
@@ -246,6 +271,12 @@ String jsonStr = JSON.toJSONString(object);
 <br>
 ####4.6 spring获取对象
 >那些在spring配置文件里面配置的bean（例如上面提到的各种组件及工具），请用@Autowired获取，不要用new，避免一些应该被初始化的参数没被初始化。
+
+<br>
+####4.7 开发时统一使用的工具
+>1、在每个功能前加上`2.7的开关工具`，以便在功能出现异常时一键开关本功能（配上`redis数据库`，否则也一键不了）。<br>
+>2、捕获异常时使用`2.5的邮件日志工具`，以便在报错时，作为开发人员，可以第一时间获取错误，而不是等用户投诉。<br>
+>3、打开`2.8的系统监听工具`，方便在系统出现超载时及时发现问题。
 
 <br>
 未完待续...

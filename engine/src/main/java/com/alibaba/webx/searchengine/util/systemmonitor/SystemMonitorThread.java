@@ -66,7 +66,7 @@ public class SystemMonitorThread implements Runnable{
 				htmlContent.append("<br><br>");
 				htmlContent.append(sb);
 				htmlContent.append("</body></html>");
-				System.out.println("````````````````发送！title="+title+" , html="+htmlContent.toString());
+//				System.out.println("````````````````发送！tit31474297le="+title+" , html="+htmlContent.toString());
 				mailSender.sendText(acceptorList, title , htmlContent.toString());
 			}
 		} catch (Exception e) {

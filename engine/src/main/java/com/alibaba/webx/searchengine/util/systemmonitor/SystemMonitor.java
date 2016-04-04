@@ -169,12 +169,12 @@ public class SystemMonitor {
 						netSendSpeed = netSendPerBytes / 1024;					// 网络发送速度
 						
 						// 打印测试 区
-						System.out.println();
-						System.out.println("cpu总使用率："+cpuUseRate+"%");
-						System.out.println("内存利用率："+memoryUseRate+"%");
-						System.out.println("磁盘总利用率："+disksUsedRate+"%");
-						System.out.println("每秒接收速度："+netReceiveSpeed+"K/s");
-						System.out.println("每秒发送速度："+netSendSpeed+" K/s");
+//						System.out.println();
+//						System.out.println("cpu总使用率："+cpuUseRate+"%");
+//						System.out.println("内存利用率："+memoryUseRate+"%");
+//						System.out.println("磁盘总利用率："+disksUsedRate+"%");
+//						System.out.println("每秒接收速度："+netReceiveSpeed+"K/s");
+//						System.out.println("每秒发送速度："+netSendSpeed+" K/s");
 						
 						// 统计区
 						cpuHasAlarmTime = cpuUseRate >= cpuAlarmPercent ? cpuHasAlarmTime + 1 : 0;
@@ -187,31 +187,31 @@ public class SystemMonitor {
 						if(cpuHasAlarmTime >= cpuAlarmLastTime) {
 							SystemMonitorBean SystemMonitorBean = new SystemMonitorBean(MyDateUtil.getNowStringDate(),"警告！cpu使用率在连续 "+cpuAlarmLastTime+"s 内都超过阀值 "+cpuAlarmPercent+"% 。");
 							queue.add(SystemMonitorBean);
-							System.out.println("cpu报警！！！");
+//							System.out.println("cpu报警！！！");
 							cpuHasAlarmTime = 0;
 						}
 						if(memoryHasAlarmTime >= memoryAlarmLastTime) {
-							SystemMonitorBean SystemMonitorBean = new SystemMonitorBean(MyDateUtil.getNowStringDate(),"警告！内存使用率在连续 "+memoryAlarmLastTime+"s 内都超过阀值 "+memoryAlarmPercent+"% 。");
+							SystemMonitorBean SystemMonitorBean = new SystemMonitorBean(MyDateUtil.getNowStringDate(),"警告！内存使用率在连续 "+memoryAlarmLastTime+"s 内都超过阀值' "+memoryAlarmPercent+"%' 。");
 							queue.add(SystemMonitorBean);
-							System.out.println("内存报警！！！");
+//							System.out.println("内存报警！！！");
 							memoryHasAlarmTime = 0;
 						}
 						if(diskHasAlarmTime >= diskAlarmLastTime) {
-							SystemMonitorBean SystemMonitorBean = new SystemMonitorBean(MyDateUtil.getNowStringDate(),"警告！磁盘总使用率在连续 "+diskAlarmLastTime+"s 内都超过阀值 "+diskAlarmPercent+"% 。");
+							SystemMonitorBean SystemMonitorBean = new SystemMonitorBean(MyDateUtil.getNowStringDate(),"警告！磁盘总使用率在连续 "+diskAlarmLastTime+"s 内都超过阀值' "+diskAlarmPercent+"%' 。");
 							queue.add(SystemMonitorBean);
-							System.out.println("磁盘报警！！！");
+//							System.out.println("磁盘报警！！！");
 							diskHasAlarmTime = 0;
 						}
 						if(netReceiveHasAlarmTime >= netReceiveAlarmLastTime) {
-							SystemMonitorBean SystemMonitorBean = new SystemMonitorBean(MyDateUtil.getNowStringDate(),"警告！接收网速在连续 "+netReceiveAlarmLastTime+"s 内都超过阀值 "+netReceiveSpeed+"K/s 。");
+							SystemMonitorBean SystemMonitorBean = new SystemMonitorBean(MyDateUtil.getNowStringDate(),"警告！接收网速在连续 "+netReceiveAlarmLastTime+"s 内都超过阀值 '"+netReceiveSpeed+"K/s' 。");
 							queue.add(SystemMonitorBean);
-							System.out.println("接收网速报警！！！");
+//							System.out.println("接收网速报警！！！");
 							netReceiveHasAlarmTime = 0;
 						}
 						if(netSendHasAlarmTime >= netSendAlarmLastTime) {
-							SystemMonitorBean SystemMonitorBean = new SystemMonitorBean(MyDateUtil.getNowStringDate(),"警告！发送网速在连续 "+netSendAlarmLastTime+"s 内都超过阀值 "+netSendAlarmSpeed+"K/s 。");
+							SystemMonitorBean SystemMonitorBean = new SystemMonitorBean(MyDateUtil.getNowStringDate(),"警告！发送网速在连续 "+netSendAlarmLastTime+"s 内都超过阀值' "+netSendAlarmSpeed+"K/s' 。");
 							queue.add(SystemMonitorBean);
-							System.out.println("发送网速报警！！！");
+//							System.out.println("发送网速报警！！！");
 							netSendHasAlarmTime = 0;
 						}
 					}
