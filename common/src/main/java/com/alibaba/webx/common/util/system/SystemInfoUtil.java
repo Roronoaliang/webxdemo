@@ -24,6 +24,8 @@ import org.hyperic.sigar.Swap;
  * 
  * @see sigar api： http://cpansearch.perl.org/src/DOUGM/hyperic-sigar-1.6.3-src/docs/javadoc/org/hyperic/sigar/Sigar.html
  * 
+ * @see dll文件下载地址：
+ * 
  * @author xiaoMzjm
  *
  */
@@ -155,8 +157,6 @@ public class SystemInfoUtil {
 	
 	
 	/*=========================public 2==========================*/
-	
-	
 	
 	
 	/*========================================================*/
@@ -297,14 +297,11 @@ public class SystemInfoUtil {
 		try {
 			hostname = InetAddress.getLocalHost().getHostName();
 		} catch (Exception exc) {
-			Sigar sigar = new Sigar();
 			try {
 				hostname = sigar.getNetInfo().getHostName();
 			} catch (SigarException e) {
 				hostname = "localhost.unknown";
-			} finally {
-				sigar.close();
-			}
+			} 
 		}
 		operationSystem.setSystemUserName(hostname);		// 操作系统名称
 		return operationSystem;
@@ -452,9 +449,11 @@ public class SystemInfoUtil {
 	/**
 	 * b)取到当前机器的IP地址
 	 * @return
+	 * @throws SigarException 
 	 */
-	public Nets getDefaultIpAddress() {
+	public Nets getDefaultIpAddress() throws SigarException {
 		String address = null;
+		nets.setNetBroadcase(sigar.getNetInterfaceConfig().getBroadcast());
 		try {
 			address = InetAddress.getLocalHost().getHostAddress();
 			// 没有出现异常而正常当取到的IP时，如果取到的不是网卡循回地址时就返回

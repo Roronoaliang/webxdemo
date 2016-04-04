@@ -158,13 +158,11 @@
 		<property name="cpuAlarmPercent">		<value>90</value>				</property>	<!-- 单位：百分比	意思：cpu使用率报警阀值	 -->
 		<property name="cpuAlarmLastTime">		<value>10</value>				</property>	<!-- 单位：秒		意思：cpu持续超过报警阀值多久才报警。 -->
 		
-		<property name="memoryAlarmPercent">	<value>40</value>				</property>	<!-- 单位：百分比	意思：内存使用率报警阀值 -->
+		<property name="memoryAlarmPercent">	<value>90</value>				</property>	<!-- 单位：百分比	意思：内存使用率报警阀值 -->
 		<property name="memoryAlarmLastTime">	<value>10</value>				</property>	<!-- 单位：秒		意思：内存持续超过报警阀值多久才报警 -->
 		
-		<property name="diskAlarmPercent">		<value>40</value>				</property>	<!-- 单位：百分比	意思：磁盘使用率报警阀值 -->
+		<property name="diskAlarmPercent">		<value>90</value>				</property>	<!-- 单位：百分比	意思：磁盘使用率报警阀值 -->
 		<property name="diskAlarmLastTime">		<value>10</value>				</property>	<!-- 单位：秒		意思：磁盘持续超过报警阀值多久才报警 -->
-		
-		<property name="ipAddress">				<value>192.168.1.103</value>	</property>	<!-- 要监听网速的网卡IP -->
 		
 		<property name="netReceiveAlarmSpeed">	<value>400</value>				</property>	<!-- 单位：K/s	意思：网络接收速度报警阀值 -->
 		<property name="netReceiveAlarmLastTime"><value>10</value>				</property>	<!-- 单位：秒		意思：网络接收速度持续超过报警阀值多久才报警 -->

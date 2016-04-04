@@ -11,8 +11,16 @@ import java.util.List;
 public class Nets {
 	private String netDomian;		// 域名
 	private String netIpAddress;	// ip地址
+	private String netBroadcase;	// 网关广播地址
 	private String netMAC;			// MAC地址
 	private List<Net> netList;		// 网卡
+	
+	public String getNetBroadcase() {
+		return netBroadcase;
+	}
+	public void setNetBroadcase(String netBroadcase) {
+		this.netBroadcase = netBroadcase;
+	}
 	public String getNetDomian() {
 		return netDomian;
 	}
@@ -40,9 +48,7 @@ public class Nets {
 	@Override
 	public String toString() {
 		return "Nets [netDomian=" + netDomian + ", netIpAddress="
-				+ netIpAddress + ", netMAC=" + netMAC + ", netList=" + netList
-				+ "]";
+				+ netIpAddress + ", netBroadcase=" + netBroadcase + ", netMAC="
+				+ netMAC + ", netList=" + netList + "]";
 	}
-	
-	
 }
