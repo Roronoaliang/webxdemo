@@ -180,6 +180,7 @@ try {
 
 **注意事项**：<br>
 >验证码样式类位置在：web子项目的com.alibaba.webx.web.module.screen.captcha包下的MyCaptchaEngine类，若要重新修改`样式`(比如字体大小，背景，干扰项等等)，可以修改该类的属性值。<br>
+
 <br>
 ####2.7 降级开关工具
 **简介**：<br>
@@ -294,7 +295,7 @@ String jsonStr = JSON.toJSONString(object);
 ![工程结构](https://raw.githubusercontent.com/xiaoMzjm/webxdemo/master/readme/%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png) <br>
 
 ####5.2、web子项目结构
-**5.2.1、webx子项目结构1**：<br>
+**5.2.1、web子项目结构1**：<br>
 ![web子项目结构1](https://raw.githubusercontent.com/xiaoMzjm/webxdemo/master/readme/web%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png) <br>
 
 **5.2.2、web子项目结构2**：<br>
