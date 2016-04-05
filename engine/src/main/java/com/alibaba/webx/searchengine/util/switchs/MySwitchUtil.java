@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 
 import com.alibaba.webx.searchengine.factory.redis.RedisFactory;
+import com.alibaba.webx.searchengine.util.log.LoggerUtils;
 
 /**
  * 【功能总开关类】
@@ -30,6 +31,9 @@ public class MySwitchUtil {
 	
 	@Autowired
 	private RedisFactory redisFactory;
+	
+	@Autowired
+	private LoggerUtils loggerUtils;
 	
 	// 日志
 	private static Logger log = LoggerFactory.getLogger(MySwitchUtil.class);
@@ -99,6 +103,7 @@ public class MySwitchUtil {
 		try {
 			jedis = redisFactory.getJedis();
 		} catch (Exception e) {
+			return defaultResult;
 		};
 		
 		// 返回最后一次赋予的值
@@ -140,7 +145,8 @@ public class MySwitchUtil {
 				result = Boolean.valueOf(strReuslt);
 			}
 		} catch (Exception e) {
-			log.error("ERROR",e);
+			log.error("ERROR:",e);
+			loggerUtils.emailError(e);
 		}
 		return result;
 	}

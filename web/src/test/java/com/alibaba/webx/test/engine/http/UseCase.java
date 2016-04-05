@@ -54,8 +54,8 @@ public class UseCase {
 		try {
 			byte[] bytes = null;
 			httpClientUtil = httpClientFactory.getHttpClientUtil();
-			bytes = httpClientUtil.getWithQueryURL("http://www.gdut.edu.cn/");
-			System.out.println(new String(bytes));
+			bytes = httpClientUtil.getWithQueryURL("http://1212.ip138.com/ic.asp");
+			System.out.println(new String(bytes,"gb2312"));
 		} catch (Exception e) {
 			log.error("ERROR",e);
 		} finally {
@@ -74,8 +74,8 @@ public class UseCase {
 		HttpClientUtil httpClientUtil = null; 
 		try {
 			httpClientUtil =  httpClientFactory.getHttpClientUtil();
-			byte[] bytes = httpClientUtil.postWithQueryURL("http://www.gdut.edu.cn/");
-			System.out.println(new String(bytes));
+			byte[] bytes = httpClientUtil.postWithQueryURL("http://1212.ip138.com/ic.asp");
+			System.out.println(new String(bytes,"gb2312"));
 		} catch (Exception e) {
 			log.error("ERROR",e);
 		} finally {
@@ -188,7 +188,8 @@ public class UseCase {
 		try {
 			httpClientUtil =  httpClientFactory.getHttpClientUtil();
 			Map<String,String> paramsMap = new HashMap<String,String>();
-			paramsMap.put("mykey", "myvalue");
+			paramsMap.put("userName", "topview");
+			paramsMap.put("password", "123456");
 			byte[] bytes = httpClientUtil.postWithFileAndParamMap("http://localhost:8080/topview/demo/screenDemo.do", new File("D:/火影头像.jpg"), paramsMap);
 			System.out.println(new String(bytes));
 		} catch (Exception e) {
@@ -240,7 +241,8 @@ public class UseCase {
 			list.add(new File("D:/火影头像.jpg"));
 			list.add(new File("D:/火影头像2.jpg"));
 			Map<String,String> paramsMap = new HashMap<String,String>();
-			paramsMap.put("userName", "zjm");
+			paramsMap.put("userName", "topview");
+			paramsMap.put("password", "123456");
 			byte[] bytes = httpClientUtil.postWithFileListAndParamMap("http://localhost:8080/topview/demo/screenDemo.do", list,paramsMap);
 			System.out.println(new String(bytes));
 		} catch (Exception e) {

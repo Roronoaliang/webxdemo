@@ -19,7 +19,7 @@ public class UseCase {
 	WordUtil word = new WordUtil();
 	
 	@Test
-	// 测试创建一个新的文档
+	// 测试创建一个新的文档————测试成功
 	public void test1(){
 		word.createNewDocument();
 		try {
@@ -36,7 +36,7 @@ public class UseCase {
 	}
 	
 	@Test
-	// 测试创建一个新的文档，并写入文字
+	// 测试创建一个新的文档，并写入文字————测试成功
 	public void test2(){
 		word.createNewDocument();
 		word.appendText("写入测试");
@@ -55,7 +55,7 @@ public class UseCase {
 	
 	
 	@Test
-	// 测试创建一个新的文档，并写入文字&插入图片
+	// 测试创建一个新的文档，并写入文字&插入图片————测试成功
 	public void test4() {
 		word.createNewDocument();
 		try {
@@ -75,7 +75,7 @@ public class UseCase {
 	}
 	
 	@Test
-	// 测试打开已存在的文件，在末尾换行插入文字
+	// 测试打开已存在的文件，在末尾换行插入文字————测试成功
 	public void test5(){
 		try {
 			word.openDocument("D:/test.docx");
@@ -94,7 +94,7 @@ public class UseCase {
 	
 	
 	@Test
-	// 测试打开已存在的文件，在末尾插入文字&图片
+	// 测试打开已存在的文件，在末尾插入文字&图片————测试成功
 	public void test7(){
 		try {
 			word.openDocument("D:/test.docx");
@@ -114,7 +114,7 @@ public class UseCase {
 	}
 	
 	@Test
-	// 测试替换多处文字
+	// 测试替换多处文字————测试成功
 	public void test8() throws FileNotFoundException{
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("${name}","topview");
@@ -136,7 +136,8 @@ public class UseCase {
 	}
 	
 	@Test
-	// 测试同时替换多处文字&图片
+	// 测试同时替换多处文字&图片————测试成功
+	//
 	// 注意！替换符一定要跟左右的字的字体（字体、大小、斜粗等等选一个）不一样，这样的话才能提高替换成功率！！！
 	// 注意！替换符一定要跟左右的字的字体（字体、大小、斜粗等等选一个）不一样，这样的话才能提高替换成功率！！！
 	// 注意！替换符一定要跟左右的字的字体（字体、大小、斜粗等等选一个）不一样，这样的话才能提高替换成功率！！！
@@ -165,7 +166,7 @@ public class UseCase {
 	}
 	
 	@Test
-	// xdoc 转 html
+	// xdoc 转 html————测试成功，但是表格的边框会不见
 	public void test11(){
 		try {
 //			System.out.println(word.xdocToHtml("D:/test2.docx", "./src/main/webapp/images/app/word/", "../images/app/word/"));
@@ -176,7 +177,7 @@ public class UseCase {
 	}
 	
 	@Test
-	// doc 转 html
+	// doc 转 html————测试成功，但是表格的边框会不见
 	public void test12(){
 		try {
 			System.out.println(word.doc2Html("D:/test2.doc", "D:/test/piccache/", "../images/app/word/"));

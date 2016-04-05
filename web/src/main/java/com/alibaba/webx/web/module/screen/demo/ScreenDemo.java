@@ -83,7 +83,7 @@ public class ScreenDemo extends BaseScreen {
 	 */
 	public void getParameterDemo(TurbineRunData runData){
 		System.out.println();
-		System.out.println("获取普通参数例子");
+		System.out.println("获取普通参数例子：");
 		ParameterParser p = runData.getParameters();
 		String userName = p.getString("userName","blank");
 		String password = p.getString("password","blank");
@@ -97,7 +97,7 @@ public class ScreenDemo extends BaseScreen {
 	 */
 	public void getCookieDemo(){
 		System.out.println();
-		System.out.println("获取cookie例子");
+		System.out.println("获取cookie例子：");
 		Cookie[] cookies = request.getCookies();
 		if(cookies != null) {
 			for(Cookie cookie : cookies) {
@@ -114,7 +114,7 @@ public class ScreenDemo extends BaseScreen {
 	 */
 	public void uploadFileDemo(){
 		System.out.println();
-		System.out.println("文件上传例子");
+		System.out.println("文件上传例子：");
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 		if (isMultipart) {
 			FileItem[] items;

@@ -49,7 +49,7 @@ import org.w3c.dom.Document;
 import com.alibaba.webx.common.factory.log.LoggerFactory;
 import com.alibaba.webx.common.util.date.MyDateUtil;
 import com.alibaba.webx.common.util.date.MyDateUtil.MySimpleDateFormatException;
-import com.alibaba.webx.common.util.uuid.MyUUIDUtil;
+import com.alibaba.webx.common.util.uuid.UUIDUtil;
 
 /**
  * word2007 操作组件
@@ -245,7 +245,7 @@ public class WordUtil {
 		} catch (MySimpleDateFormatException e1) {
 			log.error("ERROR:",e1);
 		}
-		String randomName = nowDate+"/"+MyUUIDUtil.getUUID();
+		String randomName = nowDate+"/"+UUIDUtil.getUUID();
 		String imageSrcPath = imageSrcRootPath+"wordpic/"+randomName+"/";
 		String imageSavePath = imageSaveRootPath+"/wordpic/"+randomName+"/";
 		
@@ -294,7 +294,7 @@ public class WordUtil {
 		} catch (MySimpleDateFormatException e1) {
 			log.error("ERROR:",e1);
 		}
-		String randomName = nowDate+"/"+MyUUIDUtil.getUUID();
+		String randomName = nowDate+"/"+UUIDUtil.getUUID();
 		final String imageSrcPath = imageSrcRootPath+"wordpic/"+randomName+"/";
 		String imageSavePath = imageSaveRootPath+"/wordpic/"+randomName+"/";
 		

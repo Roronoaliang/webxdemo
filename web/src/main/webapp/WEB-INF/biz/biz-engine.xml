@@ -64,15 +64,15 @@
 	<!--.....................................-->
 	<bean id="mysqlFactory" class="com.alibaba.webx.searchengine.factory.jdbc.MysqlFactory" init-method="init">
 		<property name="diverName">					<value>com.mysql.jdbc.Driver</value> 				</property>
-		<property name="databaseUrl">				<value>jdbc:mysql://localhost:3306/xxxx</value> 	</property>
-		<property name="databaseUser">				<value>xxx</value> 									</property>
-		<property name="databasePssword">			<value>xxxxxxxx</value> 							</property>
-		<property name="minConnectionNuml">			<value>1</value> 									</property>
-		<property name="maxConnectionNuml">			<value>10</value> 									</property>
-		<property name="acquireIncreamentNum">		<value>1</value> 									</property>
-		<property name="testConnectionPeriod">		<value>30</value> 									</property>
-		<property name="initConnectionNuml">		<value>1</value> 									</property>
-		<property name="validate">					<value>true</value> 								</property>
+		<property name="databaseUrl">				<value>jdbc:mysql://localhost:3306/test</value> 	</property>
+		<property name="databaseUser">				<value>root</value> 								</property>
+		<property name="databasePssword">			<value>root</value> 								</property>
+		<property name="minConnectionNuml">			<value>1</value> 									</property>	<!-- 最小连接数限制 -->
+		<property name="maxConnectionNuml">			<value>10</value> 									</property>	<!-- 最大连接数限制 -->
+		<property name="acquireIncreamentNum">		<value>1</value> 									</property>	<!-- 增加连接时一次性增加的连接数 -->
+		<property name="testConnectionPeriod">		<value>30</value> 									</property>	<!-- 测试连接可用性的时间间隔 -->
+		<property name="initConnectionNuml">		<value>1</value> 									</property>	<!-- 初始化连接池时创建的连接数 -->
+		<property name="validate">					<value>true</value> 								</property>	<!-- 使用连接时是否测试连接是否可用 -->
 	</bean>
 	
 	

@@ -39,12 +39,17 @@ public class UseCase {
 		try {
 			Demo demo = new Demo();
 			demo.setId("123");
+			// 注意，增删改用的是getWriteSqlSession();
+			// 查用的是getReadSqlSession();
 			sqlSession = myBatisFactory.getWriteSqlSession();
-			sqlSession.insert("DemoMapper.insert", demo);
+			int result = sqlSession.insert("DemoMapper.insert", demo);
+			System.out.println("插入结果："+result);
+			// 记得手动commit
 			sqlSession.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			// 记得把session关了
 			sqlSession.close();
 		}
 	}
@@ -55,7 +60,8 @@ public class UseCase {
 		SqlSession sqlSession = null;
 		try {
 			sqlSession = myBatisFactory.getWriteSqlSession();
-			sqlSession.delete("DemoMapper.delete", "123");
+			int result = sqlSession.delete("DemoMapper.delete", "123");
+			System.out.println("删除结果："+result);
 			sqlSession.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,7 +101,8 @@ public class UseCase {
 			Map<String,String> map = new HashMap<String,String>();
 			map.put("oldId" , "123");
 			map.put("newId" , "798");
-			sqlSession.update("DemoMapper.update", map);
+			int result = sqlSession.update("DemoMapper.update", map);
+			System.out.println("修改结果："+result);
 			sqlSession.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
