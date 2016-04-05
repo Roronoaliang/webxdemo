@@ -14,9 +14,9 @@ public class UseCase {
 	public void test() {
 		ExcelUtil excel = null;
 		try {
-			excel = new ExcelUtil("D:/test.xls", "ggch", 0);
+			excel = new ExcelUtil("D:/test3.xlsx", "Sheel1", 0);
 			for(int i = 0 ; i < 300 ; i++) {
-				System.out.println(excel.read(1, i));
+				System.out.println(excel.read(0, i));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,7 +94,7 @@ public class UseCase {
 	public void test4(){
 		ExcelUtil excel = null;
 		try {
-			excel = new ExcelUtil("D:/test2.xls", "ggch", 0);
+			excel = new ExcelUtil("D:/test22.xlsx", "ggch", 0);
 			excel.writeOrUpdate("哈哈", 0, 0);
 			excel.writeOrUpdate("哈哈2", 1, 1);
 			excel.commit();
