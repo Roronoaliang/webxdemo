@@ -1,29 +1,30 @@
-package com.alibaba.webx.searchengine.util.log;
+package com.alibaba.webx.searchengine.util.systemmonitor;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.net.InetAddress;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.webx.common.factory.log.LoggerFactory;
 import com.alibaba.webx.searchengine.factory.mail.MailSenderUtil;
+import com.alibaba.webx.searchengine.util.log.LoggerUtils;
 
 /**
- * 以邮件的形式发送错误报告线程类
+ * 系统监控线程
  * 
- * 【设计该类的目的】：
- * 
- * 发送邮件耗时比较长，不能由于发送邮件而影响正常功能，所以要开一条线程出来执行发送邮件，所以诞生了该类
+ * 用来消费要发送的信息队列的
  * 
  * @author xiaoMzjm
  *
  */
-public class EmailErrorThread implements Runnable{
+public class SystemMonitorThread implements Runnable{
+	
+	// 邮件日志工具
+	@Autowired
+	private LoggerUtils loggerUtils;
 	
 	// 邮件发送对象
 	private MailSenderUtil mailSender;
@@ -35,33 +36,29 @@ public class EmailErrorThread implements Runnable{
 	private String title;
 	
 	// 日志
-	private static Logger log = LoggerFactory.getLogger(EmailErrorThread.class);
-	
-	// 构造函数
-	public EmailErrorThread(MailSenderUtil mailSender,List<String> acceptorList,String title) {
+	private static Logger log = LoggerFactory.getLogger(SystemMonitorThread.class);
+
+	public SystemMonitorThread(MailSenderUtil mailSender,List<String> acceptorList, String emailTitle) {
 		this.mailSender = mailSender;
 		this.acceptorList = acceptorList;
-		this.title = title;
+		this.title = emailTitle;
 	}
 
 	@Override
 	public void run() {
 		try {
-			if(LoggerUtils.queue.size() > 0) {
+			if(SystemMonitor.queue.size() > 0) {
 				StringBuilder sb = new StringBuilder();
 				StringBuilder htmlContent = new StringBuilder();
-				Queue<MyThrowable> queue = new ConcurrentLinkedQueue<MyThrowable>();
-				synchronized(LoggerUtils.queue){
-					queue.addAll(LoggerUtils.queue);
-					LoggerUtils.queue.clear();
+				Queue<SystemMonitorBean> queue = new ConcurrentLinkedQueue<SystemMonitorBean>();
+				synchronized(SystemMonitor.queue){
+					queue.addAll(SystemMonitor.queue);
+					SystemMonitor.queue.clear();
 				}
 				if(queue != null && queue.size() > 0) {
 					while(queue.size() > 0){
-						MyThrowable mt = queue.poll();
-						Writer result = new StringWriter();
-				        PrintWriter printWriter = new PrintWriter(result);
-				        mt.getThrowable().printStackTrace(printWriter);
-				        sb.append(mt.getData()).append("<br>").append(result.toString()).append("<br><br><br>");
+						SystemMonitorBean systemMonitorBean = queue.poll();
+				        sb.append(systemMonitorBean.getDate()).append("<br>").append(systemMonitorBean.getMessage()).append("<br><br><br>");
 					}
 				}
 				if(sb.length() > 0) {
@@ -70,11 +67,15 @@ public class EmailErrorThread implements Runnable{
 					htmlContent.append("<br><br>");
 					htmlContent.append(sb);
 					htmlContent.append("</body></html>");
+//					System.out.println("````````````````发送！tit31474297le="+title+" , html="+htmlContent.toString());
 					mailSender.sendText(acceptorList, title , htmlContent.toString());
 				}
 			}
 		} catch (Exception e) {
 			log.error("RROR:",e);
+			loggerUtils.emailError(e);
 		}
+		
 	}
+
 }

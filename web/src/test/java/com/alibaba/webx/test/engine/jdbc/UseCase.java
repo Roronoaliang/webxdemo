@@ -34,16 +34,28 @@ public class UseCase {
 	
 	// 测试连接性————测试通过
 	@Test
-	public void select() throws SQLException{
-		Connection connection = mysqlFactory.getConnection();
-		String sql = "select user from mysql.user";
-		PreparedStatement stat = (PreparedStatement) connection.prepareStatement(sql);
-		ResultSet resultSet = stat.executeQuery();
-		while(resultSet.next()){
-			String user = resultSet.getString("user");
-			System.out.println(user);
+	public void select(){
+		Connection connection = null;
+		try {
+			connection = mysqlFactory.getConnection();
+			System.out.println("connectionId="+connection.hashCode());
+			String sql = "select user from mysql.user";
+			PreparedStatement stat = (PreparedStatement) connection.prepareStatement(sql);
+			ResultSet resultSet = stat.executeQuery();
+			while(resultSet.next()){
+				String user = resultSet.getString("user");
+				System.out.println(user);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// 记得关闭连接
+				connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		connection.close();
 	}
 
 }

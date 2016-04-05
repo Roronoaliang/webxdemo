@@ -2,24 +2,23 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-					http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+					http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
 					http://www.springframework.org/schema/context 
 					http://www.springframework.org/schema/context/spring-context-2.5.xsd"
 	default-autowire="byName">
-	
 	
 	<!-- 为了配合junit单元测试，只能在该xml冗余增加包扫描 -->
 	<context:annotation-config/>												
 	<context:component-scan base-package="com.alibaba.webx.*"/>
 	
-	
 	<!--.....................................-->
 	<!-- 降级开关                                                                                        -->
 	<!--.....................................-->
-	<bean id="mySwitchUtil" class="com.alibaba.webx.searchengine.util.switchs.MySwitchUtil" init-method="init">
-		<property name="EMAIL_LOG_SWITCH">	<value>true</value>		</property>	<!-- 邮件日志功能开关 -->
-		<property name="DEMO_SWITCH">		<value>true</value>		</property>
+	<bean id="mySwitchUtil" class="com.alibaba.webx.searchengine.util.switchs.MySwitchUtil">
+		<property name="EMAIL_LOG_SWITCH">				<value>true</value>		</property>	<!-- 邮件日志功能开关 -->
+		<property name="DEMO_SWITCH">					<value>true</value>		</property>	<!-- 测试所用 -->
+		<property name="EMAIL_SYSTEM_MONITOR_SWITCH">	<value>true</value>		</property>	<!-- 邮件系统级异常开关 -->
 	</bean>
 	
 	
@@ -29,8 +28,8 @@
 	<bean id="mailFactory" class="com.alibaba.webx.searchengine.factory.mail.MailFactory" init-method="init">
 		<property name="defaultMailServerHost">		<value>smtp.qq.com</value> 		</property>	<!-- 邮件服务地址 -->
 		<property name="defaultMailServerPort">		<value>25</value> 				</property>	<!-- 端口号 -->
-		<property name="defaultSenderAddress">		<value>xxxxxxxxx</value> 		</property> <!-- 用来发送邮件的账号 -->
-		<property name="defaultPassword">			<value>xxxxxx</value> 			</property>	<!-- 账号对应的密码 -->
+		<property name="defaultSenderAddress">		<value>xxx@qq.com</value> 		</property> <!-- 用来发送邮件的账号 -->
+		<property name="defaultPassword">			<value>xxxxxxx</value> 			</property>	<!-- 账号对应的密码 -->
 	</bean>
 	
 	
@@ -38,10 +37,14 @@
 	<!--..............logUtils...............-->
 	<!--.....................................-->
 	<bean id="loggerUtils" class="com.alibaba.webx.searchengine.util.log.LoggerUtils"  init-method="init">
-		<property name="acceptorList">	<value>xxx@163.com</value>			</property>	<!-- 要把错误推送给哪些邮箱 -->
-		<property name="emailTitle">	<value>XXX项目错误日志推送</value>		</property>	<!-- 邮件标题 -->
-		<property name="threadNum">		<value>10</value>					</property>	<!-- 用来发邮件的线程数 -->
-		<property name="sendEmailRate">	<value>20</value>					</property>	<!-- 多少秒发一次邮件 -->
+		<!-- 要把错误推送给哪些邮箱 -->
+		<property name="acceptorList">													
+			<list>
+				<value>xxx@163.com</value>
+			</list>			
+		</property>	
+		<property name="emailTitle">	<value>XXX项目代码级错误日志推送</value>	</property>	<!-- 邮件标题 -->
+		<property name="sendEmailRate">	<value>3000</value>						</property>	<!-- 多少秒发一次邮件 -->
 	</bean>
 	
 	<!--.....................................-->
@@ -61,15 +64,15 @@
 	<!--.....................................-->
 	<bean id="mysqlFactory" class="com.alibaba.webx.searchengine.factory.jdbc.MysqlFactory" init-method="init">
 		<property name="diverName">					<value>com.mysql.jdbc.Driver</value> 				</property>
-		<property name="databaseUrl">				<value>jdbc:mysql://localhost:3306/xxxx</value> 	</property>
-		<property name="databaseUser">				<value>xxx</value> 									</property>
-		<property name="databasePssword">			<value>xxxxxxxx</value> 							</property>
-		<property name="minConnectionNuml">			<value>1</value> 									</property>
-		<property name="maxConnectionNuml">			<value>10</value> 									</property>
-		<property name="acquireIncreamentNum">		<value>1</value> 									</property>
-		<property name="testConnectionPeriod">		<value>30</value> 									</property>
-		<property name="initConnectionNuml">		<value>1</value> 									</property>
-		<property name="validate">					<value>true</value> 								</property>
+		<property name="databaseUrl">				<value>jdbc:mysql://localhost:3306/test</value> 	</property>
+		<property name="databaseUser">				<value>root</value> 								</property>
+		<property name="databasePssword">			<value>root</value> 								</property>
+		<property name="minConnectionNuml">			<value>1</value> 									</property>	<!-- 最小连接数限制 -->
+		<property name="maxConnectionNuml">			<value>10</value> 									</property>	<!-- 最大连接数限制 -->
+		<property name="acquireIncreamentNum">		<value>1</value> 									</property>	<!-- 增加连接时一次性增加的连接数 -->
+		<property name="testConnectionPeriod">		<value>30</value> 									</property>	<!-- 测试连接可用性的时间间隔 -->
+		<property name="initConnectionNuml">		<value>1</value> 									</property>	<!-- 初始化连接池时创建的连接数 -->
+		<property name="validate">					<value>true</value> 								</property>	<!-- 使用连接时是否测试连接是否可用 -->
 	</bean>
 	
 	
@@ -145,5 +148,36 @@
 		<property name="poolPort">				<value>6379</value> 			</property>	<!-- 数据库的端口 -->
 		<property name="poolConnectTimeOut">	<value>5000</value> 			</property>	<!-- 连接持续连接的超时时间，单位毫秒-->
 		<property name="poolPassword">			<value>xxxxxxxx</value> 		</property>	<!-- 数据库密码 -->
+	</bean>
+	
+	
+	<!-- =================================== -->
+	<!-- 系统监听器							 -->
+	<!-- =================================== -->
+	<bean id="systemMonitor" class="com.alibaba.webx.searchengine.util.systemmonitor.SystemMonitor" init-method="init">
+		<property name="cpuAlarmPercent">		<value>90</value>				</property>	<!-- 单位：百分比	意思：cpu使用率报警阀值	 -->
+		<property name="cpuAlarmLastTime">		<value>10</value>				</property>	<!-- 单位：秒		意思：cpu持续超过报警阀值多久才报警。 -->
+		
+		<property name="memoryAlarmPercent">	<value>90</value>				</property>	<!-- 单位：百分比	意思：内存使用率报警阀值 -->
+		<property name="memoryAlarmLastTime">	<value>10</value>				</property>	<!-- 单位：秒		意思：内存持续超过报警阀值多久才报警 -->
+		
+		<property name="diskAlarmPercent">		<value>90</value>				</property>	<!-- 单位：百分比	意思：磁盘使用率报警阀值 -->
+		<property name="diskAlarmLastTime">		<value>10</value>				</property>	<!-- 单位：秒		意思：磁盘持续超过报警阀值多久才报警 -->
+		
+		<property name="netReceiveAlarmSpeed">	<value>400</value>				</property>	<!-- 单位：K/s	意思：网络接收速度报警阀值 -->
+		<property name="netReceiveAlarmLastTime"><value>10</value>				</property>	<!-- 单位：秒		意思：网络接收速度持续超过报警阀值多久才报警 -->
+		
+		<property name="netSendAlarmSpeed">		<value>400</value>				</property>	<!-- 单位：K/s	意思：网络发送速度报警阀值 -->
+		<property name="netSendAlarmLastTime">	<value>10</value>				</property>	<!-- 单位：秒		意思：网络发送速度持续超过报警阀值多久才报警 -->
+		
+		<!-- 要把错误推送给哪些邮箱 -->
+		<property name="acceptorList">													
+			<list>
+				<value>xxxxx@163.com</value>
+			</list>			
+		</property>	
+		<property name="emailTitle">	<value>XXX项目系统级错误推送</value>		</property>	<!-- 邮件标题 -->
+		<property name="sendEmailRate">	<value>3000</value>						</property>	<!-- 多少秒发一次邮件 -->
+		
 	</bean>
 </beans>

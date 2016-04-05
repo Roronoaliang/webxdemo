@@ -36,12 +36,12 @@ public class UseCase {
 
 	// 存储java对象————测试通过
 	@Test
-	public void test() {
+	public void testSet() {
 		Jedis jedis = null;
 		try {
 			jedis = redisFactory.getJedis();
 			
-			// 普通的操作直接看官网API，太多了，下面只演示下如何存储java对象，利用到本包下的序列化工具类
+			// 普通的操作直接看官网API，太多了，下面只演示下如何存储java对象，利用到自己写的的序列化工具类
 
 			Demo demo = new Demo();
 			

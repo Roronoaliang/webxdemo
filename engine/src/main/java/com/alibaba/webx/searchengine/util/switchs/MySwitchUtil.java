@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import redis.clients.jedis.Jedis;
 
 import com.alibaba.webx.searchengine.factory.redis.RedisFactory;
+import com.alibaba.webx.searchengine.util.log.LoggerUtils;
 
 /**
  * 【功能总开关类】
@@ -31,29 +32,18 @@ public class MySwitchUtil {
 	@Autowired
 	private RedisFactory redisFactory;
 	
+	@Autowired
+	private LoggerUtils loggerUtils;
+	
 	// 日志
 	private static Logger log = LoggerFactory.getLogger(MySwitchUtil.class);
 	
-	// 写demo用的开关
-	private static boolean DEMO_SWITCH;
-	
-	// 邮件日志功能开关
-	private static boolean EMAIL_LOG_SWITCH;
-	
-	private Jedis jedis;
+			
+	private static boolean DEMO_SWITCH;					// 写demo用的开关
+	private static boolean EMAIL_LOG_SWITCH;			// 邮件日志功能开关
+	private static boolean EMAIL_SYSTEM_MONITOR_SWITCH;	// 邮件操作系统异常开关
 	
 	public MySwitchUtil(){}
-	
-	/**
-	 * 获取redis组件
-	 */
-	public void init(){
-		try {
-			jedis =  redisFactory.getJedis();
-		} catch (Exception e) {
-			log.warn("初始化redis失败，采用本地配置。");
-		}
-	}
 
 	/**
 	 * 获取邮件日志功能开关值
@@ -80,6 +70,19 @@ public class MySwitchUtil {
 	public void setDEMO_SWITCH(boolean dEMO_SWITCH) {
 		DEMO_SWITCH = dEMO_SWITCH;
 	}
+	
+	/**
+	 * 获取邮件操作系统异常开关
+	 * @return
+	 */
+	public boolean isEMAIL_SYSTEM_MONITOR_SWITCH() {
+		EMAIL_SYSTEM_MONITOR_SWITCH = getSwtichByKey("EMAIL_SYSTEM_MONITOR_SWITCH",EMAIL_SYSTEM_MONITOR_SWITCH);
+		return EMAIL_SYSTEM_MONITOR_SWITCH;
+	}
+
+	public void setEMAIL_SYSTEM_MONITOR_SWITCH(boolean eMAIL_SYSTEM_MONITOR_SWITCH) {
+		EMAIL_SYSTEM_MONITOR_SWITCH = eMAIL_SYSTEM_MONITOR_SWITCH;
+	}
 
 	/**
 	 * 根据key获取开关值
@@ -95,12 +98,23 @@ public class MySwitchUtil {
 	 * @return
 	 */
 	private Boolean getSwtichByKey(String key , Boolean defaultResult){
+		// 获取jedis
+		Jedis jedis = null;
+		try {
+			jedis = redisFactory.getJedis();
+		} catch (Exception e) {
+			return defaultResult;
+		};
+		
+		// 返回最后一次赋予的值
 		if(jedis == null) {
 			return defaultResult;
 		}
+		
+		// 从redis数据库中获取值
 		else {
 			// null | true | false
-			Boolean result = getFromRedis("EMAIL_LOG_SWITCH");
+			Boolean result = getFromRedis("EMAIL_LOG_SWITCH",jedis);
 			if(result == null){
 				return defaultResult;
 			}
@@ -120,7 +134,7 @@ public class MySwitchUtil {
 	 * @param key
 	 * @return
 	 */
-	private Boolean getFromRedis(String key){
+	private Boolean getFromRedis(String key,Jedis jedis){
 		Boolean result = null;
 		try {
 			String strReuslt = jedis.get(key);
@@ -131,7 +145,8 @@ public class MySwitchUtil {
 				result = Boolean.valueOf(strReuslt);
 			}
 		} catch (Exception e) {
-			log.error("ERROR",e);
+			log.error("ERROR:",e);
+			loggerUtils.emailError(e);
 		}
 		return result;
 	}

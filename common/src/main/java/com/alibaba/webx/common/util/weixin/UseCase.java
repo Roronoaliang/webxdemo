@@ -12,7 +12,7 @@ package com.alibaba.webx.common.util.weixin;
 public class UseCase {
 	
 	/** 
-     * 确认请求来自微信服务器 
+     * 确认请求来自微信服务器 ————测试成功
      */  
 //    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {  
 //        // 微信加密签名  
