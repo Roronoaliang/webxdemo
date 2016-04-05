@@ -14,16 +14,17 @@ git clone https://github.com/xiaoMzjm/webxdemo.git
 ```
 
 ####1.3 手动导入maven仓库没有的jar包
-> proxool下载地址：[proxool-0.9.1](https://sourceforge.net/projects/proxool/files/proxool/0.9.1/proxool-0.9.1.zip/download?use_mirror=heanet&download=)<br>
+>`proxool`是一款数据库连接池，可以用来实现多源数据库连接。<br> 
+proxool下载地址：[proxool-0.9.1](https://sourceforge.net/projects/proxool/files/proxool/0.9.1/proxool-0.9.1.zip/download?use_mirror=heanet&download=)<br>
 解压后进入到proxool.jar所在目录，运行以下命令，把jar包导入到本地仓库中。
 ```
 mvn install:install-file -Dfile=proxool-0.9.1.jar -DgroupId=proxool -DartifactId=proxool -Dversion=0.9.1 -Dpackaging=jar
 ```
 
-####1.4 导入把sigar的dll文件
+####1.4 导入sigar的dll文件
 >`sigar`是一个开源的收集系统信息的工具，本项目用它来监听系统信息(cpu、内存、磁盘、网速)，但它需要把跟系统相关的dll文件放到`${JAVA_HOME}/bin`下。<br>
 sigar下载地址：[sigar 1.6.4](http://iweb.dl.sourceforge.net/project/sigar/sigar/1.6/hyperic-sigar-1.6.4.zip)<br>
-下载解压后，进入到解压后的文件hyperic-sigar-1.6.4\sigar-bin\lib目录，根据系统对响应的dll文件进行拷贝。<br>
+下载解压后，进入到解压后的文件hyperic-sigar-1.6.4\sigar-bin\lib目录，根据系统对相应的dll文件进行拷贝。<br>
 * windows 64位：sigar-amd64-winnt.dll
 * windows 32位：sigar-x86-winnt.dll
 * linux 64位：libsigar-amd64-linux.so
@@ -36,18 +37,18 @@ sigar下载地址：[sigar 1.6.4](http://iweb.dl.sourceforge.net/project/sigar/s
 ####1.6 运行
 >右键parent父项目-->run as-->Maven build...-->在Gloas后面输入`clean tomcat:run`-->点击Run运行。第一次运行console可能会出现如下信息，请输入yes。<br>
 
-╭───────────────────────┈┈┈┈
-│
-│ 您的配置文件需要被更新：
-│
-│ file:/.../antx.properties
-│
-│ 这个文件包括了您个人的特殊设置，
-│ 包括服务器端口、您的邮件地址等内容。
-│
-└───────┈┈┈┈┈┈┈┈┈┈┈
-
- 如果不更新此文件，可能会导致配置文件的内容不完整。
+╭───────────────────────┈┈┈┈<br>
+│<br>
+│ 您的配置文件需要被更新：<br>
+│<br>
+│ file:/.../antx.properties<br>
+│<br>
+│ 这个文件包括了您个人的特殊设置，<br>
+│ 包括服务器端口、您的邮件地址等内容。<br>
+│<br>
+└───────┈┈┈┈┈┈┈┈┈┈┈<br>
+<br>
+ 如果不更新此文件，可能会导致配置文件的内容不完整。<br>
  您需要现在更新此文件吗? [Yes][No] yes<br>
  
 ####1.7 测试
