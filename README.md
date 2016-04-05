@@ -288,5 +288,15 @@ String jsonStr = JSON.toJSONString(object);
 >3、打开`2.8的系统监听工具`，方便在系统出现超载时及时发现问题。
 
 <br>
-未完待续...
+###五 项目结构
+####5.1、工程结构
+![工程结构](https://raw.githubusercontent.com/xiaoMzjm/webxdemo/master/readme/%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png) <br>
+
+####5.2、web子项目结构
+**5.2.1、webx子项目结构1**：<br>
+![web子项目结构1](https://raw.githubusercontent.com/xiaoMzjm/webxdemo/master/readme/web%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png) <br>
+
+**5.2.2、web子项目结构2**：<br>
+![web子项目结构2](https://github.com/xiaoMzjm/webxdemo/blob/master/readme/web%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%842.png?raw=true)
+
 

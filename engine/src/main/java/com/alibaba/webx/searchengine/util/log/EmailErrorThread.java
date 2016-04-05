@@ -47,29 +47,31 @@ public class EmailErrorThread implements Runnable{
 	@Override
 	public void run() {
 		try {
-			StringBuilder sb = new StringBuilder();
-			StringBuilder htmlContent = new StringBuilder();
-			Queue<MyThrowable> queue = new ConcurrentLinkedQueue<MyThrowable>();
-			synchronized(LoggerUtils.queue){
-				queue.addAll(LoggerUtils.queue);
-				LoggerUtils.queue.clear();
-			}
-			if(queue != null && queue.size() > 0) {
-				while(queue.size() > 0){
-					MyThrowable mt = queue.poll();
-					Writer result = new StringWriter();
-			        PrintWriter printWriter = new PrintWriter(result);
-			        mt.getThrowable().printStackTrace(printWriter);
-			        sb.append(mt.getData()).append("<br>").append(result.toString()).append("<br><br><br>");
+			if(LoggerUtils.queue.size() > 0) {
+				StringBuilder sb = new StringBuilder();
+				StringBuilder htmlContent = new StringBuilder();
+				Queue<MyThrowable> queue = new ConcurrentLinkedQueue<MyThrowable>();
+				synchronized(LoggerUtils.queue){
+					queue.addAll(LoggerUtils.queue);
+					LoggerUtils.queue.clear();
 				}
-			}
-			if(sb.length() > 0) {
-				htmlContent.append("<html><body>");
-				htmlContent.append("【域名/IP地址】："+InetAddress.getLocalHost().getCanonicalHostName());
-				htmlContent.append("<br><br>");
-				htmlContent.append(sb);
-				htmlContent.append("</body></html>");
-				mailSender.sendText(acceptorList, title , htmlContent.toString());
+				if(queue != null && queue.size() > 0) {
+					while(queue.size() > 0){
+						MyThrowable mt = queue.poll();
+						Writer result = new StringWriter();
+				        PrintWriter printWriter = new PrintWriter(result);
+				        mt.getThrowable().printStackTrace(printWriter);
+				        sb.append(mt.getData()).append("<br>").append(result.toString()).append("<br><br><br>");
+					}
+				}
+				if(sb.length() > 0) {
+					htmlContent.append("<html><body>");
+					htmlContent.append("【域名/IP地址】："+InetAddress.getLocalHost().getCanonicalHostName());
+					htmlContent.append("<br><br>");
+					htmlContent.append(sb);
+					htmlContent.append("</body></html>");
+					mailSender.sendText(acceptorList, title , htmlContent.toString());
+				}
 			}
 		} catch (Exception e) {
 			log.error("RROR:",e);
