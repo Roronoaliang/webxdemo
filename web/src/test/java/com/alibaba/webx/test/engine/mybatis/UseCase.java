@@ -11,6 +11,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.alibaba.webx.common.po.demo.Demo;
 import com.alibaba.webx.searchengine.factory.mybatis.MyBatisFactory;
+import com.alibaba.webx.searchengine.factory.mybatis.MySqlSessionTemplate;
 
 /**
  * 【Mybatis组件 使用例子】
@@ -21,6 +22,10 @@ public class UseCase {
 	
 	private static MyBatisFactory myBatisFactory;
 	
+	private static MySqlSessionTemplate sqlSessionWriteTemplate;
+	
+	private static MySqlSessionTemplate sqlSessionReadTemplate;
+	
 	private static FileSystemXmlApplicationContext fsxac;
 	
 	@BeforeClass
@@ -29,6 +34,12 @@ public class UseCase {
 			String[] strs = new String[]{"src/main/webapp/WEB-INF/biz/*.xml"};
 	    	fsxac = new FileSystemXmlApplicationContext(strs);
 	    	myBatisFactory = (MyBatisFactory) fsxac.getBean("myBatisFactory");
+	    	if(sqlSessionWriteTemplate == null) {
+	    		sqlSessionWriteTemplate = (MySqlSessionTemplate) fsxac.getBean("sqlSessionWriteTemplate");
+	    	}
+	    	if(sqlSessionReadTemplate == null) {
+	    		sqlSessionReadTemplate = (MySqlSessionTemplate) fsxac.getBean("sqlSessionReadTemplate");
+	    	}
 		}
     }
 	
@@ -38,7 +49,7 @@ public class UseCase {
 		SqlSession sqlSession = null ;
 		try {
 			Demo demo = new Demo();
-			demo.setId("123");
+			demo.setId("1340");
 			// 注意，增删改用的是getWriteSqlSession();
 			// 查用的是getReadSqlSession();
 			sqlSession = myBatisFactory.getWriteSqlSession();
@@ -52,6 +63,14 @@ public class UseCase {
 			// 记得把session关了
 			sqlSession.close();
 		}
+	}
+	
+	// 增————测试通过
+	@Test
+	public void insertWithTemplate(){
+		Demo demo = new Demo();
+		demo.setId("1349");
+		sqlSessionWriteTemplate.insert("DemoMapper.insert", demo);
 	}
 	
 	// 删————测试通过
@@ -68,6 +87,12 @@ public class UseCase {
 		} finally {
 			sqlSession.close();
 		}
+	}
+	
+	// 删————测试通过
+	@Test
+	public void deleteWithTemplate(){
+		sqlSessionWriteTemplate.delete("DemoMapper.delete", "1344");
 	}
 	
 	// 查————测试通过
@@ -92,6 +117,20 @@ public class UseCase {
 		}
 	}
 	
+	// 查————测试通过
+	@Test
+	public void findWithTemplate(){
+		List<Demo> demoList = sqlSessionReadTemplate.selectList("DemoMapper.get");
+		if(demoList != null) {
+			for(Demo demo : demoList) {
+				System.out.println(demo);
+			}
+		}
+		else {
+			System.out.println("demoList is null!");
+		}
+	}
+	
 	// 改————测试通过
 	@Test
 	public void update(){
@@ -109,7 +148,14 @@ public class UseCase {
 		} finally {
 			sqlSession.close();
 		}
-		
-		
+	}
+	
+	// 改————测试通过
+	@Test
+	public void updateWithTemplate(){
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("oldId" , "1344");
+		map.put("newId" , "1352");
+		sqlSessionWriteTemplate.update("DemoMapper.update", map);
 	}
 }

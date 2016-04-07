@@ -1,9 +1,11 @@
 package com.alibaba.webx.service.demo.impl;
 
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.webx.common.po.demo.Demo;
 import com.alibaba.webx.searchengine.dao.DaoDemo;
@@ -44,14 +46,24 @@ public class ServiceDemoImpl implements ServiceDemo{
 			});
 	}
 
+	@Transactional
 	public void add(Demo demo){
-		daoDempImpl.add();
+		daoDempImpl.add(demo);
 	}
 	
-	public void delete(Demo demo){
-		daoDempImpl.delete();
+	@Transactional
+	public void testTransactional(Demo demo){
+		daoDempImpl.add(demo);
+		int num = 5 / 0;
+		System.out.println(num);
 	}
 	
+	@Transactional
+	public void delete(String id){
+		daoDempImpl.delete(id);
+	}
+	
+	@Transactional(readOnly=true)
 	public void find(Demo demo){
 		daoDempImpl.find();
 	}
@@ -73,7 +85,8 @@ public class ServiceDemoImpl implements ServiceDemo{
 		return null;
 	}
 	
-	public void update(Demo demo){
-		daoDempImpl.update();
+	@Transactional
+	public void update(Map<String,String> map){
+		daoDempImpl.update(map);
 	}
 }

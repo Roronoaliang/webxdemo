@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -65,10 +67,17 @@ public class ScreenDemo extends BaseScreen {
 				System.out.println();
 				System.out.println("service例子");
 				Demo demo = new Demo();
+				demo.setId("1554");
 				serviceDemo.add(demo);
-				serviceDemo.delete(demo);
-				serviceDemo.find(demo);
-				serviceDemo.update(demo);
+				Demo demo2 = new Demo();
+				demo2.setId("1555");
+//				serviceDemo.testTransactional(demo2);
+//				serviceDemo.delete("id");
+//				serviceDemo.find(demo);
+				Map<String,String> map = new HashMap<String,String>();
+				map.put("oldId" , "123");
+				map.put("newId" , "798");
+				serviceDemo.update(map);
 			}
 			
 		} catch (Exception e) {

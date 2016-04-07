@@ -96,6 +96,19 @@ engine子项目下的工具，在`web子项目`的`src/test/java`目录下对应
 ####2.3 mybatis工具
 **简介**：<br>
 >基于mybatis-spring、proxool、proxool-cglib的封装，支持`多源`数据库的Session的获取。方便在没使用数据库中间件时，实现`读写分离`。<br>
+> 另外，由于spring的`SqlSessionTempalte不支持多源`，所以实现了一个`MySqlSessionTemplate`，里面的代码是复制spring的SqlSessionTempalte的，拥有相同的可靠性与功能，只改了构造方法，支持传入读写库的key，由此来创建不同的数据库源。配置如下，使用时和SqlSessionTempalte一样。`使用例子`请看`engine`项目下com.alibaba.webx.searchengine.dao.impl包`DaoDempImpl`类。
+
+```
+ 	<bean id="sqlSessionWriteTemplate" class="com.alibaba.webx.searchengine.factory.mybatis.MySqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlsessionfactory"></constructor-arg>
+		<!-- 与dynamicDataSource这个bean中配置的key对应 -->
+		<constructor-arg index="1" > <value>dataSourceKeyRW</value> </constructor-arg>
+	</bean>
+	<bean id="sqlSessionReadTemplate" class="com.alibaba.webx.searchengine.factory.mybatis.MySqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlsessionfactory"></constructor-arg>
+		<constructor-arg index="1" > <value>dataSourceKeyR</value> </constructor-arg>
+	</bean>
+```
 
 **注意事项**：<br>
 >使用前必须修改web子项目的biz-engine.xml文件，修改与`数据库连接`相关的参数以及`连接池`相关的参数。
