@@ -14,7 +14,7 @@ public class UseCase {
 	//测试读具体一个单元格
 	@Test
 	public void test() throws FileNotFoundException, ExcelException, IOException {
-		ExcelPoiUtil excel = new ExcelPoiUtil("F:/test.xlsx", "sheet1", 0);
+		ExcelPoiUtil excel = new ExcelPoiUtil("D:/test.xlsx", "sheet1", 0);
 		for(int i = 0; i < 10; i++) {
 			System.out.println(excel.read(i, 0));
 		}

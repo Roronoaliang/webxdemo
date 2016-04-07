@@ -168,6 +168,7 @@ public class ScreenDemo extends BaseScreen {
 	/**
 	 * 测试方法，随便写
 	 */
+	@Autowired
 	public void test (){
 	}
 }

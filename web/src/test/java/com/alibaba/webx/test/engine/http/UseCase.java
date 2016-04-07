@@ -121,7 +121,7 @@ public class UseCase {
 			httpClientUtil =  httpClientFactory.getHttpClientUtil();
 			Map<String,String> paramsMap = new HashMap<String,String>();
 			paramsMap.put("key", "value");
-			byte[] bytes = httpClientUtil.postWithParamsMapAndJessionId("http://localhost:8080/topview/demo/screenDemo.htm", paramsMap, "testJessionId");
+			byte[] bytes = httpClientUtil.postWithParamsMapAndJessionId("http://1212.ip138.com/ic.asp", paramsMap, "testJessionId");
 			System.out.println(new String(bytes));
 		} catch (Exception e) {
 			log.error("ERROR",e);

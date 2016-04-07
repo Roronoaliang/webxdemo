@@ -3,13 +3,19 @@ package com.alibaba.webx.service.demo.impl;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.alibaba.webx.common.po.demo.Demo;
+import com.alibaba.webx.searchengine.dao.DaoDemo;
 import com.alibaba.webx.service.demo.ServiceDemo;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 
 public class ServiceDemoImpl implements ServiceDemo{
+	
+	@Autowired
+	private DaoDemo daoDempImpl;
 	
 	private static Integer demoCache_refreshAfterWrite;
 	private static Integer demoCache_expireAfterWrite;
@@ -39,15 +45,15 @@ public class ServiceDemoImpl implements ServiceDemo{
 	}
 
 	public void add(Demo demo){
-		System.out.println("this is add method.");
+		daoDempImpl.add();
 	}
 	
 	public void delete(Demo demo){
-		System.out.println("this is delete method.");
+		daoDempImpl.delete();
 	}
 	
 	public void find(Demo demo){
-		System.out.println("this is find method.");
+		daoDempImpl.find();
 	}
 	
 	// 从缓存查询该对象
@@ -63,11 +69,11 @@ public class ServiceDemoImpl implements ServiceDemo{
 	
 	// 从数据库查询该对象
 	public Demo getDemoByIdFromDatabase(String id){
-		System.out.println("getDemoByIdFromDatabase");
+		daoDempImpl.find();
 		return null;
 	}
 	
 	public void update(Demo demo){
-		System.out.println("this is update method.");
+		daoDempImpl.update();
 	}
 }
