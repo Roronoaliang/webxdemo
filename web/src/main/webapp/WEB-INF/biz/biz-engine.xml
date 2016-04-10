@@ -22,7 +22,7 @@
 	<bean id="mySwitchUtil" class="com.alibaba.webx.searchengine.util.switchs.MySwitchUtil">
 		<property name="EMAIL_LOG_SWITCH">				<value>true</value>		</property>	<!-- 邮件日志功能开关 -->
 		<property name="DEMO_SWITCH">					<value>true</value>		</property>	<!-- 测试所用 -->
-		<property name="EMAIL_SYSTEM_MONITOR_SWITCH">	<value>true</value>		</property>	<!-- 邮件系统级异常开关 -->
+		<property name="EMAIL_SYSTEM_MONITOR_SWITCH">	<value>false</value>	</property>	<!-- 邮件系统级异常开关 -->
 	</bean>
 	
 	
@@ -164,10 +164,10 @@
 		<property name="poolMaxIdel">			<value>8</value> 				</property>	<!-- 控制一个pool最多有多少个状态为idle(空闲的)的jedis实例 -->
 		<property name="poolMaxWaitMillis">		<value>5000</value> 			</property>	<!-- 获取连接时的最大等待时间，单位毫秒 ,默认值为-1，表示永不超时 -->
 		<property name="poolTestOnBorrow">		<value>true</value> 			</property>	<!-- 是否在获取连接的时候检查有效性, 默认false -->
-		<property name="poolIp">				<value>xxx</value> 				</property>	<!-- 数据库的地址 -->
+		<property name="poolIp">				<value>127.0.0.1</value> 		</property>	<!-- 数据库的地址 -->
 		<property name="poolPort">				<value>6379</value> 			</property>	<!-- 数据库的端口 -->
 		<property name="poolConnectTimeOut">	<value>5000</value> 			</property>	<!-- 连接持续连接的超时时间，单位毫秒-->
-		<property name="poolPassword">			<value>xxxxxxxx</value> 		</property>	<!-- 数据库密码 -->
+		<property name="poolPassword">			<value>123456</value> 			</property>	<!-- 数据库密码 -->
 	</bean>
 	
 	

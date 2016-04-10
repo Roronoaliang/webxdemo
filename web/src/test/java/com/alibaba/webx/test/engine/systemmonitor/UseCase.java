@@ -5,11 +5,11 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.alibaba.webx.searchengine.util.systemmonitor.SystemMonitor;
+import com.alibaba.webx.test.engine.base.EngineBaseTest;
 
 /**
  * 【系统信息工具 使用用例】
@@ -17,24 +17,14 @@ import com.alibaba.webx.searchengine.util.systemmonitor.SystemMonitor;
  * @author xiaoMzjm
  *
  */
-public class UseCase {
-
-
-	private static FileSystemXmlApplicationContext fsxac;
-
-	private static SystemMonitor systemMonitor;
-
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		if (systemMonitor == null) {
-			String[] strs = new String[] { "src/main/webapp/WEB-INF/biz/*.xml" };
-			fsxac = new FileSystemXmlApplicationContext(strs);
-			systemMonitor = (SystemMonitor) fsxac.getBean("systemMonitor");
-		}
-
+public class UseCase extends EngineBaseTest<UseCase,SystemMonitor>{
+	
+	@Before
+	public void before(){
+		initTarget("systemMonitor");
 	}
 
-	
+
 	/**
 	 * 测试报警系统是否会报警————测试通过
 	 * @throws InterruptedException 

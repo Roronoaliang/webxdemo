@@ -1,14 +1,14 @@
 package com.alibaba.webx.test.engine.redis;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import redis.clients.jedis.Jedis;
 
 import com.alibaba.webx.common.po.demo.Demo;
 import com.alibaba.webx.searchengine.factory.redis.RedisFactory;
 import com.alibaba.webx.searchengine.factory.redis.SerializeUtil;
+import com.alibaba.webx.test.engine.base.EngineBaseTest;
 
 /**
  * 【redis组件 使用用例】
@@ -20,26 +20,20 @@ import com.alibaba.webx.searchengine.factory.redis.SerializeUtil;
  * @author xiaoMzjm
  */
 
-public class UseCase {
+public class UseCase extends EngineBaseTest<UseCase,RedisFactory>{
 	
-	private static RedisFactory redisFactory;
-	private static FileSystemXmlApplicationContext fsxac;
+	@Before
+	public void before(){
+		initTarget("redisFactory");
+	}
 	
-	@BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-		if(redisFactory == null) {
-			String[] strs = new String[]{"src/main/webapp/WEB-INF/biz/*.xml"};
-	    	fsxac = new FileSystemXmlApplicationContext(strs);
-	    	redisFactory = (RedisFactory) fsxac.getBean("redisFactory");
-		}
-    }
 
 	// 存储java对象————测试通过
 	@Test
 	public void testSet() {
 		Jedis jedis = null;
 		try {
-			jedis = redisFactory.getJedis();
+			jedis = target.getJedis();
 			
 			// 普通的操作直接看官网API，太多了，下面只演示下如何存储java对象，利用到自己写的的序列化工具类
 

@@ -3,12 +3,12 @@ package com.alibaba.webx.test.engine.mail;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.alibaba.webx.searchengine.factory.mail.MailFactory;
 import com.alibaba.webx.searchengine.factory.mail.MailSenderUtil;
+import com.alibaba.webx.test.engine.base.EngineBaseTest;
 
 /**
  * 【邮件组件使用例子】
@@ -16,20 +16,13 @@ import com.alibaba.webx.searchengine.factory.mail.MailSenderUtil;
  * @author xiaoMzjm
  *
  */
-public class UseCase {
+public class UseCase extends EngineBaseTest<UseCase,MailFactory>{
 	
-	private static MailFactory mailFactory;
+	@Before
+	public void before(){
+		initTarget("mailFactory");
+	}
 	
-	private static FileSystemXmlApplicationContext fsxac;
-	
-	@BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-		if(mailFactory == null) {
-			String[] strs = new String[]{"src/main/webapp/WEB-INF/biz/*.xml"};
-	    	fsxac = new FileSystemXmlApplicationContext(strs);
-	    	mailFactory = (MailFactory) fsxac.getBean("mailFactory");
-		}
-    }
 
 	/**
 	 * 使用默认配置发送文本————测试通过
@@ -37,7 +30,7 @@ public class UseCase {
 	@Test
 	public void sendText(){
 		try {
-			MailSenderUtil mailSender = mailFactory.getDefaultMailSender();
+			MailSenderUtil mailSender = target.getDefaultMailSender();
 			List<String> acceptorList = new ArrayList<String>();
 			acceptorList.add("xxx@163.com");
 			mailSender.sendText(acceptorList, "作业", "数学 语文 英文");
@@ -52,7 +45,7 @@ public class UseCase {
 	@Test
 	public void sendFile(){
 		try {
-			MailSenderUtil mailSender = mailFactory.getDefaultMailSender();
+			MailSenderUtil mailSender = target.getDefaultMailSender();
 			List<String> acceptorList = new ArrayList<String>();
 			acceptorList.add("xxx@163.com");
 			List<String> filePathList = new ArrayList<String>();

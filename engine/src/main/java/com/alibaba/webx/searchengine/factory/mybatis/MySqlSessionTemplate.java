@@ -82,8 +82,8 @@ public class MySqlSessionTemplate implements SqlSession {
 		notNull(sqlSessionFactory, "Property 'sqlSessionFactory' is required");
 		notNull(executorType, "Property 'executorType' is required");
 		
-		// add bu zjm
-		notNull(dataSourceKey,"Property 'writeOrRead' is required");
+		// add by zjm
+		notNull(dataSourceKey,"Property 'dataSourceKey' is required");
 		
 		// add by zjm 多源配置
 		DBContextHolder.setDbType(dataSourceKey);

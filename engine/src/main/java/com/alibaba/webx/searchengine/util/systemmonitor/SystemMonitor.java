@@ -229,7 +229,6 @@ public class SystemMonitor {
 							netSendHasAlarmTime = 0;
 						}
 					}
-
 					Thread.sleep(1000);
 				}
 			} catch (Exception e) {
