@@ -38,38 +38,51 @@
   			id = #{id,jdbcType=VARCHAR}
   </delete>
    
-  <!-- 查 -->
+  <!-- 查所有 -->
   <select id="selectAll" resultMap="BaseResultMap">
 		select 
 			* 
 		from demo
   </select>
   
-  <!-- 查 -->
-  <select id="selectByOneParameter" parameterType="java.util.HashMap" resultMap="BaseResultMap">
+  <!-- 查 ，根据单属性-->
+  <select id="selectByOneParameter" resultMap="BaseResultMap" >
 		select 
 			* 
 		from demo
 		where
-			#{aaa,jdbcType=VARCHAR} = #{bbb,jdbcType=VARCHAR}
-			
+			 ${key} = #{value,jdbcType=VARCHAR}
   </select>
   
-  <!-- 查 -->
+  <!-- 查 ，根据多属性-->
   <select id="selectByParameters" resultMap="BaseResultMap">
 		select 
 			* 
 		from demo
 		where
-			<foreach collection="relationMap" index="name"  item="value" separator="and">
-				#{name,jdbcType=VARCHAR} = #{value,jdbcType=VARCHAR}
+			<foreach collection="relationMap" index="key"  item="value" separator="and">
+				${key} = #{value,jdbcType=VARCHAR}
             </foreach>
-			
+  </select>
+
+  <!-- 查，根据id -->
+  <select id="selectById" resultMap="BaseResultMap">
+  		select
+  			*
+  		from demo
+  		where
+  			id = #{id}
   </select>
   
-  <!-- 改 -->
-  <update id="update" parameterType="hashmap">
-  		update demo set id=#{newId} where id=#{oldId}
+  <!-- 修改，根据id -->
+  <update id="updateById" parameterType="Demo">
+  		update demo
+  		<set>
+  			<if test="name != null">
+  				name = #{name},
+  			</if>
+  		</set>
+  		where id = #{id}
   </update>
    
   </mapper>

@@ -51,6 +51,7 @@
 		<mina-core-version>2.0.9</mina-core-version>
 		<junit-version>4.12</junit-version>
 		<sigar-version>1.6.4</sigar-version>
+		<shiro-core-version>1.2.4</shiro-core-version>
 	</properties>
 
 	<!-- 模块项目，方便集体编译 -->
@@ -64,6 +65,15 @@
 
 	<dependencyManagement>
 		<dependencies>
+		
+			<!-- ================================================= -->
+			<!-- shiro-core                                            -->
+			<!-- ================================================= -->
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-core</artifactId>
+				<version>${shiro-core-version}</version>
+			</dependency>
 		
 		 	<!-- ================================================= -->
 			<!-- sigar                                             -->

@@ -45,7 +45,7 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 
 
 	@Override
-	public int deleteById(String id) {
+	public int deleteById(Object id) {
 		try {
 			return baseDao.deleteById(id);
 		} catch (Exception e) {
@@ -91,19 +91,6 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 		return null;
 	}
 
-
-	@Override
-	public T selectById(String id) {
-		try {
-			return baseDao.selectById(id);
-		} catch (Exception e) {
-			log.error("【BaseServiceImpl.selectById】",e);
-			loggerUtils.emailError(e);
-		}
-		return null;
-	}
-
-
 	@Override
 	public int updateById(T t) {
 		try {
@@ -115,6 +102,14 @@ public class BaseServiceImpl<T> implements BaseService<T>{
 		return 0;
 	}
 
-
-	
+	@Override
+	public T selectById(Object id) {
+		try {
+			return baseDao.selectById(id);
+		} catch (Exception e) {
+			log.error("【BaseServiceImpl.updateById】",e);
+			loggerUtils.emailError(e);
+		}
+		return null;
+	}
 }

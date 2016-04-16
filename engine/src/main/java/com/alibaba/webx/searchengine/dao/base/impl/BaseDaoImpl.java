@@ -27,7 +27,7 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 	}
 
 	@Override
-	public int deleteById(String id) {
+	public int deleteById(Object id) {
 		return sqlSessionWriteTemplate.delete(getStatement("deleteById"),id);
 	}
 
@@ -38,30 +38,27 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 
 	@Override
 	public List<T> selectByOneParameter(String name, Object value, int offset, int limit) {
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("aaa", name);
-		map.put("bbb",value);
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("key", name);
+		map.put("value",String.valueOf(value));
 		return sqlSessionReadTemplate.selectList(getStatement("selectByOneParameter"), map, new RowBounds(offset, limit));
 	}
 
 	@Override
 	public List<T> selectByParameters(Map<String, Object> map, int offset, int limit) {
-		// TODO Auto-generated method stub
 		Map<String,Object> params = new HashMap<String, Object>();
         params.put("relationMap", map);
 		return sqlSessionReadTemplate.selectList(getStatement("selectByParameters"), params, new RowBounds(offset, limit));
 	}
-
+	
 	@Override
-	public T selectById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public T selectById(Object id) {
+		return sqlSessionReadTemplate.selectOne(getStatement("selectById"), id);
 	}
 
 	@Override
 	public int updateById(T t) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSessionWriteTemplate.update(getStatement("updateById"), t);
 	}
 	
 	private String getStatement(String id){
@@ -72,4 +69,5 @@ public class BaseDaoImpl<T> implements BaseDao<T>{
 	private Class<T> getEntityClass() {
 		return (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
+
 }

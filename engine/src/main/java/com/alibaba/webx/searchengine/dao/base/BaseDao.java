@@ -17,7 +17,7 @@ public interface BaseDao<T> {
 	 * @param id
 	 * @return
 	 */
-	public int deleteById(String id);
+	public int deleteById(Object id);
 	
 	/**
 	 * 返回表中所有记录
@@ -26,6 +26,13 @@ public interface BaseDao<T> {
 	 * @return
 	 */
 	public List<T> selectAll(int offset, int limit);
+	
+	/**
+	 * 通过ID查询
+	 * @param id
+	 * @return
+	 */
+	public T selectById(Object id);
 	
 	/**
 	 * 根据某个属性参数记录
@@ -45,13 +52,6 @@ public interface BaseDao<T> {
 	 * @return
 	 */
 	public List<T> selectByParameters(Map<String,Object> ma , int offset, int limit);
-	
-	/**
-	 * 根据主键返回某行记录
-	 * @param id
-	 * @return
-	 */
-	public T selectById(String id);
 	
 	/**
 	 * 根据id删修改某行记录

@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang3.StringUtils;
-import org.owasp.esapi.ESAPI;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -91,7 +90,7 @@ public class ScreenDemo extends BaseScreen {
 						System.out.println(d);
 					}
 				}
-				// 查
+				// 查——根据单属性
 				List<Demo> demoList2 = demoServiceImpl.selectByOneParameter("name", "zjm", 0, 3);
 				if(demoList2 != null) {
 					System.out.println("selectByOneParameter：");
@@ -99,6 +98,32 @@ public class ScreenDemo extends BaseScreen {
 						System.out.println(d);
 					}
 				}
+				// 查——根据多属性
+				Map<String,Object> parametersMap = new HashMap<String,Object>();
+				parametersMap.put("id", "111");
+				parametersMap.put("name", "zjm");
+				List<Demo> demoList3 = demoServiceImpl.selectByParameters(parametersMap, 0, 3);
+				if(demoList3 != null) {
+					System.out.println("selectByParameters：");
+					for(Demo d : demoList3) {
+						System.out.println(d);
+					}
+				}
+				// 查——根据ID
+				Demo demo2 = demoServiceImpl.selectById("111");
+				if(demo2 != null) {
+					System.out.println("selectById：");
+					System.out.println(demo2);
+				}
+				// 改
+				Demo demo3 = new Demo();
+				demo3.setId("20160416");
+				demo3.setName("zjmzjm");
+				int updateResult = demoServiceImpl.updateById(demo3);
+				System.out.println("修改结果："+updateResult);
+				
+				
+				// 事物
 //				Demo demo2 = new Demo();
 //				demo2.setId("1555");
 //				serviceDemo.testTransactional(demo2);
@@ -108,6 +133,7 @@ public class ScreenDemo extends BaseScreen {
 				map.put("oldId" , "123");
 				map.put("newId" , "798");
 //				serviceDemo.update(map);
+				
 			}
 		} catch (Exception e) {
 			log.error("ERROR:", e);
