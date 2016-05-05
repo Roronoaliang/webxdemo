@@ -313,7 +313,7 @@ String jsonStr = JSON.toJSONString(object);
 | data      | 数据      |  Object | xxx     |
 
 >状态码约定：
->
+
 | 状态码     |含义             | 
 | :-------- | -------------: | 
 | 200       | 请求成功        |  
