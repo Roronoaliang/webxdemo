@@ -308,7 +308,7 @@ String jsonStr = JSON.toJSONString(object);
 
 | 参数名     |含义       | 类型      |例子     |
 | :-------- | --------:| --------:|:--:    |
-| state     | 状态码    |  int     |200     |
+| status    | 状态码    |  int     |200     |
 | message   | 错误信息  |  string  |权限不足  |
 | data      | 数据      |  Object | xxx     |
 
@@ -320,7 +320,9 @@ String jsonStr = JSON.toJSONString(object);
 | 250       | 登录成功        |
 | 251       | 登出成功        |
 | 401       | 权限不足         |  
-| 403       | 账号或密码错误    | 
+| 403       | 账号或密码错误    |
+| 450       | 未登录          |
+| 451       | 验证码错误       |
 | 500       | 服务器出错       | 
 
 
