@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+							http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="true">
+
+	<!-- [main] -->
+	<bean id="myRealm" class="com.alibaba.webx.web.module.pipeline.shiro.realm.MyRealm">
+		<property name="cachingEnabled" value="true"/>
+		<property name="authenticationCachingEnabled" value="true"/>
+		<property name="authenticationCacheName" value="authenticationCache"/>
+		<property name="authorizationCachingEnabled" value="true"/>
+		<property name="authorizationCacheName" value="authorizationCache"/>
+	</bean>
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realms">
+			<list>
+				<ref bean="myRealm" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- [filters] -->
+	<bean id="loginFilter" class="com.alibaba.webx.web.module.pipeline.shiro.filter.LoginFilter"></bean>
+	<bean id="rolesFilter" class="com.alibaba.webx.web.module.pipeline.shiro.filter.RolesFilter"></bean>
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<!-- Shiro的核心安全接口,这个属性是必须的 -->
+		<property name="securityManager" ref="securityManager" />
+		<property name="filters">
+			<map>
+				<entry key="loginFilter" value-ref="loginFilter" />
+				<entry key="rolesFilter" value-ref="rolesFilter" />
+			</map>
+		</property>
+		<!-- [urls] -->
+		<property name="filterChainDefinitions">
+			<value>
+				/captcha/**=anon
+				/pages/admin/**=loginFilter,rolesFilter[admin],perms["admin:*"]
+				/**=loginFilter
+			</value>
+		</property>
+	</bean>
+	
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 --> 
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+</beans>

@@ -51,7 +51,7 @@
 		<mina-core-version>2.0.9</mina-core-version>
 		<junit-version>4.12</junit-version>
 		<sigar-version>1.6.4</sigar-version>
-		<shiro-core-version>1.2.4</shiro-core-version>
+		<shiro-version>1.2.4</shiro-version>
 	</properties>
 
 	<!-- 模块项目，方便集体编译 -->
@@ -67,12 +67,17 @@
 		<dependencies>
 		
 			<!-- ================================================= -->
-			<!-- shiro-core                                            -->
+			<!-- shiro                                       -->
 			<!-- ================================================= -->
 			<dependency>
 				<groupId>org.apache.shiro</groupId>
-				<artifactId>shiro-core</artifactId>
-				<version>${shiro-core-version}</version>
+				<artifactId>shiro-spring</artifactId>
+				<version>${shiro-version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.shiro</groupId>
+				<artifactId>shiro-ehcache</artifactId>
+				<version>1.2.3</version>
 			</dependency>
 		
 		 	<!-- ================================================= -->

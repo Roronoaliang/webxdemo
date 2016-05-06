@@ -37,7 +37,7 @@ public class PipelineDemo extends AbstractValve{
 	    
 	    // 测试
 	    public void test(PipelineContext pipelineContext){
-	    	System.out.println("进入自定义拦截器，可在这里进行权限管理，数字签名验证等操作。");
+	    	//System.out.println("进入自定义拦截器，可在这里进行权限管理，数字签名验证等操作。");
 	    	
 	    	// 假设用户访问地址为：http://localhost:8080/demo/screenDemo.htm ， 则：
 	        request.getRequestURL();			// http://localhost:8080/demo/screenDemo.htm

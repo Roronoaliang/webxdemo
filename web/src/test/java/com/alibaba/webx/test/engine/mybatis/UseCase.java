@@ -9,9 +9,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+import com.alibaba.webx.common.po.authority.Permission;
+import com.alibaba.webx.common.po.authority.Roles;
+import com.alibaba.webx.common.po.authority.User;
 import com.alibaba.webx.common.po.demo.Demo;
 import com.alibaba.webx.searchengine.factory.mybatis.MyBatisFactory;
 import com.alibaba.webx.searchengine.factory.mybatis.MySqlSessionTemplate;
+import com.alibaba.webx.service.authority.PermissionService;
+import com.alibaba.webx.service.authority.RolesService;
+import com.alibaba.webx.service.authority.UserService;
 
 /**
  * 【Mybatis组件 使用例子】
@@ -28,6 +34,10 @@ public class UseCase {
 	
 	private static FileSystemXmlApplicationContext fsxac;
 	
+	private static RolesService rolesServiceImpl;
+	private static UserService userServiceImpl;
+	private static PermissionService permissionServiceImpl;
+	
 	@BeforeClass
     public static void setUpBeforeClass() throws Exception {
 		if(myBatisFactory == null) {
@@ -39,6 +49,15 @@ public class UseCase {
 	    	}
 	    	if(sqlSessionReadTemplate == null) {
 	    		sqlSessionReadTemplate = (MySqlSessionTemplate) fsxac.getBean("sqlSessionReadTemplate");
+	    	}
+	    	if(rolesServiceImpl ==null) {
+	    		rolesServiceImpl = (RolesService) fsxac.getBean("rolesService");
+	    	}
+	    	if(userServiceImpl == null) {
+	    		userServiceImpl = (UserService) fsxac.getBean("userService");
+	    	}
+	    	if(permissionServiceImpl == null) {
+	    		permissionServiceImpl = (PermissionService) fsxac.getBean("permissionService");
 	    	}
 		}
     }
@@ -131,6 +150,7 @@ public class UseCase {
 		}
 	}
 	
+	
 	// 改————测试通过
 	@Test
 	public void update(){
@@ -157,5 +177,52 @@ public class UseCase {
 		map.put("oldId" , "1344");
 		map.put("newId" , "1352");
 		sqlSessionWriteTemplate.update("DemoMapper.update", map);
+	}
+	
+	// 测试rolesServiceImpl
+	@Test
+	public void testRolesServiceImpl(){
+		List<Roles> rolesList = rolesServiceImpl.selectByUserName("zhang");
+		if(rolesList != null) {
+			System.out.println();
+			for(Roles r : rolesList) {
+				System.out.println(r);
+			}
+		}
+		else {
+			System.out.println("空");
+		}
+	}
+	
+	// 测试UserServiceImpl
+	@Test
+	public void testUserServiceImpl(){
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userName", "zhang");
+		map.put("password", "123456");
+		List<User> userList = userServiceImpl.selectByParameters(map,0,1);
+		if(userList != null) {
+			System.out.println();
+			for(User u : userList) {
+				System.out.println(u);
+			}
+		}
+		else {
+			System.out.println("空");
+		}
+	}
+	
+	@Test
+	public void testPermissionServiceImpl(){
+		List<Permission> permissionList = permissionServiceImpl.selectByRolesId("d8eeea88fe4c4edcb45aeb41eecc8454");
+		if(permissionList != null) {
+			System.out.println();
+			for(Permission p : permissionList) {
+				System.out.println(p);
+			}
+		}
+		else {
+			System.out.println("空");
+		}
 	}
 }

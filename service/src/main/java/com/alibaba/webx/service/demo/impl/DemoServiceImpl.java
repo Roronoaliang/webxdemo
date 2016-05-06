@@ -26,10 +26,10 @@ public class DemoServiceImpl extends BaseServiceImpl<Demo> implements DemoServic
 		super.setBaseDao(dempMapper);
 	}
 	
-	private static Integer demoCache_refreshAfterWrite;
-	private static Integer demoCache_expireAfterWrite;
-	private static Integer demoCache_expireAfterAccess;
-	private static Integer demoCache_maximumSize;
+	private static final Integer demoCache_refreshAfterWrite	= 1;
+	private static final Integer demoCache_expireAfterWrite		= 1;
+	private static final Integer demoCache_expireAfterAccess	= 1;
+	private static final Integer demoCache_maximumSize			= 1000;
 
 	// Demo对象的缓存
 	private static LoadingCache<String, Demo> demoCache;

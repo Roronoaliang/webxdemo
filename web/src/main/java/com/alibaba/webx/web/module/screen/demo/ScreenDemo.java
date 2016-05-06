@@ -1,12 +1,8 @@
 package com.alibaba.webx.web.module.screen.demo;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.citrus.service.requestcontext.parser.ParameterParser;
 import com.alibaba.citrus.service.requestcontext.parser.ParserRequestContext;
-import com.alibaba.citrus.turbine.Context;
 import com.alibaba.citrus.turbine.Navigator;
 import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.webx.common.factory.log.LoggerFactory;
@@ -61,14 +56,35 @@ public class ScreenDemo extends BaseScreen {
 	@Autowired
 	private RedisFactory redisFactory;
 	
-	public void execute(TurbineRunData runData, Navigator nav, Context context) throws Exception {
+	/**
+	 * 请求转发例子
+	 * 
+	 * @param nav
+	 * 
+	 * 访问地址：http://localhost:8080/topview/demo/screenDemo/forwardTo.do
+	 */
+	public void doForwardTo(Navigator nav){
+		nav.forwardTo("/captcha/captcha.do");
+	}
+	
+	/**
+	 * 外部重定向例子
+	 * 
+	 * @param nav
+	 * 
+	 * 访问地址：http://localhost:8080/topview/demo/screenDemo/redirectToLocation.do
+	 */
+	public void doRedirectToLocation(Navigator nav){
+		nav.redirectToLocation("http://localhost:8080/topview/demo/screenDemo/ajaxJsonDemo.do");
+	}
+	
+	/**
+	 * 调用service层例子
+	 * 
+	 * 访问地址：http://localhost:8080/topview/demo/screenDemo/serviceDemo.do
+	 */
+	public void doServiceDemo() {
 		try {
-			test();
-			getParameterDemo(runData);
-			getCookieDemo();
-			getHeaderDemo();
-			getSessionBean();
-			uploadFileDemo();
 			// 假如我要开发A功能，新该功能的所有代码的最前面加个开关，方便上线时一键开关这个功能
 			if(mySwitch.isDEMO_SWITCH()) {
 				System.out.println();
@@ -122,7 +138,6 @@ public class ScreenDemo extends BaseScreen {
 				int updateResult = demoServiceImpl.updateById(demo3);
 				System.out.println("修改结果："+updateResult);
 				
-				
 				// 事物
 //				Demo demo2 = new Demo();
 //				demo2.setId("1555");
@@ -132,7 +147,7 @@ public class ScreenDemo extends BaseScreen {
 				Map<String,String> map = new HashMap<String,String>();
 				map.put("oldId" , "123");
 				map.put("newId" , "798");
-//				serviceDemo.update(map);
+//							serviceDemo.update(map);
 				
 			}
 		} catch (Exception e) {
@@ -144,8 +159,10 @@ public class ScreenDemo extends BaseScreen {
 	
 	/**
 	 * 获取参数例子
+	 * 
+	 * 访问地址：http://localhost:8080/topview/demo/screenDemo/getParameterDemo.do?userName=zjm&password=123
 	 */
-	public void getParameterDemo(TurbineRunData runData){
+	public void doGetParameterDemo(TurbineRunData runData){
 		System.out.println();
 		System.out.println("获取普通参数例子：");
 		ParameterParser p = runData.getParameters();
@@ -158,8 +175,10 @@ public class ScreenDemo extends BaseScreen {
 	
 	/**
 	 * 获取Cookie例子
+	 * 
+	 * 访问地址：http://localhost:8080/topview/demo/screenDemo/getCookieDemo.do
 	 */
-	public void getCookieDemo(){
+	public void doGetCookieDemo(){
 		System.out.println();
 		System.out.println("获取cookie例子：");
 		Cookie[] cookies = request.getCookies();
@@ -173,8 +192,10 @@ public class ScreenDemo extends BaseScreen {
 	
 	/**
 	 * 获取Header例子
+	 * 
+	 * 访问地址：http://localhost:8080/topview/demo/screenDemo/getHeaderDemo.do
 	 */
-	public void getHeaderDemo(){
+	public void doGetHeaderDemo(){
 		System.out.println();
 		System.out.println("获取header例子：");
 		Enumeration<String> headerNames = request.getHeaderNames();
@@ -187,8 +208,10 @@ public class ScreenDemo extends BaseScreen {
 	
 	/**
 	 * 获取session中的东西例子
+	 * 
+	 * 访问地址：http://localhost:8080/topview/demo/screenDemo/getSessionDemo.do
 	 */
-	public void getSessionBean(){
+	public void doGetSessionDemo(){
 		System.out.println();
 		System.out.println("session测试：");
 		Demo demo = (Demo) request.getSession().getAttribute("demo");
@@ -206,8 +229,10 @@ public class ScreenDemo extends BaseScreen {
 	 * 获取上传的文件例子
 	 * 
 	 * 上传文件的配置在webx.xml中
+	 * 
+	 * 访问地址：http://localhost:8080/topview/demo/screenDemo/uploadFileDemo.do
 	 */
-	public void uploadFileDemo(){
+	public void doUploadFileDemo(){
 		System.out.println();
 		System.out.println("文件上传例子：");
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
@@ -238,42 +263,27 @@ public class ScreenDemo extends BaseScreen {
 	}
 	
 	/**
-	 * 下载文件例子，访问的时候，URL后缀得为.do
-	 * 例如：http://localhost:8080/demo/screenDemo.do
+	 * 下载文件例子
+	 * 
+	 * 访问地址：http://localhost:8080/topview/demo/screenDemo/downloadDemo.do
 	 */
-	public void downloadDemo(){
+	public void doDownloadDemo(){
 		try {
 			File file = new File("D:/test2.docx");
-			InputStream fis = new BufferedInputStream(new FileInputStream(file));
-			byte[] buffer = new byte[fis.available()];
-	        fis.read(buffer);
-	        fis.close();
-	        response.addHeader("Content-Disposition", "attachment;filename=" + new String(file.getName().getBytes("utf-8"),"utf-8"));
-	        response.addHeader("Content-Length", "" + file.length());
-	        response.setContentType("application/octet-stream");
-	        OutputStream out = new BufferedOutputStream(response.getOutputStream());
-	        out.write(buffer);
-	        out.flush();
-	        out.close();
+			ajaxdownLoad("test2.docx", new BufferedInputStream(new FileInputStream(file)));
 		} catch (Exception e) {
 			log.error("ERROR",e);
 		}
 	}
-	/**
-	 * 测试方法，随便写
-	 */
-	@Autowired
-	public void test (){
-	}
 	
 	/**
-	 * 使用:http://localhost:8080/topview/demo/screenDemo/chinese.do可以直接访问该方法，前提是把excute方法删了。
+	 * 返回json数据例子
 	 * 
-	 * 规则：在方法前面加上前缀：do
+	 * 访问地址：http://localhost:8080/topview/demo/screenDemo/ajaxJsonDemo.do
 	 */
-	public void doChinese(TurbineRunData runData) throws IOException {
-		System.out.println(runData.getParameters().getString("name"));
-		System.out.println("ni hao");
-    }
+	public void doAjaxJsonDemo(){
+		Demo demo = new Demo("uuid", "zjm");
+		ajax200json(demo);
+	}
 	
 }

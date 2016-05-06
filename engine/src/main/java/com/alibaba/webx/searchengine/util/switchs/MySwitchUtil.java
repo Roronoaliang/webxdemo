@@ -42,6 +42,8 @@ public class MySwitchUtil {
 	private static boolean DEMO_SWITCH;							// 写demo用的开关
 	private static boolean EMAIL_LOG_SWITCH;					// 邮件日志功能开关
 	private static boolean EMAIL_SYSTEM_MONITOR_SWITCH;			// 邮件操作系统异常开关
+	private static boolean LOGIN_CAPTCHA_SWITCH;				// 登陆验证码验证开关
+	
 	private final static String KEY_PREFIX = "MySwitchUtil_";	// 存储在redis数据库中的key的前缀
 	
 	public MySwitchUtil(){}
@@ -83,6 +85,19 @@ public class MySwitchUtil {
 
 	public void setEMAIL_SYSTEM_MONITOR_SWITCH(boolean eMAIL_SYSTEM_MONITOR_SWITCH) {
 		EMAIL_SYSTEM_MONITOR_SWITCH = eMAIL_SYSTEM_MONITOR_SWITCH;
+	}
+	
+	/**
+	 * 获取登陆验证码验证开关
+	 * @return
+	 */
+	public boolean isLOGIN_CAPTCHA_SWITCH() {
+		LOGIN_CAPTCHA_SWITCH = getSwtichByKey("LOGIN_CAPTCHA_SWITCH",LOGIN_CAPTCHA_SWITCH);
+		return LOGIN_CAPTCHA_SWITCH;
+	}
+
+	public void setLOGIN_CAPTCHA_SWITCH(boolean lOGIN_CAPTCHA_SWITCH) {
+		LOGIN_CAPTCHA_SWITCH = lOGIN_CAPTCHA_SWITCH;
 	}
 
 	/**
