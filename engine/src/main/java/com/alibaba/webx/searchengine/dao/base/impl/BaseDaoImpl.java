@@ -16,10 +16,10 @@ import com.alibaba.webx.searchengine.factory.mybatis.MySqlSessionTemplate;
 public class BaseDaoImpl<T> implements BaseDao<T>{
 	
 	@Autowired
-	private MySqlSessionTemplate sqlSessionWriteTemplate;	// 写
+	protected MySqlSessionTemplate sqlSessionWriteTemplate;	// 写
 	
 	@Autowired
-	private MySqlSessionTemplate sqlSessionReadTemplate;	// 读
+	protected MySqlSessionTemplate sqlSessionReadTemplate;	// 读
 	
 	@Override
 	public int insert(T t) {

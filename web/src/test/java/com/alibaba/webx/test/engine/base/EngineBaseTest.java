@@ -13,11 +13,11 @@ public class EngineBaseTest<T1,T2> {
 	
 	private static FileSystemXmlApplicationContext fsxac;
 	
-	protected T2 target;
+	public T2 target;
 	
 	
 	@SuppressWarnings("unchecked")
-	protected void initTarget(String beanId) {
+	public void initTarget(String beanId) {
 		if(target == null) {
 			String[] strs = new String[]{"src/main/webapp/WEB-INF/biz/*.xml"};
 	    	fsxac = new FileSystemXmlApplicationContext(strs);

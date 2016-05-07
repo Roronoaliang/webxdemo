@@ -7,11 +7,17 @@
 	<!-- 配置类别名 -->
 	<typeAliases>
         <typeAlias alias="Demo" type="com.alibaba.webx.common.po.demo.Demo" />
+        <typeAlias alias="User" type="com.alibaba.webx.common.po.authority.User" />
+        <typeAlias alias="Roles" type="com.alibaba.webx.common.po.authority.Roles" />
+        <typeAlias alias="Permission" type="com.alibaba.webx.common.po.authority.Permission" />
     </typeAliases>
 
     <!-- 配置sql文件的地址 -->
     <mappers>
         <mapper resource="mybatis/demo.xml" />
+        <mapper resource="mybatis/user.xml" />
+        <mapper resource="mybatis/roles.xml" />
+        <mapper resource="mybatis/permission.xml" />
     </mappers>
     
 </configuration>

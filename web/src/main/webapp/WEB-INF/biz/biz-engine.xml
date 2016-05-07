@@ -23,6 +23,7 @@
 		<property name="EMAIL_LOG_SWITCH">				<value>true</value>		</property>	<!-- 邮件日志功能开关 -->
 		<property name="DEMO_SWITCH">					<value>true</value>		</property>	<!-- 测试所用 -->
 		<property name="EMAIL_SYSTEM_MONITOR_SWITCH">	<value>false</value>	</property>	<!-- 邮件系统级异常开关 -->
+		<property name="LOGIN_CAPTCHA_SWITCH"> 			<value>true</value> 	</property>	<!-- 登陆验证码验证开关 -->
 	</bean>
 	
 	
@@ -92,7 +93,7 @@
 	    <property name="user" value="root" />  
 	    <property name="password" value="root" />  
 	    <property name="driver" value="com.mysql.jdbc.Driver" />  
-	    <property name="driverUrl" value="jdbc:mysql://localhost:3306/test" />
+	    <property name="driverUrl" value="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true" />
 	    <property name="minimumConnectionCount" value="5" />							<!-- 确定池中最小连接数 -->
 	    <property name="houseKeepingTestSql" value="select user from mysql.user" />		<!-- 确定保证连接可能的定时查询SQL -->
 	    <property name="testBeforeUse" value="true" />									<!-- 检测连接是否可以用，没用的话就换条连接 -->
@@ -111,7 +112,7 @@
     	<property name="user" value="root" />  
     	<property name="password" value="root" />  
     	<property name="driver" value="com.mysql.jdbc.Driver" />  
-    	<property name="driverUrl" value="jdbc:mysql://localhost:3306/test" />
+    	<property name="driverUrl" value="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true" />
  		<property name="minimumConnectionCount" value="5" />
 	    <property name="houseKeepingTestSql" value="select user from mysql.user" />
 	    <property name="testBeforeUse" value="true" />

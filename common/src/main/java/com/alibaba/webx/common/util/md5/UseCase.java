@@ -6,6 +6,6 @@ public class UseCase {
 
 	@Test
 	public void test(){
-		System.out.println("将字符串转成MD5 = "+MD5Util.getMD5("poiuytrewq"));
+		System.out.println("将字符串转成MD5 = "+MD5Util.getMD5("123"));
 	}
 }

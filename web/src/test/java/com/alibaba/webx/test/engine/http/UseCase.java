@@ -84,9 +84,9 @@ public class UseCase extends EngineBaseTest<UseCase,HttpClientFactory>{
 		try {
 			httpClientUtil =  target.getHttpClientUtil();
 			Map<String,String> paramsMap = new HashMap<String,String>();
-			paramsMap.put("userName", "topview");
+			paramsMap.put("username", "zhang");
 			paramsMap.put("password", "123456");
-			byte[] bytes = httpClientUtil.postWithParamsMap("http://localhost:8080/topview/demo/screenDemo.htm", paramsMap);
+			byte[] bytes = httpClientUtil.postWithParamsMap("http://localhost:8080/topview/login/login/login.do", paramsMap);
 			System.out.println(new String(bytes));
 		} catch (Exception e) {
 			log.error("ERROR",e);
@@ -109,9 +109,9 @@ public class UseCase extends EngineBaseTest<UseCase,HttpClientFactory>{
 		try {
 			httpClientUtil =  target.getHttpClientUtil();
 			Map<String,String> paramsMap = new HashMap<String,String>();
-			paramsMap.put("key", "value");
-			byte[] bytes = httpClientUtil.postWithParamsMapAndJessionId("http://localhost.:8080/topview/demo/screen_demo.htm", paramsMap, "testJessionId");
-//			byte[] bytes = httpClientUtil.postWithParamsMap("http://1212.ip138.com/ic.asp", paramsMap);
+			paramsMap.put("username", "zhang");
+			paramsMap.put("password", "123456");
+			byte[] bytes = httpClientUtil.postWithParamsMapAndJessionId("http://localhost:8080/topview/login/login/login.do", paramsMap, "c2xxn7usf3dz");
 			System.out.println(new String(bytes));
 		} catch (Exception e) {
 			log.error("ERROR",e);
@@ -180,7 +180,7 @@ public class UseCase extends EngineBaseTest<UseCase,HttpClientFactory>{
 			Map<String,String> paramsMap = new HashMap<String,String>();
 			paramsMap.put("userName", "topview");
 			paramsMap.put("password", "123456");
-			byte[] bytes = httpClientUtil.postWithFileAndParamMap("http://localhost:8080/topview/demo/screenDemo.do", new File("D:/火影头像.jpg"), paramsMap);
+			byte[] bytes = httpClientUtil.postWithFileAndParamMap("http://localhost:8080/topview/demo/screenDemo/uploadFileDemo.do", new File("D:/火影头像.jpg"), paramsMap);
 			System.out.println(new String(bytes));
 		} catch (Exception e) {
 			e.printStackTrace();
