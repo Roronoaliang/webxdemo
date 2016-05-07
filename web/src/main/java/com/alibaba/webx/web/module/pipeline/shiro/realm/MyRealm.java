@@ -13,7 +13,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import com.alibaba.webx.common.po.authority.Permission;
 import com.alibaba.webx.common.po.authority.Roles;
@@ -35,8 +34,7 @@ public class MyRealm extends AuthorizingRealm{
 	@Autowired
 	private PermissionService permissionService;
 	
-	@Autowired() @Qualifier ( "Md5UserVeriferImpl" )
-	private UserVerifer md5UserVeriferImpl;
+	private UserVerifer userVerifer;
 	
 	/**
 	 * 表示根据用户身份获取授权信息——hasRole()方法调用时，将会调用这个方法
@@ -58,7 +56,7 @@ public class MyRealm extends AuthorizingRealm{
 			AuthenticationToken token) throws AuthenticationException {
 		String userName = (String) token.getPrincipal();
 		String password = new String((char[])token.getCredentials());
-		User user = md5UserVeriferImpl.getUser(userName , password);
+		User user = userVerifer.getUser(userName , password);
 		if(user == null) {
 			throw new IncorrectCredentialsException();
 		}
@@ -96,5 +94,13 @@ public class MyRealm extends AuthorizingRealm{
 				}
 			}
 		}
+	}
+
+	public UserVerifer getUserVerifer() {
+		return userVerifer;
+	}
+
+	public void setUserVerifer(UserVerifer userVerifer) {
+		this.userVerifer = userVerifer;
 	}
 }

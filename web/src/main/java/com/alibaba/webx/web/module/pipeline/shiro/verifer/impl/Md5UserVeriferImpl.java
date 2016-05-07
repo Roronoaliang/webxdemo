@@ -1,8 +1,5 @@
 package com.alibaba.webx.web.module.pipeline.shiro.verifer.impl;
 
-import java.util.List;
-
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

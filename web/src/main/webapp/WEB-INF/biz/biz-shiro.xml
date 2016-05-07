@@ -12,6 +12,9 @@
 		<property name="authenticationCacheName" value="authenticationCache"/>
 		<property name="authorizationCachingEnabled" value="true"/>
 		<property name="authorizationCacheName" value="authorizationCache"/>
+		<property name="userVerifer">
+			<ref bean="Md5UserVeriferImpl"/>
+		</property>
 	</bean>
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realms">
@@ -24,6 +27,9 @@
 	<!-- [filters] -->
 	<bean id="loginFilter" class="com.alibaba.webx.web.module.pipeline.shiro.filter.LoginFilter"></bean>
 	<bean id="rolesFilter" class="com.alibaba.webx.web.module.pipeline.shiro.filter.RolesFilter"></bean>
+	<bean id="sslFilter" class="org.apache.shiro.web.filter.authz.SslFilter">
+		<property name="port" value="443"/>
+	</bean>
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<!-- Shiro的核心安全接口,这个属性是必须的 -->
 		<property name="securityManager" ref="securityManager" />
@@ -31,6 +37,8 @@
 			<map>
 				<entry key="loginFilter" value-ref="loginFilter" />
 				<entry key="rolesFilter" value-ref="rolesFilter" />
+				<!-- 强制跳转到https请求的filter，需要的话在下面的filterChainDefinitions的相应拦截url后面配置上即可 -->
+				<entry key="ssl" value-ref="sslFilter"/>
 			</map>
 		</property>
 		<!-- [urls] -->
