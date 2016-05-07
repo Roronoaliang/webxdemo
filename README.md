@@ -328,16 +328,19 @@ String jsonStr = JSON.toJSONString(object);
 
 <br>
 ###五 shiro-webx-jcapcha集成
-**5.1、访问地址例子**:<br>
+**5.1、集成思路**:<br>
+>在web.xml中，先配置shiro的filter，再配置webx的filter。shiro的配置文件请看biz-shiro.xml。
+
+**5.2、访问地址例子**:<br>
 >验证码获取地址：http://localhost:8080/topview/captcha/captcha.do <br>
 登录请求：http://localhost:8080/topview/login/login/login.do?username=zhang&password=123&captcha=fe2h <br>
 登出请求：	http://localhost:8080/topview/login/login/logout.do <br>
 
 **5.3、数据库sql下载**:<br>
-占位符
+https://github.com/xiaoMzjm/webxdemo/blob/master/readme/test.sql
 
-**5.3、集成图**:<br>
-![shiro-webx-jcapcha集成工作流程图() <br>
+**5.4、工作流程图(请看大图)**:<br>
+![shiro-webx-jcapcha集成工作流程图](https://raw.githubusercontent.com/xiaoMzjm/webxdemo/master/readme/Shiro-webx-jcpatcha%E9%9B%86%E6%88%90.png) <br>
 
 <br>
 ###六 项目结构
@@ -349,6 +352,6 @@ String jsonStr = JSON.toJSONString(object);
 ![web子项目结构1](https://raw.githubusercontent.com/xiaoMzjm/webxdemo/master/readme/web%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png) <br>
 
 **6.2.2、web子项目结构2**：<br>
-![web子项目结构2]()
+![web子项目结构2](https://raw.githubusercontent.com/xiaoMzjm/webxdemo/master/readme/web%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%842.png)
 
 
