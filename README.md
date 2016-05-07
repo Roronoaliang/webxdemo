@@ -30,11 +30,14 @@ sigar下载地址：[sigar 1.6.4](http://iweb.dl.sourceforge.net/project/sigar/s
 * linux 64位：libsigar-amd64-linux.so
 * linux 32位：libsigar-x86-linux.so
 
-####1.5 eclipse导入项目
+####1.5 导入sql文件(mysql)
+https://github.com/xiaoMzjm/webxdemo/blob/master/readme/test.sql <br>
+
+####1.6 eclipse导入项目
 >以`管理员身份`运行eclipse-->eclipse-->import-->`Existing Maven Projects`，把整个克隆下来的`webxdemo`导入，打开window-->show view-->`Problems`界面，按提示解决可能出现的错误。<br>
 >之所以要以管理员身份运行，是因为webx在加载文件上传模块时，会创建一个/tmp目录（在webx.xml中配置），若不以管理员身份运行eclipse，待会在跑的时候可能因权限不够，无法创建/tmp文件夹而报错。<br>
 
-####1.6 运行
+####1.7 运行
 >右键parent父项目-->run as-->Maven build...-->在Gloas后面输入`clean tomcat:run`-->点击Run运行。第一次运行console可能会出现如下信息，请输入yes。<br>
 
 ╭───────────────────────┈┈┈┈<br>
@@ -51,7 +54,7 @@ sigar下载地址：[sigar 1.6.4](http://iweb.dl.sourceforge.net/project/sigar/s
  如果不更新此文件，可能会导致配置文件的内容不完整。<br>
  您需要现在更新此文件吗? [Yes][No] yes<br>
  
-####1.7 测试
+####1.8 测试
 >浏览器输入`http://localhost:8080/topview/captcha/captcha.do`(本项目的验证码工具的demo地址)，假如出现一个验证码图形，则代表项目正常运行。
 
 <br>
