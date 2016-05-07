@@ -326,18 +326,29 @@ String jsonStr = JSON.toJSONString(object);
 | 500       | 服务器出错       | 
 
 
+<br>
+###五 shiro-webx-jcapcha集成
+**5.1、访问地址例子**:<br>
+>验证码获取地址：http://localhost:8080/topview/captcha/captcha.do <br>
+登录请求：http://localhost:8080/topview/login/login/login.do?username=zhang&password=123&captcha=fe2h <br>
+登出请求：	http://localhost:8080/topview/login/login/logout.do <br>
 
+**5.3、数据库sql下载**:<br>
+占位符
+
+**5.3、集成图**:<br>
+![shiro-webx-jcapcha集成工作流程图() <br>
 
 <br>
-###五 项目结构
-####5.1、工程结构
+###六 项目结构
+####6.1、工程结构
 ![工程结构](https://raw.githubusercontent.com/xiaoMzjm/webxdemo/master/readme/%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png) <br>
 
-####5.2、web子项目结构
-**5.2.1、web子项目结构1**：<br>
+####6.2、web子项目结构
+**6.2.1、web子项目结构1**：<br>
 ![web子项目结构1](https://raw.githubusercontent.com/xiaoMzjm/webxdemo/master/readme/web%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png) <br>
 
-**5.2.2、web子项目结构2**：<br>
-![web子项目结构2](https://github.com/xiaoMzjm/webxdemo/blob/master/readme/web%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%842.png?raw=true)
+**6.2.2、web子项目结构2**：<br>
+![web子项目结构2]()
 
 
