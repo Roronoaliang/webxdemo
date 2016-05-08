@@ -88,10 +88,10 @@
 	<bean id="dataSourceRW" class="org.logicalcobwebs.proxool.ProxoolDataSource">  
 	    <property name="alias" value="ReadWriteDataBase"></property>  
 	    <property name="delegateProperties">  
-	        <value>user=root,password=root</value>  
+	        <value>user=zjm,password=aaa38324836</value>  
 	    </property>  
-	    <property name="user" value="root" />  
-	    <property name="password" value="root" />  
+	    <property name="user" value="zjm" />  
+	    <property name="password" value="aaa38324836" />  
 	    <property name="driver" value="com.mysql.jdbc.Driver" />  
 	    <property name="driverUrl" value="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true" />
 	    <property name="minimumConnectionCount" value="5" />							<!-- 确定池中最小连接数 -->
@@ -107,10 +107,10 @@
     <bean id="dataSourceR" class="org.logicalcobwebs.proxool.ProxoolDataSource">  
         <property name="alias" value="ReadDataBase"></property>  
      	<property name="delegateProperties">  
-         	<value>user=test,password=123456</value>  
+         	<value>user=zjm,password=aaa38324836</value>  
      	</property>  
-    	<property name="user" value="root" />  
-    	<property name="password" value="root" />  
+    	<property name="user" value="zjm" />  
+    	<property name="password" value="aaa38324836" />  
     	<property name="driver" value="com.mysql.jdbc.Driver" />  
     	<property name="driverUrl" value="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true" />
  		<property name="minimumConnectionCount" value="5" />

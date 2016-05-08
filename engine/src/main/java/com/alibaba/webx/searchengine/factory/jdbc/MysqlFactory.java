@@ -26,7 +26,7 @@ public class MysqlFactory {
 	private static ComboPooledDataSource cpds = null;
 	
 	@Autowired
-	private static LoggerUtils loggetUtils;
+	private LoggerUtils loggetUtils;
 	
 	private static String diverName;			// 驱动器名称
 	private static String databaseUrl;			// 数据库连接URL
