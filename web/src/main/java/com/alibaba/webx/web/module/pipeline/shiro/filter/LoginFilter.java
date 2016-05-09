@@ -60,6 +60,12 @@ public class LoginFilter extends PathMatchingFilter {
 			// 登录需要验证码
 			if(isNeedCaptcha(req)) {
 				
+				// 没有传验证码
+				if(request.getParameter("captcha") == null) {
+					BaseFilter.ajax452json(req , resp , "下次登录需要带上验证码");
+					return false;
+				}
+				
 				// 验证验证码
 				boolean vriflyCaptchaResult = verifyCaptcha(req);
 				
@@ -104,7 +110,7 @@ public class LoginFilter extends PathMatchingFilter {
 			HttpServletResponse response) {
 		Integer ipLoginErrorNum = ipLoginErrorNumMap.get(BaseFilter.getIpAddr(request));
 		if(ipLoginErrorNum != null && ipLoginErrorNum == ipLoginErrorNumLimit) {
-			BaseFilter.ajax452json(request , response , "下次登录请求需要验证码");
+			BaseFilter.ajax452json(request , response , "下次登录需要带上验证码");
 		}
 		else {
 			BaseFilter.ajax403json(request , response , "账号或密码错误");
