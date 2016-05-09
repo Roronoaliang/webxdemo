@@ -122,6 +122,18 @@ public class BaseFilter {
 	}
 	
 	/**
+	 * 告诉请求者需要验证码验证
+	 * @param response
+	 * @param message
+	 */
+	public static void ajax452json(HttpServletRequest request , HttpServletResponse response , String message) {
+		Result result = new Result();
+		result.setStatus(452);
+		result.setMessage(message);
+		ajax(request , response,JSONObject.toJSONString(result), "text/html"); 
+	}
+	
+	/**
 	 * 根据message输出JSON，返回null
 	 * @param message
 	 * @return

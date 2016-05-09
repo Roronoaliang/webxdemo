@@ -83,7 +83,8 @@ public class LoginFilter extends PathMatchingFilter {
 			// 账号密码错误
 			else {
 				addIpLoginErrorNum(BaseFilter.getIpAddr(req));
-				BaseFilter.ajax403json(req , resp , "账号或密码错误");
+				ajaxAccountOrPasswordError(req , resp);
+//				BaseFilter.ajax403json(req , resp , "账号或密码错误");
 				return false;
 			}
 		}
@@ -91,6 +92,22 @@ public class LoginFilter extends PathMatchingFilter {
 		else {
 			BaseFilter.ajax450json(req , resp , "请先登录账号");
 			return false;
+		}
+	}
+
+	/**
+	 * 账号或密码错误时的ajax返回
+	 * @param req
+	 * @param resp
+	 */
+	private void ajaxAccountOrPasswordError(HttpServletRequest request,
+			HttpServletResponse response) {
+		Integer ipLoginErrorNum = ipLoginErrorNumMap.get(BaseFilter.getIpAddr(request));
+		if(ipLoginErrorNum != null && ipLoginErrorNum == ipLoginErrorNumLimit) {
+			BaseFilter.ajax452json(request , response , "下次登录请求需要验证码");
+		}
+		else {
+			BaseFilter.ajax403json(request , response , "账号或密码错误");
 		}
 	}
 
@@ -107,7 +124,6 @@ public class LoginFilter extends PathMatchingFilter {
 			// 将会使用配置的realm进行验证
 			SecurityUtils.getSubject().login(new UsernamePasswordToken(username, password));
 		} catch (Exception e) {
-			request.setAttribute("shiroLoginFailure", e.getClass());
 			return false;
 		}
 		return true;
