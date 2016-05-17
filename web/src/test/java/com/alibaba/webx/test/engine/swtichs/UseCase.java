@@ -1,10 +1,10 @@
 package com.alibaba.webx.test.engine.swtichs;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.alibaba.webx.searchengine.util.switchs.MySwitchUtil;
+import com.alibaba.webx.test.engine.base.EngineBaseTest;
 
 /**
  * 【降级开关 使用用例】
@@ -12,19 +12,13 @@ import com.alibaba.webx.searchengine.util.switchs.MySwitchUtil;
  * @author xiaoMzjm
  *
  */
-public class UseCase {
-
-	private static MySwitchUtil mySwitchUtil;
-	private static FileSystemXmlApplicationContext fsxac;
+public class UseCase extends EngineBaseTest<UseCase,MySwitchUtil>{
 	
-	@BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-		if(mySwitchUtil == null) {
-			String[] strs = new String[]{"src/main/webapp/WEB-INF/biz/*.xml"};
-	    	fsxac = new FileSystemXmlApplicationContext(strs);
-	    	mySwitchUtil = (MySwitchUtil) fsxac.getBean("mySwitchUtil");
-		}
-    }
+	@Before
+	public void before(){
+		initTarget("mySwitchUtil");
+	}
+
 	
 	// ————测试通过
 	//
@@ -35,7 +29,7 @@ public class UseCase {
 	// 4、redis数据库打开，但没有对应的key-value对的情况下，功能正常不
 	@Test
 	public void test() throws InterruptedException{
-		System.out.println(mySwitchUtil.isEMAIL_LOG_SWITCH());
+		System.out.println(target.isEMAIL_LOG_SWITCH());
 		Thread.sleep(30000);
 	}
 	

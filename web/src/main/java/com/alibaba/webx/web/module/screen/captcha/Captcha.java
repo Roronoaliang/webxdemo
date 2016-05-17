@@ -17,12 +17,13 @@ import com.alibaba.citrus.turbine.Navigator;
 import com.alibaba.citrus.turbine.TurbineRunData;
 import com.alibaba.webx.common.factory.log.LoggerFactory;
 import com.alibaba.webx.searchengine.util.log.LoggerUtils;
+import com.alibaba.webx.web.module.pipeline.shiro.filter.BaseFilter;
 import com.octo.captcha.service.image.ImageCaptchaService;
 
 /**
  * 验证码类
  * 
- * 获取验证码例子：http://localhost:8080/captcha/captcha.do，可令客户端图片的src直接等于该地址
+ * 获取验证码例子：http://localhost:8080/topview/captcha/captcha.do，可令客户端图片的src直接等于该地址
  * 
  * 验证验证码例子：imageCaptchaService.validateResponseForID(request.getSession().getId(), "客户端传来的验证码")，返回 true则代表验证成功
  * 
@@ -46,6 +47,7 @@ public class Captcha {
 
 	public void execute(TurbineRunData runData, Navigator nav, Context context) throws Exception {
 		try {
+			
 			// 生成验证码
 			BufferedImage challenge = imageCaptchaService.getImageChallengeForID(request.getSession().getId(), request.getLocale());
 			
@@ -57,6 +59,7 @@ public class Captcha {
 			// 输出
 			response.setHeader("Cache-Control", "no-store");
 			response.setHeader("Pragma", "no-cache");
+			BaseFilter.crossDomain(request, response);
 			response.setDateHeader("Expires", 0L);
 			response.setContentType("image/jpeg");
 			ServletOutputStream respOs = response.getOutputStream();

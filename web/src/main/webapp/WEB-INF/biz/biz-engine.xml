@@ -2,10 +2,14 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans  
 					http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 
 					http://www.springframework.org/schema/context 
-					http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+					http://www.springframework.org/schema/context/spring-context-2.5.xsd
+					http://www.springframework.org/schema/tx
+					http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"
 	default-autowire="byName">
 	
 	<!-- 为了配合junit单元测试，只能在该xml冗余增加包扫描 -->
@@ -18,7 +22,8 @@
 	<bean id="mySwitchUtil" class="com.alibaba.webx.searchengine.util.switchs.MySwitchUtil">
 		<property name="EMAIL_LOG_SWITCH">				<value>true</value>		</property>	<!-- 邮件日志功能开关 -->
 		<property name="DEMO_SWITCH">					<value>true</value>		</property>	<!-- 测试所用 -->
-		<property name="EMAIL_SYSTEM_MONITOR_SWITCH">	<value>true</value>		</property>	<!-- 邮件系统级异常开关 -->
+		<property name="EMAIL_SYSTEM_MONITOR_SWITCH">	<value>false</value>	</property>	<!-- 邮件系统级异常开关 -->
+		<property name="LOGIN_CAPTCHA_SWITCH"> 			<value>true</value> 	</property>	<!-- 登陆验证码验证开关 -->
 	</bean>
 	
 	
@@ -83,12 +88,12 @@
 	<bean id="dataSourceRW" class="org.logicalcobwebs.proxool.ProxoolDataSource">  
 	    <property name="alias" value="ReadWriteDataBase"></property>  
 	    <property name="delegateProperties">  
-	        <value>user=root,password=root</value>  
+	        <value>user=zjm,password=aaa38324836</value>  
 	    </property>  
-	    <property name="user" value="root" />  
-	    <property name="password" value="root" />  
+	    <property name="user" value="zjm" />  
+	    <property name="password" value="aaa38324836" />  
 	    <property name="driver" value="com.mysql.jdbc.Driver" />  
-	    <property name="driverUrl" value="jdbc:mysql://localhost:3306/test" />
+	    <property name="driverUrl" value="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true" />
 	    <property name="minimumConnectionCount" value="5" />							<!-- 确定池中最小连接数 -->
 	    <property name="houseKeepingTestSql" value="select user from mysql.user" />		<!-- 确定保证连接可能的定时查询SQL -->
 	    <property name="testBeforeUse" value="true" />									<!-- 检测连接是否可以用，没用的话就换条连接 -->
@@ -102,12 +107,12 @@
     <bean id="dataSourceR" class="org.logicalcobwebs.proxool.ProxoolDataSource">  
         <property name="alias" value="ReadDataBase"></property>  
      	<property name="delegateProperties">  
-         	<value>user=test,password=123456</value>  
+         	<value>user=zjm,password=aaa38324836</value>  
      	</property>  
-    	<property name="user" value="root" />  
-    	<property name="password" value="root" />  
+    	<property name="user" value="zjm" />  
+    	<property name="password" value="aaa38324836" />  
     	<property name="driver" value="com.mysql.jdbc.Driver" />  
-    	<property name="driverUrl" value="jdbc:mysql://localhost:3306/test" />
+    	<property name="driverUrl" value="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf8&amp;autoReconnect=true" />
  		<property name="minimumConnectionCount" value="5" />
 	    <property name="houseKeepingTestSql" value="select user from mysql.user" />
 	    <property name="testBeforeUse" value="true" />
@@ -129,12 +134,28 @@
         <property name="defaultTargetDataSource" ref="dataSourceRW" />      
     </bean>  
    	<!-- sqlSeesion工厂，引用多数据源 -->
-	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">  
+	<bean id="sqlsessionfactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
 	    <property name="configLocation" value="classpath:mybatis/resource.xml" />  
 	    <property name="dataSource" ref="dynamicDataSource" />  
 	</bean>
-	<bean id="myBatisFactory" class="com.alibaba.webx.searchengine.factory.mybatis.MyBatisFactory" init-method="init">
+	<bean id="myBatisFactory" class="com.alibaba.webx.searchengine.factory.mybatis.MyBatisFactory">
+		<constructor-arg index="0" ref="sqlsessionfactory"></constructor-arg>
 	</bean>
+	<!-- Session模板 -->
+	<bean id="sqlSessionWriteTemplate" class="com.alibaba.webx.searchengine.factory.mybatis.MySqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlsessionfactory"></constructor-arg>
+		<!-- 与dynamicDataSource这个bean中配置的key对应 -->
+		<constructor-arg index="1" > <value>dataSourceKeyRW</value> </constructor-arg>
+	</bean>
+	<bean id="sqlSessionReadTemplate" class="com.alibaba.webx.searchengine.factory.mybatis.MySqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlsessionfactory"></constructor-arg>
+		<constructor-arg index="1" > <value>dataSourceKeyR</value> </constructor-arg>
+	</bean>
+	<!-- 注解事物的支持 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	    <property name="dataSource" ref="dynamicDataSource" />
+	</bean>
+	<tx:annotation-driven transaction-manager="txManager" />
 	
 	
 	<!--.....................................-->
@@ -144,10 +165,10 @@
 		<property name="poolMaxIdel">			<value>8</value> 				</property>	<!-- 控制一个pool最多有多少个状态为idle(空闲的)的jedis实例 -->
 		<property name="poolMaxWaitMillis">		<value>5000</value> 			</property>	<!-- 获取连接时的最大等待时间，单位毫秒 ,默认值为-1，表示永不超时 -->
 		<property name="poolTestOnBorrow">		<value>true</value> 			</property>	<!-- 是否在获取连接的时候检查有效性, 默认false -->
-		<property name="poolIp">				<value>xxx</value> 				</property>	<!-- 数据库的地址 -->
+		<property name="poolIp">				<value>127.0.0.1</value> 		</property>	<!-- 数据库的地址 -->
 		<property name="poolPort">				<value>6379</value> 			</property>	<!-- 数据库的端口 -->
 		<property name="poolConnectTimeOut">	<value>5000</value> 			</property>	<!-- 连接持续连接的超时时间，单位毫秒-->
-		<property name="poolPassword">			<value>xxxxxxxx</value> 		</property>	<!-- 数据库密码 -->
+		<property name="poolPassword">			<value>123456</value> 			</property>	<!-- 数据库密码 -->
 	</bean>
 	
 	

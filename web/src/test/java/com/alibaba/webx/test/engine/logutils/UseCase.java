@@ -1,29 +1,22 @@
 package com.alibaba.webx.test.engine.logutils;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.alibaba.webx.searchengine.util.log.LoggerUtils;
+import com.alibaba.webx.test.engine.base.EngineBaseTest;
 
 /**
  * 【日志工具组件 使用用例】
  * 
  * @author xiaoMzjm
  */
-public class UseCase {
+public class UseCase extends EngineBaseTest<UseCase,LoggerUtils>{
 	
-	private static LoggerUtils loggerUtils;
-	private static FileSystemXmlApplicationContext fsxac;
-	
-	@BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-		if(loggerUtils == null) {
-			String[] strs = new String[]{"src/main/webapp/WEB-INF/biz/*.xml"};
-	    	fsxac = new FileSystemXmlApplicationContext(strs);
-	    	loggerUtils = (LoggerUtils) fsxac.getBean("loggerUtils");
-		}
-    }
+	@Before
+	public void before(){
+		initTarget("loggerUtils");
+	}
 	
 	// 发生error这种严重的错误时，及时把错误发到指定邮箱。————测试通过
 	@Test
@@ -33,14 +26,14 @@ public class UseCase {
 			int num = 5 / 0;
 			System.out.println(num);
 		} catch (Exception e) {
-			loggerUtils.emailError(e);
+			target.emailError(e);
 		}
 		System.out.println(2);
 		try {
 			int num = 5 / 0;
 			System.out.println(num);
 		} catch (Exception e) {
-			loggerUtils.emailError(e);
+			target.emailError(e);
 		}
 		System.out.println(3);
 		try {

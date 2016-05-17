@@ -22,13 +22,16 @@ mvn install:install-file -Dfile=proxool-0.9.1.jar -DgroupId=proxool -DartifactId
 ```
 
 ####1.4 导入sigar的dll文件
->`sigar`是一个开源的收集系统信息的工具，本项目用它来监听系统信息(cpu、内存、磁盘、网速)，但它需要把跟系统相关的dll文件放到`${JAVA_HOME}/bin`下。<br>
+>`sigar`是一个开源的收集系统信息的工具，本项目用它来监听系统信息(cpu、内存、磁盘、网速)，但它需要把跟系统相关的dll文件放到`${JAVA_HOME}/bin`下（如果打`war包`部署则不用，因为dll文件已经放在项目的lib中，会一起打进包中，如果直接用eclipse跑项目就要放到${JAVA_HOME}/bin下）。<br>
 sigar下载地址：[sigar 1.6.4](http://iweb.dl.sourceforge.net/project/sigar/sigar/1.6/hyperic-sigar-1.6.4.zip)<br>
 下载解压后，进入到解压后的文件hyperic-sigar-1.6.4\sigar-bin\lib目录，根据系统对相应的dll文件进行拷贝。<br>
 * windows 64位：sigar-amd64-winnt.dll
 * windows 32位：sigar-x86-winnt.dll
 * linux 64位：libsigar-amd64-linux.so
 * linux 32位：libsigar-x86-linux.so
+
+####1.5 导入sql文件(mysql)
+https://github.com/xiaoMzjm/webxdemo/blob/master/readme/test.sql <br>
 
 ####1.5 eclipse导入项目
 >以`管理员身份`运行eclipse-->eclipse-->import-->`Existing Maven Projects`，把整个克隆下来的`webxdemo`导入，打开window-->show view-->`Problems`界面，按提示解决可能出现的错误。<br>
@@ -96,6 +99,19 @@ engine子项目下的工具，在`web子项目`的`src/test/java`目录下对应
 ####2.3 mybatis工具
 **简介**：<br>
 >基于mybatis-spring、proxool、proxool-cglib的封装，支持`多源`数据库的Session的获取。方便在没使用数据库中间件时，实现`读写分离`。<br>
+> 另外，由于spring的`SqlSessionTempalte不支持多源`，所以实现了一个`MySqlSessionTemplate`，里面的代码是复制spring的SqlSessionTempalte的，拥有相同的可靠性与功能，只改了构造方法，支持传入读写库的key，由此来创建不同的数据库源。配置如下，使用时和SqlSessionTempalte一样。`使用例子`请看`engine`项目下com.alibaba.webx.searchengine.dao.impl包`DaoDempImpl`类。
+
+```
+ 	<bean id="sqlSessionWriteTemplate" class="com.alibaba.webx.searchengine.factory.mybatis.MySqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlsessionfactory"></constructor-arg>
+		<!-- 与dynamicDataSource这个bean中配置的key对应 -->
+		<constructor-arg index="1" > <value>dataSourceKeyRW</value> </constructor-arg>
+	</bean>
+	<bean id="sqlSessionReadTemplate" class="com.alibaba.webx.searchengine.factory.mybatis.MySqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlsessionfactory"></constructor-arg>
+		<constructor-arg index="1" > <value>dataSourceKeyR</value> </constructor-arg>
+	</bean>
+```
 
 **注意事项**：<br>
 >使用前必须修改web子项目的biz-engine.xml文件，修改与`数据库连接`相关的参数以及`连接池`相关的参数。
@@ -290,15 +306,56 @@ String jsonStr = JSON.toJSONString(object);
 >3、打开`2.8的系统监听工具`，方便在系统出现超载时及时发现问题。
 
 <br>
-###五 项目结构
-####5.1、工程结构
+####4.8 返回数据格式
+>统一json格式
+
+| 参数名     |含义       | 类型      |例子     |
+| :-------- | --------:| --------:|:--:    |
+| status    | 状态码    |  int     |200     |
+| message   | 错误信息  |  string  |权限不足  |
+| data      | 数据      |  Object | xxx     |
+
+>状态码约定：
+
+| 状态码     |含义             | 
+| :-------- | -------------: | 
+| 200       | 请求成功        |  
+| 250       | 登录成功        |
+| 251       | 登出成功        |
+| 401       | 权限不足         |  
+| 403       | 账号或密码错误    |
+| 450       | 未登录          |
+| 451       | 验证码错误       |
+| 452       | 下次登录需要带上验证码       |
+| 500       | 服务器出错       | 
+
+
+<br>
+###五 shiro-webx-jcapcha集成
+**5.1、集成思路**:<br>
+>在web.xml中，先配置shiro的filter，再配置webx的filter。shiro的配置文件请看biz-shiro.xml。
+
+**5.2、访问地址例子**:<br>
+>验证码获取地址：http://localhost:8080/topview/captcha/captcha.do <br>
+登录请求：http://localhost:8080/topview/login/login/login.do?username=zhang&password=123&captcha=fe2h <br>
+登出请求：	http://localhost:8080/topview/login/login/logout.do <br>
+
+**5.3、数据库sql下载**:<br>
+https://github.com/xiaoMzjm/webxdemo/blob/master/readme/test.sql
+
+**5.4、工作流程图(请看大图)**:<br>
+![shiro-webx-jcapcha集成工作流程图](https://raw.githubusercontent.com/xiaoMzjm/webxdemo/master/readme/Shiro-webx-jcpatcha%E9%9B%86%E6%88%90.png) <br>
+
+<br>
+###六 项目结构
+####6.1、工程结构
 ![工程结构](https://raw.githubusercontent.com/xiaoMzjm/webxdemo/master/readme/%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png) <br>
 
-####5.2、web子项目结构
-**5.2.1、web子项目结构1**：<br>
+####6.2、web子项目结构
+**6.2.1、web子项目结构1**：<br>
 ![web子项目结构1](https://raw.githubusercontent.com/xiaoMzjm/webxdemo/master/readme/web%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png) <br>
 
-**5.2.2、web子项目结构2**：<br>
-![web子项目结构2](https://github.com/xiaoMzjm/webxdemo/blob/master/readme/web%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%842.png?raw=true)
+**6.2.2、web子项目结构2**：<br>
+![web子项目结构2](https://raw.githubusercontent.com/xiaoMzjm/webxdemo/master/readme/web%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%842.png)
 
 

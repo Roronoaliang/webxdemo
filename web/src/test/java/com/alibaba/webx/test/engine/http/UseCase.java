@@ -7,14 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import com.alibaba.webx.searchengine.factory.http.HttpClientFactory;
 import com.alibaba.webx.searchengine.factory.http.HttpClientUtil;
+import com.alibaba.webx.test.engine.base.EngineBaseTest;
 
 /**
  * 【HTTP组件测试用例】
@@ -25,27 +23,17 @@ import com.alibaba.webx.searchengine.factory.http.HttpClientUtil;
  * @author xiaoMzjm
  *
  */
-public class UseCase {
+public class UseCase extends EngineBaseTest<UseCase,HttpClientFactory>{
 	
-	private static Logger log = LoggerFactory.getLogger(UseCase.class);
-	
-	private static FileSystemXmlApplicationContext fsxac;
-	
-	private static HttpClientFactory httpClientFactory;
-	
-	
-	@BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-		if(httpClientFactory == null) {
-			String[] strs = new String[]{"src/main/webapp/WEB-INF/biz/*.xml"};
-	    	fsxac = new FileSystemXmlApplicationContext(strs);
-	    	httpClientFactory = (HttpClientFactory) fsxac.getBean("httpClientFactory");
-		}
-    	
-    }
+	@Before
+	public void before(){
+		initTarget("httpClientFactory");
+	}
 	
 	@Test
-	public void test(){}
+	public void test(){
+		System.out.println("```"+log.getName());
+	}
 	
 	// 指定URL，以get的形式发送请求，获取响应————测试通过
 	@Test
@@ -53,7 +41,7 @@ public class UseCase {
 		HttpClientUtil httpClientUtil = null; 
 		try {
 			byte[] bytes = null;
-			httpClientUtil = httpClientFactory.getHttpClientUtil();
+			httpClientUtil = target.getHttpClientUtil();
 			bytes = httpClientUtil.getWithQueryURL("http://1212.ip138.com/ic.asp");
 			System.out.println(new String(bytes,"gb2312"));
 		} catch (Exception e) {
@@ -73,7 +61,7 @@ public class UseCase {
 	public void postWithQueryURL(){
 		HttpClientUtil httpClientUtil = null; 
 		try {
-			httpClientUtil =  httpClientFactory.getHttpClientUtil();
+			httpClientUtil =  target.getHttpClientUtil();
 			byte[] bytes = httpClientUtil.postWithQueryURL("http://1212.ip138.com/ic.asp");
 			System.out.println(new String(bytes,"gb2312"));
 		} catch (Exception e) {
@@ -94,11 +82,11 @@ public class UseCase {
 		HttpClientUtil httpClientUtil = null; 
 		
 		try {
-			httpClientUtil =  httpClientFactory.getHttpClientUtil();
+			httpClientUtil =  target.getHttpClientUtil();
 			Map<String,String> paramsMap = new HashMap<String,String>();
-			paramsMap.put("userName", "topview");
+			paramsMap.put("username", "zhang");
 			paramsMap.put("password", "123456");
-			byte[] bytes = httpClientUtil.postWithParamsMap("http://localhost:8080/topview/demo/screenDemo.htm", paramsMap);
+			byte[] bytes = httpClientUtil.postWithParamsMap("http://localhost:8080/topview/login/login/login.do", paramsMap);
 			System.out.println(new String(bytes));
 		} catch (Exception e) {
 			log.error("ERROR",e);
@@ -115,13 +103,15 @@ public class UseCase {
 	// 指定URL、参数和JessionId，以post的形式发送请求，获取响应————测试通过
 	@Test
 	public void postWithParamsMapAndJessionId(){
+		setHost();
 		HttpClientUtil httpClientUtil = null; 
 		
 		try {
-			httpClientUtil =  httpClientFactory.getHttpClientUtil();
+			httpClientUtil =  target.getHttpClientUtil();
 			Map<String,String> paramsMap = new HashMap<String,String>();
-			paramsMap.put("key", "value");
-			byte[] bytes = httpClientUtil.postWithParamsMapAndJessionId("http://localhost:8080/topview/demo/screenDemo.htm", paramsMap, "testJessionId");
+			paramsMap.put("username", "zhang");
+			paramsMap.put("password", "123456");
+			byte[] bytes = httpClientUtil.postWithParamsMapAndJessionId("http://localhost:8080/topview/login/login/login.do", paramsMap, "c2xxn7usf3dz");
 			System.out.println(new String(bytes));
 		} catch (Exception e) {
 			log.error("ERROR",e);
@@ -142,7 +132,7 @@ public class UseCase {
 		HttpClientUtil httpClientUtil = null; 
 		
 		try {
-			httpClientUtil =  httpClientFactory.getHttpClientUtil();
+			httpClientUtil =  target.getHttpClientUtil();
 			byte[] bs = new byte[1024];
 			byte[] bytes = httpClientUtil.postWithBytes("http://localhost:8080/topview/demo/screenDemo.htm", bs);
 			System.out.println(new String(bytes));
@@ -164,7 +154,7 @@ public class UseCase {
 		HttpClientUtil httpClientUtil = null; 
 		
 		try {
-			httpClientUtil =  httpClientFactory.getHttpClientUtil();
+			httpClientUtil =  target.getHttpClientUtil();
 			byte[] bytes = httpClientUtil.postWithFile("http://localhost:8080/topview/demo/screenDemo.do", new File("D:/火影头像.jpg"));
 			System.out.println(new String(bytes));
 		} catch (Exception e) {
@@ -186,11 +176,11 @@ public class UseCase {
 		HttpClientUtil httpClientUtil = null; 
 		
 		try {
-			httpClientUtil =  httpClientFactory.getHttpClientUtil();
+			httpClientUtil =  target.getHttpClientUtil();
 			Map<String,String> paramsMap = new HashMap<String,String>();
 			paramsMap.put("userName", "topview");
 			paramsMap.put("password", "123456");
-			byte[] bytes = httpClientUtil.postWithFileAndParamMap("http://localhost:8080/topview/demo/screenDemo.do", new File("D:/火影头像.jpg"), paramsMap);
+			byte[] bytes = httpClientUtil.postWithFileAndParamMap("http://localhost:8080/topview/demo/screenDemo/uploadFileDemo.do", new File("D:/火影头像.jpg"), paramsMap);
 			System.out.println(new String(bytes));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -211,7 +201,7 @@ public class UseCase {
 		HttpClientUtil httpClientUtil = null; 
 		
 		try {
-			httpClientUtil =  httpClientFactory.getHttpClientUtil();
+			httpClientUtil =  target.getHttpClientUtil();
 			List<File> list = new ArrayList<File>();
 			list.add(new File("D:/火影头像.jpg"));
 			list.add(new File("D:/火影头像2.jpg"));
@@ -236,7 +226,7 @@ public class UseCase {
 		HttpClientUtil httpClientUtil = null; 
 		
 		try {
-			httpClientUtil =  httpClientFactory.getHttpClientUtil();
+			httpClientUtil =  target.getHttpClientUtil();
 			List<File> list = new ArrayList<File>();
 			list.add(new File("D:/火影头像.jpg"));
 			list.add(new File("D:/火影头像2.jpg"));
@@ -254,5 +244,15 @@ public class UseCase {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	/**
+	 * 设置代理服务器，为了fiddle抓包。
+	 */
+	public void setHost(){
+		System.setProperty("http.proxyHost", "localhost"); 
+		System.setProperty("http.proxyPort", "8888"); 
+		System.setProperty("https.proxyHost", "localhost");
+		System.setProperty("https.proxyPort", "8888");
 	}
 }

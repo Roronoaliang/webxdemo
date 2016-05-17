@@ -3,26 +3,86 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
-  <mapper namespace="DemoMapper">
+  <!-- 命名空间 -->
+  <mapper namespace="com.alibaba.webx.common.po.demo.DemoMapper">
+  
+  <!-- 返回类型映射 ，column为表字段，property为bean属性-->
+  <resultMap id="BaseResultMap" type="com.alibaba.webx.common.po.demo.Demo" >
+    <id 	column="id" 	property="id" 		jdbcType="VARCHAR" />
+    <result column="name" 	property="name" 	jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 属性集，用以替换 -->
+  <sql id="Base_Column_List" >
+    id, name
+  </sql>
    
   <!-- 增 -->
   <insert id="insert" parameterType="Demo">
-  		insert into demo(id) values(#{id})
+  		insert 
+  		into demo
+  			(
+  				<include refid="Base_Column_List" />
+  			) 
+  		values
+  			(
+  				#{id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR}
+  			)
   </insert>
   
   <!-- 删 -->
-  <delete id="delete" parameterType="String">
-  		delete from demo where id = #{id}
+  <delete id="deleteById" parameterType="java.lang.String">
+  		delete 
+  		from demo 
+  		where 
+  			id = #{id,jdbcType=VARCHAR}
   </delete>
    
-  <!-- 查 -->
-  <select id="get" resultType="Demo">
-		select * from demo
+  <!-- 查所有 -->
+  <select id="selectAll" resultMap="BaseResultMap">
+		select 
+			* 
+		from demo
   </select>
   
-  <!-- 改 -->
-  <update id="update" parameterType="hashmap">
-  		update demo set id=#{newId} where id=#{oldId}
+  <!-- 查 ，根据单属性-->
+  <select id="selectByOneParameter" resultMap="BaseResultMap" >
+		select 
+			* 
+		from demo
+		where
+			 ${key} = #{value,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 查 ，根据多属性-->
+  <select id="selectByParameters" resultMap="BaseResultMap">
+		select 
+			* 
+		from demo
+		where
+			<foreach collection="relationMap" index="key"  item="value" separator="and">
+				${key} = #{value,jdbcType=VARCHAR}
+            </foreach>
+  </select>
+
+  <!-- 查，根据id -->
+  <select id="selectById" resultMap="BaseResultMap">
+  		select
+  			*
+  		from demo
+  		where
+  			id = #{id}
+  </select>
+  
+  <!-- 修改，根据id -->
+  <update id="updateById" parameterType="Demo">
+  		update demo
+  		<set>
+  			<if test="name != null">
+  				name = #{name},
+  			</if>
+  		</set>
+  		where id = #{id}
   </update>
    
   </mapper>

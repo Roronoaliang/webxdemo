@@ -4,6 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
 	default-autowire="byName">
 	
-	<bean id="serviceDemo" class="com.alibaba.webx.service.demo.impl.ServiceDemoImpl" ></bean>
-	
+	<bean id="rolesService" class="com.alibaba.webx.service.authority.impl.RolesServiceImpl"></bean>
+	<bean id="userService" class="com.alibaba.webx.service.authority.impl.UserServiceImpl"></bean>
+	<bean id="permissionService" class="com.alibaba.webx.service.authority.impl.PermissionServiceImpl"></bean>
 </beans>

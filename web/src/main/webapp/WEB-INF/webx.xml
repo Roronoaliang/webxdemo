@@ -85,7 +85,7 @@
         									
         <request-contexts:session>			<!-- 增强的Session框架，可将session中的对象保存到cookie、数据库或其它存储中。 -->
             <id cookieEnabled="true" urlEncodeEnabled="false">
-                <cookie name="JSESSIONID" domain="" path="/" maxAge="0" httpOnly="true" secure="false"/>
+                <cookie name="WEBXJSESSIONID" domain="" path="/" maxAge="0" httpOnly="true" secure="false"/>
                 <url-encode name="JSESSIONID" />
         		<session-idgens:uuid-generator />
             </id>
@@ -129,11 +129,11 @@
     </services:module-loader>
     
     <!-- Biz垂直化配置（引用其他xml，在这里引用的自定义xml才会被spring解析） -->
-    <beans:import resource="biz/biz-servlet.xml" />
+    <beans:import resource="biz/biz-web.xml" />
     <beans:import resource="biz/biz-captcha.xml" />
     <beans:import resource="biz/biz-service.xml" />
     <beans:import resource="biz/biz-engine.xml" />
     <beans:import resource="biz/biz-pulltools.xml" />
     <beans:import resource="biz/biz-common.xml" />
-
+	<beans:import resource="biz/biz-shiro.xml" />
 </beans:beans>
