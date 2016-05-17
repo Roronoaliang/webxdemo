@@ -15,22 +15,25 @@ package com.alibaba.webx.searchengine.factory.mybatis;
 public class DBContextHolder {
 	
 	// 线程ThreadLocal，用于保存跟本线程相关的数据源类型的选择的变量，默认为DB_TYPE_RW
-    private static ThreadLocal<String> threadLocal = new ThreadLocal<String>(){
-    	@Override
-    	protected String initialValue(){
-    		return DB_TYPE_RW;
-    	}
-    };  
+    // private static ThreadLocal<String> threadLocal = new ThreadLocal<String>(){
+    // 	@Override
+    // 	protected String initialValue(){
+    // 		return DB_TYPE_RW;
+    // 	}
+    // };  
   
     public static final String DB_TYPE_RW = "dataSourceKeyRW";  	// 写数据源
     public static final String DB_TYPE_R = "dataSourceKeyR";  		// 读数据源
+
+    //数据源类型
+    public static String localdbtype = DB_TYPE_RW;
   
     /**
      * 获取数据源类型
      * @return 数据源类型字符串标志
      */
     public static String getDbType() {  
-        String db = threadLocal.get();  
+        String db = localdbtype;  
         if (db == null) {  
             db = DB_TYPE_RW;// 默认是写库  
         }  
@@ -42,13 +45,13 @@ public class DBContextHolder {
      * @param str 数据源类型字符串标志
      */  
     public static void setDbType(String str) {  
-    	threadLocal.set(str);  
+    	localdbtype = str;  
     }  
   
     /**
      * 清楚本线程的数据源类型标志，防止内存泄露使用 
      */
-    public static void clearDBType() {  
-    	threadLocal.remove();  
-    }  
+    // public static void clearDBType() {  
+    // 	threadLocal.remove();  
+    // }  
 }
